@@ -166,7 +166,7 @@
                 id: 'fundamentals-2',
                 category: 'HTML Fundamentals',
                 validator: (code) => {
-                    const hasP = /<p[^>]*>.*<\/p>/i.test(code);
+                    const hasP = /<p[^>]*>[\s\S]*?<\/p>/i.test(code);
                     const hasContent = /<p[^>]*>[^<]+<\/p>/i.test(code);
                     return hasP && hasContent;
                 }
@@ -184,11 +184,11 @@
                 id: 'fundamentals-4',
                 category: 'HTML Fundamentals',
                 validator: (code) => {
-                    const hasDiv = /<div[^>]*>.*<\/div>/i.test(code);
-                    const hasDivWithClass = /<div[^>]*class\s*=\s*["'][^"']+["'][^>]*>.*<\/div>/i.test(code);
-                    const hasSpan = /<span[^>]*>.*<\/span>/i.test(code);
-                    const hasStrong = /<strong[^>]*>.*<\/strong>/i.test(code);
-                    const hasEm = /<em[^>]*>.*<\/em>/i.test(code);
+                    const hasDiv = /<div[^>]*>[\s\S]*?<\/div>/i.test(code);
+                    const hasDivWithClass = /<div[^>]*class\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/div>/i.test(code);
+                    const hasSpan = /<span[^>]*>[\s\S]*?<\/span>/i.test(code);
+                    const hasStrong = /<strong[^>]*>[\s\S]*?<\/strong>/i.test(code);
+                    const hasEm = /<em[^>]*>[\s\S]*?<\/em>/i.test(code);
                     return hasDivWithClass && hasSpan && (hasStrong || hasEm);
                 }
             },
@@ -207,8 +207,8 @@
                 id: 'html-2',
                 category: 'HTML',
                 validator: (code) => {
-                    const hasH1 = /<h1[^>]*>.*<\/h1>/i.test(code);
-                    const hasP = /<p[^>]*>.*<\/p>/i.test(code);
+                    const hasH1 = /<h1[^>]*>[\s\S]*?<\/h1>/i.test(code);
+                    const hasP = /<p[^>]*>[\s\S]*?<\/p>/i.test(code);
                     return hasH1 && hasP;
                 }
             },
@@ -216,8 +216,9 @@
                 id: 'html-3',
                 category: 'HTML',
                 validator: (code) => {
-                    const hasList = /<(ul|ol)[^>]*>.*<\/(ul|ol)>/i.test(code);
-                    const hasLi = /<li[^>]*>.*<\/li>/i.test(code);
+                    // Use [\s\S]* instead of .* to match newlines
+                    const hasList = /<(ul|ol)[^>]*>[\s\S]*?<\/(ul|ol)>/i.test(code);
+                    const hasLi = /<li[^>]*>[\s\S]*?<\/li>/i.test(code);
                     return hasList && hasLi;
                 }
             },
@@ -225,7 +226,7 @@
                 id: 'html-4',
                 category: 'HTML',
                 validator: (code) => {
-                    const hasLink = /<a[^>]*href\s*=\s*["'][^"']+["'][^>]*>.*<\/a>/i.test(code);
+                    const hasLink = /<a[^>]*href\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/a>/i.test(code);
                     return hasLink;
                 }
             },
@@ -327,7 +328,7 @@
                 category: 'Accessibility',
                 validator: (code) => {
                     const hasInput = /<input[^>]*>/i.test(code);
-                    const hasLabel = /<label[^>]*for\s*=\s*["'][^"']+["'][^>]*>.*<\/label>/i.test(code);
+                    const hasLabel = /<label[^>]*for\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/label>/i.test(code);
                     const hasAriaLabel = /aria-label\s*=\s*["'][^"']+["']/i.test(code);
                     return hasInput && (hasLabel || hasAriaLabel);
                 }
@@ -674,6 +675,7 @@
             const [refreshKey, setRefreshKey] = useState(0);
             const previewFrameRef = useRef(null);
             const codeRef = useRef('');
+            const textareaRef = useRef(null);
 
             // Update global language and HTML lang attribute
             useEffect(() => {
@@ -952,6 +954,143 @@
                 return '    '.repeat(Math.max(0, indentLevel));
             };
             
+            // Auto-format code with proper indentation
+            const autoFormatCode = (code) => {
+                if (!code || code.trim() === '') return code;
+                
+                const lines = code.split('\n');
+                const formattedLines = [];
+                let indentLevel = 0;
+                const indentSize = 4;
+                const indentChar = ' '.repeat(indentSize);
+                
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    const trimmed = line.trim();
+                    
+                    // Skip empty lines but preserve them
+                    if (trimmed === '') {
+                        formattedLines.push('');
+                        continue;
+                    }
+                    
+                    // Extract all tags from the trimmed line
+                    const allTags = [];
+                    let tagMatch;
+                    const tagRegex = /<\/?[^>]+>/g;
+                    while ((tagMatch = tagRegex.exec(trimmed)) !== null) {
+                        allTags.push(tagMatch[0]);
+                    }
+                    
+                    // Categorize tags
+                    const openingTags = [];
+                    const closingTags = [];
+                    const selfClosingTags = [];
+                    
+                    for (const tag of allTags) {
+                        if (tag.startsWith('<!--') || tag.startsWith('<!')) {
+                            // Comments don't affect indentation
+                            continue;
+                        } else if (tag.startsWith('</')) {
+                            closingTags.push(tag);
+                        } else if (tag.endsWith('/>')) {
+                            selfClosingTags.push(tag);
+                        } else {
+                            openingTags.push(tag);
+                        }
+                    }
+                    
+                    // Check if line starts with a closing tag (after trimming)
+                    const startsWithClosingTag = trimmed.startsWith('</');
+                    
+                    // If line starts with closing tag, decrease indent BEFORE formatting this line
+                    if (startsWithClosingTag) {
+                        indentLevel = Math.max(0, indentLevel - 1);
+                    }
+                    
+                    // Calculate indentation for this line
+                    const indent = indentChar.repeat(Math.max(0, indentLevel));
+                    formattedLines.push(indent + trimmed);
+                    
+                    // Adjust indent level for NEXT line based on tags on THIS line
+                    // Check if line has both opening and closing tag on same line (like <div>content</div>)
+                    const hasOpeningAndClosing = openingTags.length > 0 && closingTags.length > 0;
+                    
+                    if (hasOpeningAndClosing) {
+                        // If opening and closing on same line, net effect is 0 for next line indent
+                        // Self-closing tags don't affect indent
+                    } else {
+                        // Normal case: adjust based on tag types
+                        indentLevel += openingTags.length;
+                        indentLevel -= closingTags.length;
+                        // Self-closing tags don't affect indent (already handled by not being opening/closing)
+                    }
+                    
+                    // Ensure indent level doesn't go negative
+                    indentLevel = Math.max(0, indentLevel);
+                }
+                
+                return formattedLines.join('\n');
+            };
+            
+            // Debounce function for auto-formatting
+            let formatTimeout = null;
+            const debouncedAutoFormat = (code, textarea) => {
+                if (formatTimeout) {
+                    clearTimeout(formatTimeout);
+                }
+                
+                formatTimeout = setTimeout(() => {
+                    const cursorPos = textarea.selectionStart;
+                    const formatted = autoFormatCode(code);
+                    
+                    // Only update if formatting changed something
+                    if (formatted !== code) {
+                        // Calculate new cursor position
+                        const linesBefore = code.substring(0, cursorPos).split('\n');
+                        const currentLineIndex = linesBefore.length - 1;
+                        const currentLine = linesBefore[currentLineIndex] || '';
+                        const cursorInLine = currentLine.length;
+                        
+                        const formattedLines = formatted.split('\n');
+                        const newCurrentLine = formattedLines[currentLineIndex] || '';
+                        
+                        // Try to maintain cursor position relative to content
+                        const oldTrimmed = currentLine.trim();
+                        const newTrimmed = newCurrentLine.trim();
+                        
+                        let newCursorPos = cursorPos;
+                        if (oldTrimmed === newTrimmed) {
+                            // Content is the same, just indentation changed
+                            const indentDiff = newCurrentLine.length - currentLine.length;
+                            newCursorPos = cursorPos + indentDiff;
+                        } else {
+                            // Content changed, try to find similar position
+                            const beforeCursor = currentLine.substring(0, cursorInLine);
+                            const afterCursor = currentLine.substring(cursorInLine);
+                            const beforeTrimmed = beforeCursor.trim();
+                            
+                            // Find position in new line
+                            const newBeforeIndex = newCurrentLine.indexOf(beforeTrimmed);
+                            if (newBeforeIndex !== -1) {
+                                newCursorPos = newBeforeIndex + beforeTrimmed.length;
+                            } else {
+                                // Fallback: maintain relative position
+                                newCursorPos = Math.min(cursorPos, formatted.length);
+                            }
+                        }
+                        
+                        // Update code
+                        setCode(formatted);
+                        
+                        // Restore cursor position
+                        setTimeout(() => {
+                            textarea.setSelectionRange(newCursorPos, newCursorPos);
+                        }, 0);
+                    }
+                }, 500); // Wait 500ms after user stops typing
+            };
+            
             // Auto-indentation handler
             const handleKeyDown = (e) => {
                 const textarea = e.target;
@@ -1102,8 +1241,30 @@
             const handleCodeChange = (newValue) => {
                 setCode(newValue);
                 
-                // Optional: Auto-format indentation when user types closing tags
-                // This could be enhanced to reformat entire code, but might be too aggressive
+                // Auto-format code after user stops typing
+                if (textareaRef.current) {
+                    debouncedAutoFormat(newValue, textareaRef.current);
+                }
+            };
+            
+            // Handle paste event - format immediately
+            const handlePaste = (e) => {
+                // Let the paste happen first, then format
+                setTimeout(() => {
+                    if (textareaRef.current) {
+                        const pastedCode = textareaRef.current.value;
+                        const formatted = autoFormatCode(pastedCode);
+                        if (formatted !== pastedCode) {
+                            const cursorPos = textareaRef.current.selectionStart;
+                            setCode(formatted);
+                            setTimeout(() => {
+                                // Try to maintain cursor position
+                                const newPos = Math.min(cursorPos, formatted.length);
+                                textareaRef.current.setSelectionRange(newPos, newPos);
+                            }, 0);
+                        }
+                    }
+                }, 0);
             };
 
             // Calculate progress for each section
@@ -1386,10 +1547,12 @@
                                             <span className="code-editor-title">code.html</span>
                                         </div>
                                         <textarea
+                                            ref={textareaRef}
                                             id="code-editor"
                                             value={code}
                                             onChange={(e) => handleCodeChange(e.target.value)}
                                             onKeyDown={handleKeyDown}
+                                            onPaste={handlePaste}
                                             placeholder={t('ui.codePlaceholder')}
                                             aria-label="Code editor for typing HTML and CSS"
                                             aria-describedby="code-editor-description"

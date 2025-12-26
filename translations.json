@@ -634,6 +634,11 @@
         "title": "Comprendre les Attributs HTML",
         "description": "Les attributs fournissent des informations supplémentaires sur les balises. Ils vont à l'intérieur de la balise ouvrante comme ceci : <balise attribut=\"valeur\">. Par exemple, une balise de lien utilise href=\"url\" pour spécifier où va le lien. Les attributs ont toujours un nom, un signe égal et une valeur entre guillemets. Deux attributs très importants sont id et class : id donne à un élément un identifiant unique (un seul élément par page peut avoir un id spécifique), tandis que class regroupe plusieurs éléments ensemble (plusieurs éléments peuvent partager la même classe).",
         "whyImportant": "Les attributs rendent les balises plus puissantes. Ils vous permettent de personnaliser le comportement des balises - comme définir des couleurs, des tailles, des liens, et plus encore. Presque toutes les balises HTML peuvent utiliser des attributs. Les attributs id et class sont particulièrement importants car ils vous permettent de cibler des éléments spécifiques avec CSS et JavaScript. Lorsque vous appliquez un id ou une class à un élément parent, cela ne s'applique pas automatiquement à ses enfants - les enfants ont besoin de leurs propres attributs sauf si vous utilisez des sélecteurs CSS pour les cibler en fonction de leur parent.",
+        "whatToDo": [
+          "Ajoutez une balise avec l'attribut id, comme <div id=\"monDiv\">",
+          "Ajoutez une autre balise avec l'attribut class, comme <p class=\"texte\">",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<p>Ceci est un paragraphe</p>\n<!-- Ajoutez des balises avec des attributs id et class ici -->",
         "expectedElements": [
           "Une balise avec attribut id",
@@ -644,6 +649,12 @@
         "title": "Balises HTML Courantes : div, span et Plus",
         "description": "La balise <div> est un conteneur qui regroupe le contenu. Elle n'a pas de signification visuelle en soi, mais elle aide à organiser votre page. La balise <span> est similaire mais pour le contenu en ligne. Vous utiliserez également <strong> pour le texte en gras et <em> pour le texte en italique. Ce sont quelques-unes des balises les plus courantes que vous utiliserez ! Les éléments HTML forment une hiérarchie - les éléments parents contiennent les éléments enfants. Lorsque vous ajoutez un id ou une class à un élément parent (comme un <div>), cela ne s'applique pas automatiquement à ses enfants. Chaque élément a besoin de ses propres attributs. Cependant, vous pouvez utiliser CSS pour styliser les enfants en fonction de leur parent - par exemple, \".parent .child\" cible les éléments avec la classe \"child\" à l'intérieur des éléments avec la classe \"parent\".",
         "whyImportant": "Comprendre les balises courantes comme <div> et <span> vous aide à structurer votre contenu. Ce sont des éléments de base pour organiser et styliser votre page web. Les balises sémantiques comme <strong> et <em> aident également à l'accessibilité. Comprendre la hiérarchie HTML est crucial - les relations parent-enfant déterminent comment fonctionnent les sélecteurs CSS et comment vous organisez votre code. Lors du choix des ids et des classes, utilisez des noms descriptifs qui expliquent le but de l'élément (comme \"header\" ou \"main-content\" au lieu de \"div1\" ou \"box\").",
+        "whatToDo": [
+          "Ajoutez une balise <div> avec un attribut class",
+          "Ajoutez une balise <span> avec du contenu",
+          "Ajoutez une balise <strong> ou <em> pour mettre en évidence du texte",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<p>Ceci est un paragraphe</p>\n<!-- Ajoutez div avec class, span, strong et em ici -->\n<!-- Rappelez-vous : les éléments parents contiennent les enfants, mais les enfants ont besoin de leurs propres attributs -->",
         "expectedElements": [
           "<div> avec attribut class",
@@ -655,6 +666,12 @@
         "title": "Structure du Document HTML",
         "description": "Chaque page web HTML a besoin d'une structure de base. La balise <html> enveloppe tout. À l'intérieur, <head> contient les informations sur la page (comme le titre), et <body> contient le contenu visible. La balise <title> va dans le head et définit le titre de l'onglet du navigateur.",
         "whyImportant": "Cette structure indique aux navigateurs \"ceci est un document HTML\" et organise votre page en contenu visible (body) et métadonnées (head). Sans cette structure, les navigateurs pourraient ne pas afficher votre page correctement.",
+        "whatToDo": [
+          "Assurez-vous d'avoir la balise <html> qui enveloppe tout",
+          "Ajoutez une section <head> avec une balise <title> à l'intérieur",
+          "Ajoutez une section <body> pour le contenu visible",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue sur ma page !</h1>\n</body>\n</html>",
         "expectedElements": [
           "<html>",
@@ -667,6 +684,11 @@
         "title": "Ajouter du Contenu avec des Titres et des Paragraphes",
         "description": "Ajoutons maintenant du contenu réel à votre page web ! Les titres (<h1> à <h6>) aident à organiser votre contenu, et les paragraphes (<p>) contiennent votre texte. Nous ajouterons un titre principal et un paragraphe à l'intérieur du body.",
         "whyImportant": "Les titres créent une hiérarchie qui aide à la fois les utilisateurs et les moteurs de recherche à comprendre votre contenu. Les paragraphes rendent votre texte lisible et bien organisé.",
+        "whatToDo": [
+          "Ajoutez une balise <h1> avec un titre principal",
+          "Ajoutez une balise <p> avec du texte de paragraphe",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <!-- Ajoutez votre titre et paragraphe ici -->\n</body>\n</html>",
         "expectedElements": [
           "<h1>",
@@ -677,6 +699,12 @@
         "title": "Créer des Listes",
         "description": "Les listes sont excellentes pour organiser les informations. HTML a deux types : les listes ordonnées (<ol>) avec des numéros, et les listes non ordonnées (<ul>) avec des puces. Chaque élément utilise <li> (élément de liste).",
         "whyImportant": "Les listes rendent les informations scannables et faciles à digérer. Elles sont essentielles pour les menus de navigation, les listes de fonctionnalités et les instructions étape par étape.",
+        "whatToDo": [
+          "Ajoutez une balise <ul> (liste non ordonnée) ou <ol> (liste ordonnée)",
+          "Ajoutez des éléments <li> à l'intérieur de votre liste",
+          "Chaque <li> représente un élément de la liste",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Voici quelques choses que j'aime :</p>\n    <!-- Ajoutez votre liste ici -->\n</body>\n</html>",
         "expectedElements": [
           "<ul> ou <ol>",
@@ -687,6 +715,12 @@
         "title": "Ajouter des Liens",
         "description": "Les liens (<a>) connectent votre page web à d'autres pages ou sites web. L'attribut href indique au navigateur où aller lorsqu'on clique. Les liens sont ce qui rend le web \"web-like\" !",
         "whyImportant": "Les liens sont la base de la navigation sur le web. Ils permettent aux utilisateurs de se déplacer entre les pages et de découvrir de nouveaux contenus.",
+        "whatToDo": [
+          "Ajoutez une balise <a> pour créer un lien",
+          "Ajoutez l'attribut href=\"url\" pour spécifier la destination",
+          "Ajoutez du texte entre <a> et </a> qui sera cliquable",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Découvrez ce site cool :</p>\n    <!-- Ajoutez votre lien ici -->\n</body>\n</html>",
         "expectedElements": [
           "<a> avec attribut href"
@@ -696,6 +730,12 @@
         "title": "Ajouter des Images",
         "description": "Les images (<img>) rendent les pages web visuellement attrayantes. L'attribut src pointe vers le fichier image, et alt fournit une description textuelle pour l'accessibilité.",
         "whyImportant": "Les images engagent les utilisateurs et transmettent des informations rapidement. L'attribut alt est crucial pour les lecteurs d'écran et lorsque les images ne se chargent pas.",
+        "whatToDo": [
+          "Ajoutez une balise <img> pour afficher une image",
+          "Ajoutez l'attribut src=\"url\" pour spécifier l'emplacement de l'image",
+          "Ajoutez l'attribut alt=\"description\" pour décrire l'image",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Voici une belle image :</p>\n    <!-- Ajoutez votre image ici en utilisant : <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"description\"> -->\n</body>\n</html>",
         "expectedElements": [
           "<img> avec attribut alt"
@@ -705,6 +745,12 @@
         "title": "Introduction au CSS",
         "description": "CSS (Cascading Style Sheets) rend votre page web belle ! Il contrôle les couleurs, les polices, l'espacement et la mise en page. Nous ajouterons une balise <style> dans le <head> pour styliser notre HTML. Par exemple, vous pourriez utiliser : body { color: blue; } pour rendre tout le texte bleu, ou h1 { font-size: 32px; } pour agrandir les titres, ou p { background-color: yellow; } pour ajouter un fond jaune aux paragraphes.",
         "whyImportant": "CSS sépare le contenu (HTML) de la présentation (style). Cela rend les sites web maintenables et permet un design cohérent sur toutes les pages.",
+        "whatToDo": [
+          "Ajoutez une balise <style> dans la section <head>",
+          "Écrivez une règle CSS, par exemple : body { color: blue; }",
+          "N'oubliez pas les accolades { } et le point-virgule ;",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        /* Ajoutez votre CSS ici */\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
         "expectedElements": [
           "Balise <style>",
@@ -715,6 +761,13 @@
         "title": "Styliser le Texte",
         "description": "Rendons le texte plus lisible et attrayant ! Vous pouvez changer la taille de la police, la couleur et le poids. Nous styliserons les éléments <h1> et <p>.",
         "whyImportant": "Un texte bien stylisé améliore la lisibilité et l'expérience utilisateur. Il aide à guider l'attention des utilisateurs vers les informations importantes.",
+        "whatToDo": [
+          "Ajoutez des propriétés CSS pour styliser le texte",
+          "Utilisez color: pour changer la couleur du texte",
+          "Utilisez font-size: pour changer la taille",
+          "Utilisez font-weight: pour rendre le texte en gras",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        h1 {\n            /* Stylisez votre titre */\n        }\n        p {\n            /* Stylisez votre paragraphe */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
         "expectedElements": [
           "Règle CSS pour le texte"
@@ -724,6 +777,12 @@
         "title": "Ajouter des Arrière-plans et des Bordures",
         "description": "Les arrière-plans et les bordures ajoutent un intérêt visuel et aident à séparer le contenu. Vous pouvez définir des couleurs d'arrière-plan et ajouter des bordures aux éléments.",
         "whyImportant": "Les arrière-plans et les bordures créent une hiérarchie visuelle et font ressortir votre contenu. Ils aident à organiser les informations sur la page.",
+        "whatToDo": [
+          "Ajoutez background-color: pour définir une couleur d'arrière-plan",
+          "Ou ajoutez border: pour créer une bordure autour d'un élément",
+          "Exemple : border: 2px solid black;",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        body {\n            /* Ajoutez une couleur d'arrière-plan */\n        }\n        h1 {\n            /* Ajoutez une bordure */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
         "expectedElements": [
           "background-color ou border"
@@ -733,6 +792,12 @@
         "title": "Espacement avec Margin et Padding",
         "description": "Margin crée de l'espace à l'extérieur d'un élément, tandis que padding crée de l'espace à l'intérieur. Ce sont des éléments essentiels pour créer des mises en page lisibles et bien espacées.",
         "whyImportant": "Un espacement approprié rend le contenu plus facile à lire et empêche les éléments de se sentir à l'étroit. C'est un principe clé du bon design.",
+        "whatToDo": [
+          "Ajoutez margin: pour créer de l'espace à l'extérieur d'un élément",
+          "Ou ajoutez padding: pour créer de l'espace à l'intérieur",
+          "Exemple : margin: 20px; ou padding: 10px;",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 20px;\n        }\n        p {\n            /* Ajoutez margin et padding */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
         "expectedElements": [
           "margin ou padding"
@@ -742,6 +807,12 @@
         "title": "Sélecteurs CSS : IDs et Classes",
         "description": "Les IDs et les classes vous permettent de cibler des éléments spécifiques avec CSS. Un ID est unique (un seul par page) et utilise # en CSS. Une classe peut être utilisée plusieurs fois et utilise . en CSS. Vous ajoutez id=\"nom\" ou class=\"nom\" aux balises HTML, puis vous les stylisez avec #nom ou .nom en CSS.",
         "whyImportant": "Les IDs et les classes sont essentiels pour styliser des éléments spécifiques. Ils vous permettent de créer des styles réutilisables et d'organiser votre CSS. Les classes sont excellentes pour styliser plusieurs éléments de la même manière, tandis que les IDs sont parfaits pour les éléments uniques.",
+        "whatToDo": [
+          "Utilisez # pour cibler un ID, par exemple : #container { }",
+          "Utilisez . pour cibler une classe, par exemple : .highlight { }",
+          "Ajoutez des propriétés CSS à l'intérieur des accolades",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        /* Ajoutez CSS pour un ID en utilisant # */\n        /* Ajoutez CSS pour une classe en utilisant . */\n    </style>\n</head>\n<body>\n    <div id=\"container\">\n        <p class=\"highlight\">Ceci est du texte en surbrillance</p>\n        <p>Texte normal</p>\n    </div>\n</body>\n</html>",
         "expectedElements": [
           "Sélecteur ID ou class"
@@ -751,6 +822,12 @@
         "title": "HTML Sémantique",
         "description": "Le HTML sémantique utilise des balises significatives comme <header>, <nav>, <main>, <article> et <footer> au lieu de simplement <div>. Ces balises aident les lecteurs d'écran à comprendre la structure de votre page.",
         "whyImportant": "Le HTML sémantique rend votre site web accessible aux personnes utilisant des technologies d'assistance. Il aide également les moteurs de recherche à mieux comprendre votre contenu.",
+        "whatToDo": [
+          "Ajoutez l'attribut lang=\"fr\" à la balise <html>",
+          "Remplacez les <div> par des balises sémantiques comme <header>, <main>, ou <footer>",
+          "Utilisez ces balises pour structurer votre page de manière significative",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <div>\n        <p>C'est ma page web accessible !</p>\n    </div>\n</body>\n</html>",
         "expectedElements": [
           "Attribut lang sur <html>",
@@ -761,6 +838,13 @@
         "title": "Texte Alt pour les Images",
         "description": "Nous avons déjà ajouté du texte alt aux images, mais assurons-nous qu'il soit descriptif ! Un bon texte alt décrit ce que l'image montre, pas seulement \"image\" ou \"photo\".",
         "whyImportant": "Un texte alt descriptif permet aux utilisateurs de lecteurs d'écran de comprendre les images. Il s'affiche également lorsque les images ne se chargent pas, aidant tous les utilisateurs.",
+        "whatToDo": [
+          "Trouvez la balise <img> dans votre code",
+          "Assurez-vous qu'elle a un attribut alt",
+          "Rendez le texte alt descriptif (au moins 10 caractères)",
+          "Décrivez ce que l'image montre, pas juste \"image\"",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"Ajoutez un texte descriptif ici\">\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "<img> avec attribut alt"
@@ -770,6 +854,12 @@
         "title": "Hiérarchie Appropriée des Titres",
         "description": "Les titres doivent suivre un ordre logique : <h1> pour le titre principal, <h2> pour les sections principales, <h3> pour les sous-sections, etc. Ne sautez jamais de niveaux (ne passez pas de <h1> à <h3>).",
         "whyImportant": "Les lecteurs d'écran utilisent les titres pour naviguer. Une hiérarchie appropriée aide les utilisateurs à comprendre la structure de la page et à sauter aux sections qui les intéressent.",
+        "whatToDo": [
+          "Assurez-vous d'avoir un <h1> pour le titre principal",
+          "Ajoutez un <h2> pour une section principale",
+          "Le <h2> doit venir après le <h1> (ne sautez pas de niveaux)",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Titre Principal</h1>\n    </header>\n    <main>\n        <p>Contenu ici</p>\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "Hiérarchie de titres appropriée"
@@ -779,6 +869,12 @@
         "title": "Navigation au Clavier et Focus",
         "description": "Tous les éléments interactifs (liens, boutons) doivent être accessibles au clavier. Ajoutez des styles :focus pour que les utilisateurs puissent voir quel élément a le focus lors de la navigation avec Tab.",
         "whyImportant": "De nombreux utilisateurs naviguent sur les sites web en utilisant uniquement le clavier. Les indicateurs de focus visibles sont essentiels pour que ces utilisateurs sachent où ils se trouvent sur la page.",
+        "whatToDo": [
+          "Assurez-vous d'avoir une balise <nav> avec des liens <a>",
+          "Ajoutez un style :focus pour les liens, par exemple : a:focus { outline: 3px solid blue; }",
+          "Testez avec la touche Tab pour voir le focus",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n    <style>\n        a:focus {\n            /* Ajoutez des styles de focus */\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav>\n            <a href=\"#home\">Accueil</a>\n            <a href=\"#about\">À propos</a>\n        </nav>\n    </header>\n</body>\n</html>",
         "expectedElements": [
           "<nav> avec liens",
@@ -789,6 +885,12 @@
         "title": "Étiquettes et Rôles ARIA",
         "description": "Les attributs ARIA (Accessible Rich Internet Applications) aident les lecteurs d'écran à mieux comprendre votre page. aria-label fournit une étiquette textuelle pour les éléments, et role décrit ce qu'un élément fait. Par exemple, role=\"button\" indique aux lecteurs d'écran qu'un élément agit comme un bouton, même s'il ne s'agit pas d'une balise <button>.",
         "whyImportant": "Les attributs ARIA rendent les interfaces complexes accessibles. Ils aident les lecteurs d'écran à comprendre les éléments qui pourraient ne pas être clairs à partir du HTML seul, comme les boutons personnalisés ou les régions interactives.",
+        "whatToDo": [
+          "Ajoutez une balise <label> avec l'attribut for=\"id\" pour connecter à un <input>",
+          "Ou ajoutez aria-label=\"description\" à un élément pour lui donner un nom accessible",
+          "Assurez-vous que chaque <input> a soit un <label> soit un aria-label",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
         "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav role=\"navigation\">\n            <button aria-label=\"Menu\">☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Développer la section</div>\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "Balise <label>",
