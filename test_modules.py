@@ -112,12 +112,25 @@ class TestLessonModules:
             wait.until(EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Course Progress')]")))
             time.sleep(0.5)
             
+            # Map test section names to actual category names
+            section_mapping = {
+                "HTML Fundamentals": "HTML Fundamentals",
+                "HTML section": "HTML",
+                "CSS section": "CSS",
+                "Accessibility section": "Accessibility"
+            }
+            
+            # Get the actual section name to search for
+            actual_section = section_mapping.get(section_name, section_name)
+            
             # Try different XPath patterns for section buttons
             section_button = None
             patterns = [
-                f"//button[contains(@aria-label, '{section_name}')]",
-                f"//button[contains(., '{section_name}')]",
-                f"//*[@role='button' and contains(., '{section_name}')]"
+                f"//*[@role='button' and contains(@aria-label, '{actual_section}')]",
+                f"//*[@role='button' and contains(., '{actual_section}')]",
+                f"//div[contains(@class, 'progress-circle') and contains(@aria-label, '{actual_section}')]",
+                # Also try by progress label text
+                f"//div[contains(@class, 'progress-label') and contains(text(), '{actual_section}')]/preceding-sibling::div[@role='button']"
             ]
             
             for pattern in patterns:

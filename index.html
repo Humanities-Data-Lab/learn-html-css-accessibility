@@ -646,11 +646,23 @@
             return <>{parts}</>;
         }
 
-        // Simple hash encoding/decoding
+        // Compressed hash encoding/decoding with shorter property names
         function encodeState(state) {
             try {
-                const json = JSON.stringify(state);
-                return btoa(encodeURIComponent(json));
+                // Use shorter property names to reduce size
+                const compressed = {
+                    n: state.name,           // name
+                    l: state.lessonIndex,   // lessonIndex
+                    c: state.code,          // code
+                    lang: state.language,   // language
+                    cl: state.completedLessons // completedLessons
+                };
+                const json = JSON.stringify(compressed);
+                // Use base64url encoding (URL-safe, no padding needed for shorter URLs)
+                return btoa(json)
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, '');
             } catch (e) {
                 return '';
             }
@@ -658,10 +670,54 @@
 
         function decodeState(hash) {
             try {
-                const json = decodeURIComponent(atob(hash));
-                return JSON.parse(json);
+                // Restore base64 padding if needed and convert from base64url
+                let base64 = hash.replace(/-/g, '+').replace(/_/g, '/');
+                while (base64.length % 4) {
+                    base64 += '=';
+                }
+                const json = atob(base64);
+                const compressed = JSON.parse(json);
+                
+                // Check if it's old format (full property names) or new format (short names)
+                if (compressed.name !== undefined) {
+                    // Old format - return as is
+                    return compressed;
+                }
+                
+                // New format - expand back to full property names
+                return {
+                    name: compressed.n,
+                    lessonIndex: compressed.l,
+                    code: compressed.c,
+                    language: compressed.lang,
+                    completedLessons: compressed.cl
+                };
             } catch (e) {
-                return null;
+                // Try old format decoding as fallback
+                try {
+                    const json = decodeURIComponent(atob(hash));
+                    return JSON.parse(json);
+                } catch (e2) {
+                    return null;
+                }
+            }
+        }
+        
+        // Special encoding for certificate URLs (no code needed)
+        function encodeCertificateState(state) {
+            try {
+                const compressed = {
+                    n: state.name,
+                    lang: state.language,
+                    cl: state.completedLessons
+                };
+                const json = JSON.stringify(compressed);
+                return btoa(json)
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, '');
+            } catch (e) {
+                return '';
             }
         }
 
@@ -763,8 +819,14 @@
                             setLanguage(state.language);
                         }
                         setStudentName(state.name || '');
-                        setCurrentLessonIndex(state.lessonIndex || 0);
-                        setCode(state.code || '');
+                        // If it's a certificate URL (no code), set to last lesson
+                        if (!state.code && state.completedLessons && state.completedLessons.length === lessons.length) {
+                            setCurrentLessonIndex(lessons.length - 1);
+                            setCode(''); // No code needed for certificate
+                        } else {
+                            setCurrentLessonIndex(state.lessonIndex || 0);
+                            setCode(state.code || '');
+                        }
                         // Restore completed lessons from array to Set
                         if (state.completedLessons && Array.isArray(state.completedLessons)) {
                             setCompletedLessons(new Set(state.completedLessons));
@@ -1353,7 +1415,16 @@
                                     <input 
                                         type="text" 
                                         readOnly 
-                                        value={window.location.href}
+                                        value={(() => {
+                                            // Use shorter certificate URL format (without code)
+                                            const certState = {
+                                                name: studentName,
+                                                language: language,
+                                                completedLessons: Array.from(completedLessons)
+                                            };
+                                            const certHash = encodeCertificateState(certState);
+                                            return window.location.origin + window.location.pathname + '#' + certHash;
+                                        })()}
                                         onClick={(e) => e.target.select()}
                                         style={{ width: '100%', maxWidth: '600px', padding: '10px', fontSize: '14px', border: '2px solid #ddd', borderRadius: '5px' }}
                                         aria-label={t('ui.certificateShare')}
@@ -1361,7 +1432,16 @@
                                 </div>
                                 <div style={{ marginTop: '20px', marginBottom: '15px' }}>
                                     <a
-                                        href={`mailto:?subject=${encodeURIComponent(t('ui.emailCertificateSubject'))}&body=${encodeURIComponent(t('ui.emailCertificateBody') + ' ' + window.location.href)}`}
+                                        href={`mailto:?subject=${encodeURIComponent(t('ui.emailCertificateSubject'))}&body=${encodeURIComponent(t('ui.emailCertificateBody') + ' ' + (() => {
+                                            // Use shorter certificate URL format (without code)
+                                            const certState = {
+                                                name: studentName,
+                                                language: language,
+                                                completedLessons: Array.from(completedLessons)
+                                            };
+                                            const certHash = encodeCertificateState(certState);
+                                            return window.location.origin + window.location.pathname + '#' + certHash;
+                                        })())}`}
                                         className="btn btn-primary"
                                         style={{ display: 'inline-block', textDecoration: 'none', padding: '12px 24px', fontSize: '16px' }}
                                         aria-label={t('ui.emailCertificate')}
