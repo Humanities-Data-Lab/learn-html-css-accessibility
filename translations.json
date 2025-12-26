@@ -42,7 +42,8 @@
       "completed": "Completed",
       "jumpToSection": "Jump to {section} section. {completed} of {total} lessons completed.",
       "hintRegion": "Hint instructions",
-      "codePlaceholder": "<!-- Start typing your HTML/CSS code here... -->"
+      "codePlaceholder": "<!-- Start typing your HTML/CSS code here... -->",
+      "clickToTestKeyboard": "Click in the preview, then press Tab to test keyboard navigation"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -255,19 +256,32 @@
       },
       "accessibility-5": {
         "title": "ARIA Labels and Roles",
-        "description": "ARIA (Accessible Rich Internet Applications) attributes help screen readers understand your page better. aria-label provides a text label for elements, and role describes what an element does. For example, role=\"button\" tells screen readers an element acts like a button, even if it's not a <button> tag.",
-        "whyImportant": "ARIA attributes make complex interfaces accessible. They help screen readers understand elements that might not be clear from HTML alone, like custom buttons or interactive regions.",
-        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav role=\"navigation\">\n            <button aria-label=\"Menu\">☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Expand section</div>\n    </main>\n</body>\n</html>",
+        "description": "ARIA (Accessible Rich Internet Applications) attributes help screen readers understand your page better. Use aria-label to provide an accessible name for elements when a visible label isn't sufficient - this is especially important for icon buttons and custom controls. Use the role attribute to describe what an element does, like role=\"button\" or role=\"navigation\". For example, role=\"button\" tells screen readers an element acts like a button, even if it's not a <button> tag.",
+        "whyImportant": "ARIA attributes make complex interfaces accessible. They help screen readers understand elements that might not be clear from HTML alone, like custom buttons or interactive regions. aria-label is essential for icon-only buttons, and role helps screen readers understand the purpose of custom elements.",
+        "whatToDo": [
+          "Add aria-label=\"description\" to an element to give it an accessible name (especially useful for icon buttons)",
+          "Add role=\"name\" to describe what an element does (like role=\"button\" or role=\"navigation\")",
+          "You need both: an aria-label attribute AND a role attribute",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav role=\"navigation\">\n            <!-- Add aria-label to this button and make sure it has a role -->\n            <button>☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Expand section</div>\n    </main>\n</body>\n</html>",
         "expectedElements": [
-          "<label> tag",
-          "aria-label attribute"
+          "aria-label attribute",
+          "role attribute"
         ]
       },
       "accessibility-6": {
         "title": "More Accessibility Features",
-        "description": "There are many more accessibility features! Use lang attribute on <html> to specify the page language. Add aria-describedby to connect descriptions to elements. Use proper form labels with <label> tags. These small details make a big difference for users with disabilities.",
-        "whyImportant": "Accessibility is about attention to detail. Every small improvement helps more people use your website. These features are required for websites to be truly accessible to everyone.",
-        "codeTemplate": "<html lang=\"en\">\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <form>\n            <!-- Add a label tag here connected to the input using the for attribute -->\n            <input type=\"text\" id=\"username\" name=\"username\">\n        </form>\n        <p id=\"description\">This is a description</p>\n        <div aria-describedby=\"description\">Content here</div>\n    </main>\n</body>\n</html>",
+        "description": "There are many more ARIA attributes that help screen readers! Use aria-describedby to connect an element to its description by referencing the ID of the description element. Use aria-expanded to indicate whether a collapsible element (like a dropdown or accordion) is expanded (true) or collapsed (false). Use the role attribute to describe what an element does, like role=\"button\" or role=\"navigation\". These attributes help screen readers understand complex interfaces.",
+        "whyImportant": "ARIA attributes like aria-describedby, aria-expanded, and role provide crucial information to screen readers that HTML alone cannot convey. They make dynamic and complex interfaces accessible to users with disabilities. These features are essential for truly accessible websites.",
+        "whatToDo": [
+          "Add aria-describedby=\"id\" to connect an element to its description (the description element needs an id)",
+          "Or add aria-expanded=\"true\" or \"false\" to indicate if a collapsible element is open or closed",
+          "Add role=\"name\" to describe what an element does (like role=\"button\" or role=\"navigation\")",
+          "You need at least one of: aria-describedby or aria-expanded, AND a role attribute",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html lang=\"en\">\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <p id=\"description\">This is a description</p>\n        <div aria-describedby=\"description\" role=\"region\">Content here</div>\n        <!-- Or try: <button aria-expanded=\"false\" role=\"button\">Toggle</button> -->\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "aria-describedby attribute",
           "aria-expanded attribute",
@@ -458,7 +472,8 @@
       "completed": "Terminé",
       "jumpToSection": "Aller à la section {section}. {completed} sur {total} leçons terminées.",
       "hintRegion": "Instructions d'aide",
-      "codePlaceholder": "<!-- Commencez à taper votre code HTML/CSS ici... -->"
+      "codePlaceholder": "<!-- Commencez à taper votre code HTML/CSS ici... -->",
+      "clickToTestKeyboard": "Cliquez dans l'aperçu, puis appuyez sur Tab pour tester la navigation au clavier"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",
@@ -883,31 +898,32 @@
       },
       "accessibility-5": {
         "title": "Étiquettes et Rôles ARIA",
-        "description": "Les attributs ARIA (Accessible Rich Internet Applications) aident les lecteurs d'écran à mieux comprendre votre page. aria-label fournit une étiquette textuelle pour les éléments, et role décrit ce qu'un élément fait. Par exemple, role=\"button\" indique aux lecteurs d'écran qu'un élément agit comme un bouton, même s'il ne s'agit pas d'une balise <button>.",
-        "whyImportant": "Les attributs ARIA rendent les interfaces complexes accessibles. Ils aident les lecteurs d'écran à comprendre les éléments qui pourraient ne pas être clairs à partir du HTML seul, comme les boutons personnalisés ou les régions interactives.",
+        "description": "Les attributs ARIA (Accessible Rich Internet Applications) aident les lecteurs d'écran à mieux comprendre votre page. Utilisez aria-label pour fournir un nom accessible pour les éléments lorsqu'une étiquette visible n'est pas suffisante - ceci est particulièrement important pour les boutons d'icône et les contrôles personnalisés. Utilisez l'attribut role pour décrire ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Par exemple, role=\"button\" indique aux lecteurs d'écran qu'un élément agit comme un bouton, même s'il ne s'agit pas d'une balise <button>.",
+        "whyImportant": "Les attributs ARIA rendent les interfaces complexes accessibles. Ils aident les lecteurs d'écran à comprendre les éléments qui pourraient ne pas être clairs à partir du HTML seul, comme les boutons personnalisés ou les régions interactives. aria-label est essentiel pour les boutons d'icône uniquement, et role aide les lecteurs d'écran à comprendre le but des éléments personnalisés.",
         "whatToDo": [
-          "Ajoutez une balise <label> avec l'attribut for=\"id\" pour connecter à un <input>",
-          "Ou ajoutez aria-label=\"description\" à un élément pour lui donner un nom accessible",
-          "Assurez-vous que chaque <input> a soit un <label> soit un aria-label",
+          "Ajoutez aria-label=\"description\" à un élément pour lui donner un nom accessible (particulièrement utile pour les boutons d'icône)",
+          "Ajoutez role=\"nom\" pour décrire ce qu'un élément fait (comme role=\"button\" ou role=\"navigation\")",
+          "Vous avez besoin des deux : un attribut aria-label ET un attribut role",
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
-        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav role=\"navigation\">\n            <button aria-label=\"Menu\">☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Développer la section</div>\n    </main>\n</body>\n</html>",
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav role=\"navigation\">\n            <!-- Ajoutez aria-label à ce bouton et assurez-vous qu'il a un role -->\n            <button>☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Développer la section</div>\n    </main>\n</body>\n</html>",
         "expectedElements": [
-          "Balise <label>",
-          "Attribut aria-label"
+          "Attribut aria-label",
+          "Attribut role"
         ]
       },
       "accessibility-6": {
         "title": "Plus de Fonctionnalités d'Accessibilité",
-        "description": "Il y a beaucoup plus de fonctionnalités d'accessibilité ! Utilisez l'attribut lang sur <html> pour spécifier la langue de la page. Ajoutez aria-describedby pour connecter les descriptions aux éléments. Utilisez des étiquettes de formulaire appropriées avec les balises <label>. Ces petits détails font une grande différence pour les utilisateurs handicapés.",
-        "whyImportant": "L'accessibilité concerne l'attention aux détails. Chaque petite amélioration aide plus de personnes à utiliser votre site web. Ces fonctionnalités sont nécessaires pour que les sites web soient vraiment accessibles à tous.",
+        "description": "Il y a beaucoup plus d'attributs ARIA qui aident les lecteurs d'écran ! Utilisez aria-describedby pour connecter un élément à sa description en référençant l'ID de l'élément de description. Utilisez aria-expanded pour indiquer si un élément pliable (comme un menu déroulant ou un accordéon) est développé (true) ou réduit (false). Utilisez l'attribut role pour décrire ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Ces attributs aident les lecteurs d'écran à comprendre les interfaces complexes.",
+        "whyImportant": "Les attributs ARIA comme aria-describedby, aria-expanded et role fournissent des informations cruciales aux lecteurs d'écran que le HTML seul ne peut pas transmettre. Ils rendent les interfaces dynamiques et complexes accessibles aux utilisateurs handicapés. Ces fonctionnalités sont essentielles pour des sites web vraiment accessibles.",
         "whatToDo": [
-          "Ajoutez aria-describedby=\"id\" pour connecter un élément à sa description",
-          "Ou ajoutez aria-expanded=\"true\" ou \"false\" pour indiquer l'état d'un élément pliable",
-          "Ajoutez role=\"nom\" pour décrire le rôle d'un élément",
+          "Ajoutez aria-describedby=\"id\" pour connecter un élément à sa description (l'élément de description a besoin d'un id)",
+          "Ou ajoutez aria-expanded=\"true\" ou \"false\" pour indiquer si un élément pliable est ouvert ou fermé",
+          "Ajoutez role=\"nom\" pour décrire ce qu'un élément fait (comme role=\"button\" ou role=\"navigation\")",
+          "Vous avez besoin d'au moins un de : aria-describedby ou aria-expanded, ET un attribut role",
           "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
         ],
-        "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <form>\n            <!-- Ajoutez une balise label ici connectée à l'input en utilisant l'attribut for -->\n            <input type=\"text\" id=\"username\" name=\"username\">\n        </form>\n        <p id=\"description\">Ceci est une description</p>\n        <div aria-describedby=\"description\">Contenu ici</div>\n    </main>\n</body>\n</html>",
+        "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <p id=\"description\">Ceci est une description</p>\n        <div aria-describedby=\"description\" role=\"region\">Contenu ici</div>\n        <!-- Ou essayez : <button aria-expanded=\"false\" role=\"button\">Basculer</button> -->\n    </main>\n</body>\n</html>",
         "expectedElements": [
           "Attribut aria-describedby",
           "Attribut aria-expanded",

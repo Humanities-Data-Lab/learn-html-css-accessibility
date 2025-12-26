@@ -327,10 +327,9 @@
                 id: 'accessibility-5',
                 category: 'Accessibility',
                 validator: (code) => {
-                    const hasInput = /<input[^>]*>/i.test(code);
-                    const hasLabel = /<label[^>]*for\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/label>/i.test(code);
                     const hasAriaLabel = /aria-label\s*=\s*["'][^"']+["']/i.test(code);
-                    return hasInput && (hasLabel || hasAriaLabel);
+                    const hasRole = /role\s*=\s*["'][^"']+["']/i.test(code);
+                    return hasAriaLabel && hasRole;
                 }
             },
             {
@@ -916,17 +915,29 @@
                 setFeedback(null);
             };
 
-            // Jump to first lesson of a section
+            // Jump to first incomplete lesson of a section, or first lesson if all complete
             const jumpToSection = (category) => {
-                const firstLessonIndex = lessons.findIndex(l => l.category === category);
-                if (firstLessonIndex !== -1) {
-                    setCurrentLessonIndex(firstLessonIndex);
-                    const targetLessonRaw = lessons[firstLessonIndex];
-                    const targetLesson = getTranslatedLesson(targetLessonRaw, language);
-                    setCode(targetLesson.codeTemplate || '');
-                    setFeedback(null);
-                    setHintExpanded(false);
-                }
+                // Find all lessons in this category
+                const sectionLessons = lessons
+                    .map((lesson, index) => ({ lesson, index }))
+                    .filter(({ lesson }) => lesson.category === category);
+                
+                if (sectionLessons.length === 0) return;
+                
+                // Find the first incomplete lesson
+                const firstIncomplete = sectionLessons.find(
+                    ({ index }) => !completedLessons.has(index)
+                );
+                
+                // Use first incomplete lesson, or first lesson if all are complete
+                const targetIndex = firstIncomplete ? firstIncomplete.index : sectionLessons[0].index;
+                
+                setCurrentLessonIndex(targetIndex);
+                const targetLessonRaw = lessons[targetIndex];
+                const targetLesson = getTranslatedLesson(targetLessonRaw, language);
+                setCode(targetLesson.codeTemplate || '');
+                setFeedback(null);
+                setHintExpanded(false);
             };
 
             // Helper function to calculate indentation based on tag structure
@@ -1635,6 +1646,11 @@
                     <div className="preview-panel">
                         <div className="preview-header">
                             {t('ui.preview')}
+                            {currentLessonRaw.id === 'accessibility-4' && (
+                                <span style={{ fontSize: '14px', fontWeight: 'normal', marginLeft: '15px', opacity: 0.9 }}>
+                                    💡 {t('ui.clickToTestKeyboard')}
+                                </span>
+                            )}
                         </div>
                         <iframe
                             ref={previewFrameRef}
@@ -1642,6 +1658,23 @@
                             title={t('ui.previewAria')}
                             aria-label={t('ui.previewAria')}
                             sandbox="allow-same-origin allow-scripts"
+                            tabIndex="0"
+                            onClick={() => {
+                                // Focus the iframe when clicked to enable keyboard navigation
+                                if (previewFrameRef.current) {
+                                    previewFrameRef.current.focus();
+                                    // Also try to focus the first focusable element inside
+                                    setTimeout(() => {
+                                        const iframe = previewFrameRef.current;
+                                        if (iframe && iframe.contentDocument) {
+                                            const firstLink = iframe.contentDocument.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+                                            if (firstLink) {
+                                                firstLink.focus();
+                                            }
+                                        }
+                                    }, 100);
+                                }
+                            }}
                         />
                     </div>
                 </div>
