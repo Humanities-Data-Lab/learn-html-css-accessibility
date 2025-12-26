@@ -17,7 +17,7 @@
       "showHint": "Show hint",
       "whatToDo": "📋 What to do:",
       "typeCodeHere": "Type your code here:",
-      "codeEditorDescription": "Code editor with auto-indentation. Press Tab to indent, Shift+Tab to unindent, Enter to maintain indentation.",
+      "codeEditorDescription": "Code editor with manual formatting. Press Tab to indent, Shift+Tab to unindent, Enter to maintain indentation. Click the Format button to format your code.",
       "back": "← Back",
       "verifyCode": "Verify Code",
       "skip": "Skip →",
@@ -43,7 +43,8 @@
       "jumpToSection": "Jump to {section} section. {completed} of {total} lessons completed.",
       "hintRegion": "Hint instructions",
       "codePlaceholder": "<!-- Start typing your HTML/CSS code here... -->",
-      "clickToTestKeyboard": "Click in the preview, then press Tab to test keyboard navigation"
+      "clickToTestKeyboard": "Click in the preview, then press Tab to test keyboard navigation",
+      "formatCode": "Format"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -779,7 +780,7 @@
       "showHint": "Afficher l'indice",
       "whatToDo": "📋 À faire :",
       "typeCodeHere": "Tapez votre code ici :",
-      "codeEditorDescription": "Éditeur de code avec auto-indentation. Appuyez sur Tab pour indenter, Shift+Tab pour désindenter, Entrée pour maintenir l'indentation.",
+      "codeEditorDescription": "Éditeur de code avec formatage manuel. Appuyez sur Tab pour indenter, Shift+Tab pour désindenter, Entrée pour maintenir l'indentation. Cliquez sur le bouton Formater pour formater votre code.",
       "back": "← Retour",
       "verifyCode": "Vérifier le Code",
       "skip": "Passer →",
@@ -805,7 +806,8 @@
       "jumpToSection": "Aller à la section {section}. {completed} sur {total} leçons terminées.",
       "hintRegion": "Instructions d'aide",
       "codePlaceholder": "<!-- Commencez à taper votre code HTML/CSS ici... -->",
-      "clickToTestKeyboard": "Cliquez dans l'aperçu, puis appuyez sur Tab pour tester la navigation au clavier"
+      "clickToTestKeyboard": "Cliquez dans l'aperçu, puis appuyez sur Tab pour tester la navigation au clavier",
+      "formatCode": "Formater"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",
