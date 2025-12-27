@@ -54,7 +54,9 @@ class TestTranslations:
     @pytest.fixture(scope="class")
     def base_url(self):
         """Base URL for the website"""
-        return "http://localhost:8000/index.html"
+        import os
+        base = os.environ.get("BASE_URL", "http://localhost:8000")
+        return f"{base}/index.html"
     
     def test_translations_file_exists(self):
         """Test that translations.json file exists and is valid JSON"""

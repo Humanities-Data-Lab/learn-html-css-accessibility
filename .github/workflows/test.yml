@@ -30,13 +30,22 @@ jobs:
     
     - name: Start web server
       run: |
-        python3 -m http.server 3000 &
-        sleep 3
-        curl -I http://localhost:3000/index.html || exit 1
+        nohup python3 server.py 8000 > /dev/null 2>&1 &
+        sleep 5
+        for i in {1..10}; do
+          if curl -f -s http://localhost:8000/index.html > /dev/null; then
+            echo "Server is ready!"
+            exit 0
+          fi
+          echo "Waiting for server... ($i/10)"
+          sleep 1
+        done
+        echo "Server failed to start"
+        exit 1
     
     - name: Run tests
       run: |
-        pytest test_website.py test_modules.py -v --html=report.html --self-contained-html
+        pytest test_website.py test_modules.py test_comprehensive.py -v --html=report.html --self-contained-html
     
     - name: Upload test report
       uses: actions/upload-artifact@v4

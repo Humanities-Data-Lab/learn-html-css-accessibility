@@ -19,8 +19,10 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 class TestWebsite:
     """Test suite for the HTML/CSS learning website"""
     
-    def start_lesson_session(self, driver, wait, student_name="Test User", base_url="http://localhost:8000/index.html"):
+    def start_lesson_session(self, driver, wait, student_name="Test User", base_url=None):
         """Helper method to start a lesson session"""
+        if base_url is None:
+            base_url = self._base_url()
         driver.get(base_url)
         # Wait for page to load
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='text']")))
@@ -110,11 +112,15 @@ class TestWebsite:
     @pytest.fixture(scope="class")
     def base_url(self):
         """Base URL for the website"""
-        return "http://localhost:8000/index.html"
+        import os
+        base = os.environ.get("BASE_URL", "http://localhost:8000")
+        return f"{base}/index.html"
     
     def _base_url(self):
         """Non-fixture version for use in methods"""
-        return "http://localhost:8000/index.html"
+        import os
+        base = os.environ.get("BASE_URL", "http://localhost:8000")
+        return f"{base}/index.html"
     
     def test_welcome_screen_loads(self, driver, base_url):
         """Test that welcome screen loads correctly"""

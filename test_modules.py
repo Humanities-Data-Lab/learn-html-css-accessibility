@@ -83,7 +83,9 @@ class TestLessonModules:
     @pytest.fixture(scope="class")
     def base_url(self):
         """Base URL for the website"""
-        return "http://localhost:8000/index.html"
+        import os
+        base = os.environ.get("BASE_URL", "http://localhost:8000")
+        return f"{base}/index.html"
     
     def start_lesson(self, driver, base_url):
         """Helper to start a lesson session"""
