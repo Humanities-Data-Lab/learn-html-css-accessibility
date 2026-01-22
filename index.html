@@ -571,6 +571,8 @@
         function TextWithTooltips({ text }) {
             if (!text) return null;
             
+            const lang = window.currentLanguage || 'en';
+            
             // Create a case-insensitive lookup map using translated glossary
             const glossaryMap = new Map();
             Object.keys(glossary).forEach(key => {
@@ -578,7 +580,19 @@
                 glossaryMap.set(key.toLowerCase(), translatedDef);
             });
             
-            const sortedTerms = Object.keys(glossary).sort((a, b) => b.length - a.length);
+            // Get terms to match - include both English and French terms when language is French
+            let termsToMatch = Object.keys(glossary);
+            if (lang === 'fr' && translations.fr && translations.fr.glossary) {
+                // Add French terms from French glossary
+                const frenchGlossary = translations.fr.glossary;
+                const frenchTerms = Object.keys(frenchGlossary).filter(key => {
+                    // Only include French-specific terms (not English keys that are already in glossary)
+                    return !glossary.hasOwnProperty(key);
+                });
+                termsToMatch = [...termsToMatch, ...frenchTerms];
+            }
+            
+            const sortedTerms = termsToMatch.sort((a, b) => b.length - a.length);
             const parts = [];
             let remaining = text;
             let keyCounter = 0;
@@ -609,7 +623,16 @@
                         const isInsideTag = lastOpenTag > lastCloseTag && !term.startsWith('<');
                         
                         if (!isInsideTag) {
-                            const definition = glossaryMap.get(term.toLowerCase()) || getTranslatedGlossary(term);
+                            // Get definition - check if it's a French term first
+                            let definition = glossaryMap.get(term.toLowerCase());
+                            if (!definition) {
+                                // Try to get from French glossary if it's a French term
+                                if (lang === 'fr' && translations.fr && translations.fr.glossary && translations.fr.glossary[term]) {
+                                    definition = translations.fr.glossary[term];
+                                } else {
+                                    definition = getTranslatedGlossary(term);
+                                }
+                            }
                             if (definition) {
                                 if (beforeMatch) {
                                     parts.push(<React.Fragment key={`text-${keyCounter++}`}>{beforeMatch}</React.Fragment>);
