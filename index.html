@@ -489,6 +489,34 @@
             'tabindex': 'HTML attribute that controls keyboard navigation order. tabindex="0" makes an element focusable. tabindex="-1" removes from tab order.',
             'lang': 'HTML attribute on <html> tag that specifies the page language, like lang="en" for English. Helps screen readers pronounce text correctly.',
             '<label>': 'HTML tag that provides a text label for form inputs. Improves accessibility and allows clicking the label to focus the input.',
+            // Plain HTML element names (without angle brackets)
+            'html': 'The root element that wraps all HTML content on a webpage.',
+            'head': 'Contains metadata about the document, like title and styles, not visible on the page.',
+            'body': 'Contains all visible content that appears on the webpage.',
+            'title': 'Sets the text shown in the browser tab or window title.',
+            'h1': 'The main heading (largest). Use only one per page for the main title.',
+            'h2': 'A section heading, smaller than h1. Use for major sections.',
+            'h3': 'A subsection heading, smaller than h2. Use for subsections.',
+            'h4': 'A smaller heading, used for sub-subsections.',
+            'h5': 'An even smaller heading level.',
+            'h6': 'The smallest heading level.',
+            'p': 'Paragraph tag for blocks of text content.',
+            'a': 'Anchor tag creates clickable links to other pages or websites.',
+            'img': 'Image tag displays pictures. Requires src (image location) and alt (description) attributes.',
+            'ul': 'Unordered list creates a bulleted list of items.',
+            'ol': 'Ordered list creates a numbered list of items.',
+            'li': 'List item tag used inside <ul> or <ol> for each list entry.',
+            'header': 'Semantic tag for the top section of a page, typically containing logo and navigation.',
+            'nav': 'Semantic tag for navigation links.',
+            'main': 'Semantic tag for the main content of the page (only one per page).',
+            'article': 'Semantic tag for standalone content like blog posts or news articles.',
+            'footer': 'Semantic tag for the bottom section, often containing copyright and links.',
+            'div': 'Generic container element that groups content together. Has no visual meaning by itself but helps organize and style content. Use semantic tags like <header> or <main> when possible.',
+            'span': 'Inline container element used to group inline content for styling. Similar to <div> but for inline elements.',
+            'strong': 'Tag that makes text bold and indicates importance. Screen readers emphasize it.',
+            'em': 'Tag that makes text italic and indicates emphasis. Screen readers stress it.',
+            'style': 'HTML tag that contains CSS code for styling the page.',
+            'label': 'HTML tag that provides a text label for form inputs. Improves accessibility and allows clicking the label to focus the input.',
             'assistive technologies': 'Tools like screen readers, voice control, or keyboard-only navigation that help people with disabilities use websites.',
             'visual impairments': 'Conditions that affect a person\'s ability to see, requiring assistive technologies like screen readers to access web content.',
             'accessible web design': 'Designing websites so they work for all users, including those with disabilities, following accessibility principles and standards.'
@@ -605,24 +633,40 @@
                     const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                     // For terms with angle brackets, don't use word boundaries
                     const useWordBoundary = !term.startsWith('<') && !term.includes('>');
-                    const regex = useWordBoundary 
-                        ? new RegExp(`\\b${escapedTerm}\\b`, 'i')
-                        : new RegExp(escapedTerm, 'gi');
+                    // Also check if term might appear in CSS selectors (after . or #)
+                    // Match both standalone word and as part of CSS selector
+                    let regex;
+                    if (useWordBoundary) {
+                        // Match as standalone word OR as part of CSS selector (.term or #term)
+                        // For CSS selectors, don't require word boundary after (allow space, end of string, etc.)
+                        regex = new RegExp(`(\\b${escapedTerm}\\b|\\.${escapedTerm}(?=\\s|$|\\b)|#${escapedTerm}(?=\\s|$|\\b))`, 'i');
+                    } else {
+                        // For HTML tags and other special cases
+                        regex = new RegExp(escapedTerm, 'gi');
+                    }
                     
                     const match = remaining.match(regex);
                     
                     if (match) {
                         const matchIndex = remaining.indexOf(match[0]);
                         const beforeMatch = remaining.substring(0, matchIndex);
-                        const matchedTerm = match[0];
+                        let matchedTerm = match[0];
+                        // If matched term includes . or # prefix but glossary term doesn't, extract just the term part for lookup
+                        // But keep the full match (including . or #) for display
                         const afterMatch = remaining.substring(matchIndex + matchedTerm.length);
+                        
+                        // Check if the match is part of a hyphenated term (like "main-content")
+                        // Don't match if the character before or after is a hyphen (unless it's a CSS selector)
+                        const charBefore = beforeMatch.length > 0 ? beforeMatch[beforeMatch.length - 1] : '';
+                        const charAfter = afterMatch.length > 0 ? afterMatch[0] : '';
+                        const isInHyphenatedTerm = (charBefore === '-' || charAfter === '-') && !matchedTerm.startsWith('.') && !matchedTerm.startsWith('#');
                         
                         // Check if inside HTML tag (but allow HTML tag names themselves)
                         const lastOpenTag = beforeMatch.lastIndexOf('<');
                         const lastCloseTag = beforeMatch.lastIndexOf('>');
                         const isInsideTag = lastOpenTag > lastCloseTag && !term.startsWith('<');
                         
-                        if (!isInsideTag) {
+                        if (!isInsideTag && !isInHyphenatedTerm) {
                             // Get definition - check if it's a French term first
                             let definition = glossaryMap.get(term.toLowerCase());
                             if (!definition) {
