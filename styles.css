@@ -5,7 +5,7 @@
 }
 
 /* Skip link: visually hidden until focused (keyboard/screen reader users) */
-/* Accessible blue: ≥4.5:1 contrast with white for WCAG AA (was #3498db 3.15:1) */
+/* Accessible blue: ≥4.5:1 contrast with white for WCAG AA (replaced #3498db 3.15:1) */
 .skip-link {
     position: absolute;
     width: 1px;
@@ -69,7 +69,7 @@ body {
     padding: 20px;
     background: #2c3e50;
     color: white;
-    border-bottom: 3px solid #3498db;
+    border-bottom: 3px solid #2563a8;
 }
 
 .header h1 {
@@ -126,7 +126,7 @@ body {
 }
 
 .language-selector select:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
     background: rgba(255, 255, 255, 0.2);
 }
@@ -167,7 +167,7 @@ body {
 .name-input input {
     padding: 12px 20px;
     font-size: 16px;
-    border: 2px solid #3498db;
+    border: 2px solid #2563a8;
     border-radius: 5px;
     width: 300px;
     max-width: 100%;
@@ -190,13 +190,13 @@ body {
 }
 
 .name-input button:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
     background: #1e5a8a;
 }
 
 .name-input input:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
 }
 
@@ -209,7 +209,7 @@ body {
     color: #2c3e50;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 3px solid #3498db;
+    border-bottom: 3px solid #2563a8;
 }
 
 .lesson-description {
@@ -220,7 +220,7 @@ body {
     background: #f8f9fa;
     padding: 20px;
     border-radius: 5px;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #2563a8;
 }
 
 .lesson-description strong {
@@ -236,7 +236,7 @@ body {
     width: 100%;
     padding: 15px 20px;
     background: #e8f4f8;
-    border: 2px solid #3498db;
+    border: 2px solid #2563a8;
     border-radius: 5px;
     cursor: pointer;
     text-align: left;
@@ -254,7 +254,7 @@ body {
 }
 
 .hint-button:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
 }
 
@@ -275,7 +275,7 @@ body {
 
 .hint-content {
     background: #e8f4f8;
-    border: 2px solid #3498db;
+    border: 2px solid #2563a8;
     border-top: none;
     border-radius: 0 0 5px 5px;
     padding: 20px;
@@ -355,7 +355,7 @@ body {
 }
 
 .progress-circle:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 3px;
 }
 
@@ -370,7 +370,7 @@ body {
 }
 
 .progress-circle.in-progress {
-    border-color: #3498db;
+    border-color: #2563a8;
     background: #e8f4f8;
     color: #2c3e50;
 }
@@ -448,7 +448,7 @@ body {
 }
 
 .certificate-language-select:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
     background: rgba(255, 255, 255, 0.3);
 }
@@ -521,9 +521,9 @@ body {
 }
 
 .certificate-share input:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
-    border-color: #3498db;
+    border-color: #2563a8;
 }
 
 .sr-only {
@@ -631,7 +631,7 @@ body {
 }
 
 .code-input textarea:focus {
-    outline: 2px solid #3498db;
+    outline: 2px solid #2563a8;
     outline-offset: 2px;
     background: #1e1e1e;
     color: #d4d4d4;
@@ -672,7 +672,7 @@ body {
 }
 
 .btn:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
 }
 
@@ -760,7 +760,7 @@ body {
 }
 
 .preview-frame:focus {
-    outline: 2px solid #3498db;
+    outline: 2px solid #2563a8;
     outline-offset: -2px;
 }
 
@@ -816,7 +816,7 @@ body {
     margin-top: 30px;
     padding: 20px;
     background: #e8f4f8;
-    border: 2px solid #3498db;
+    border: 2px solid #2563a8;
     border-radius: 5px;
 }
 
@@ -857,7 +857,7 @@ body {
 }
 
 .w3schools-links a:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
 }
 
@@ -886,7 +886,7 @@ body {
 }
 
 .glossary-btn:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
     background: rgba(255, 255, 255, 0.2);
 }
@@ -903,7 +903,7 @@ body {
 }
 
 .glossary-btn-certificate:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
 }
 
@@ -988,7 +988,7 @@ body {
 }
 
 .glossary-close-btn:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 2px;
 }
 
@@ -1010,9 +1010,9 @@ body {
 }
 
 .glossary-search:focus {
-    outline: 3px solid #3498db;
+    outline: 3px solid #2563a8;
     outline-offset: 0;
-    border-color: #3498db;
+    border-color: #2563a8;
 }
 
 .glossary-list-wrapper {
