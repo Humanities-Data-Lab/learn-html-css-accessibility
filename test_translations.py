@@ -75,6 +75,31 @@ class TestTranslations:
         assert 'categories' in translations['fr'], "French category translations should exist"
         assert 'lessons' in translations['en'], "English lesson translations should exist"
         assert 'lessons' in translations['fr'], "French lesson translations should exist"
+
+    def test_all_ui_keys_in_translations(self):
+        """Test that every ui.* and categories.* key used in index.html exists in translations.json"""
+        import os
+        import re
+        index_path = os.path.join(os.path.dirname(__file__), 'index.html')
+        translations_path = os.path.join(os.path.dirname(__file__), 'translations.json')
+        with open(index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        with open(translations_path, 'r', encoding='utf-8') as f:
+            tr = json.load(f)
+        # Match t('ui.xxx'), t("ui.xxx"), t('categories.xxx'), and t(..., { ... })
+        pattern = r"t\s*\(\s*['\"]?(ui\.[a-zA-Z0-9_]+|categories\.[a-zA-Z0-9_]+)['\"]?\s*(?:,|\))"
+        used = set(m.group(1) for m in re.finditer(pattern, html))
+        for lang in ('en', 'fr'):
+            if lang not in tr:
+                continue
+            for key in used:
+                parts = key.split('.')
+                obj = tr[lang]
+                for part in parts:
+                    assert isinstance(obj, dict) and part in obj, (
+                        f"Missing translation: {lang}.{key} (used in index.html but not in translations.json)"
+                    )
+                    obj = obj[part]
     
     def test_language_dropdown_exists(self, driver, base_url):
         """Test that language dropdown is present on the page"""
