@@ -920,16 +920,14 @@
                 }
             }, [studentName, currentLessonIndex, code, completedLessons, hasStarted, language]);
 
-            // Update preview when code changes with basic styling
+            // Update preview when code changes with basic styling (always inject so preview is readable)
             useEffect(() => {
-                if (previewFrameRef.current && code) {
-                    const iframe = previewFrameRef.current;
-                    const doc = iframe.contentDocument;
-                    
-                    // Inject basic styling if not already present
-                    let styledCode = code;
-                    if (!code.includes('<style>') && !code.includes('</style>')) {
-                        const basicStyles = `
+                if (!previewFrameRef.current || !code) return;
+                const iframe = previewFrameRef.current;
+                const doc = iframe.contentDocument;
+                if (!doc) return;
+
+                const basicStyles = `
     <style>
         * {
             margin: 0;
@@ -943,6 +941,7 @@
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
+            background: #fafafa;
         }
         h1, h2, h3, h4, h5, h6 {
             margin: 20px 0 10px 0;
@@ -974,22 +973,21 @@
         }
     </style>
 `;
-                        // Insert styles before </head> or at the beginning if no head
-                        if (code.includes('</head>')) {
-                            styledCode = code.replace('</head>', basicStyles + '</head>');
-                        } else if (code.includes('<head>')) {
-                            styledCode = code.replace('<head>', '<head>' + basicStyles);
-                        } else if (code.includes('<html>')) {
-                            styledCode = code.replace('<html>', '<html><head>' + basicStyles + '</head>');
-                        } else {
-                            styledCode = '<!DOCTYPE html><html><head>' + basicStyles + '</head><body>' + code + '</body></html>';
-                        }
-                    }
-                    
-                    doc.open();
-                    doc.write(styledCode);
-                    doc.close();
+                // Always inject base styles so the preview never looks broken or unstyled
+                let styledCode;
+                if (code.includes('</head>')) {
+                    styledCode = code.replace('</head>', basicStyles + '</head>');
+                } else if (code.includes('<head>')) {
+                    styledCode = code.replace('<head>', '<head>' + basicStyles);
+                } else if (code.includes('<html>')) {
+                    styledCode = code.replace('<html>', '<html><head>' + basicStyles + '</head>');
+                } else {
+                    styledCode = '<!DOCTYPE html><html><head><meta charset="UTF-8">' + basicStyles + '</head><body>' + code + '</body></html>';
                 }
+
+                doc.open();
+                doc.write(styledCode);
+                doc.close();
             }, [code]);
 
             const handleNameSubmit = (e) => {
