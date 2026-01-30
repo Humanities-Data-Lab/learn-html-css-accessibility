@@ -654,18 +654,20 @@
                         <p id="glossary-desc" className="sr-only">
                             {t('ui.glossarySearchPlaceholder')}
                         </p>
-                        <label htmlFor="glossary-search-input" className="sr-only">{t('ui.glossarySearchPlaceholder')}</label>
-                        <input
-                            ref={searchInputRef}
-                            id="glossary-search-input"
-                            type="search"
-                            className="glossary-search"
-                            placeholder={t('ui.glossarySearchPlaceholder')}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            aria-label={t('ui.glossarySearchPlaceholder')}
-                            autoComplete="off"
-                        />
+                        <div className="glossary-search-wrapper">
+                            <label htmlFor="glossary-search-input" className="sr-only">{t('ui.glossarySearchPlaceholder')}</label>
+                            <input
+                                ref={searchInputRef}
+                                id="glossary-search-input"
+                                type="search"
+                                className="glossary-search"
+                                placeholder={t('ui.glossarySearchPlaceholder')}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                aria-label={t('ui.glossarySearchPlaceholder')}
+                                autoComplete="off"
+                            />
+                        </div>
                         <div className="glossary-list-wrapper" role="region" aria-label={t('ui.glossaryTitle')}>
                             {filteredTerms.length === 0 ? (
                                 <p className="glossary-no-results">{t('ui.glossaryNoResults')}</p>
@@ -941,14 +943,14 @@
             margin: 10px 0;
         }
         a {
-            color: #3498db;
+            color: #25639a;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
         }
         a:focus {
-            outline: 3px solid #3498db;
+            outline: 3px solid #25639a;
             outline-offset: 2px;
         }
         img {
@@ -1423,7 +1425,7 @@
                 
                 return (
                     <>
-                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent')}</a>
+                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
                     <div id="main-content" className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
                         <div className="certificate-header">
                             <div className="certificate-language-selector">
@@ -1517,7 +1519,7 @@
                                         📧 {t('ui.emailCertificate')}
                                     </a>
                                 </div>
-                                <p style={{ fontSize: '14px', color: '#888', marginTop: '15px', fontStyle: 'italic' }}>
+                                <p style={{ fontSize: '14px', color: '#595959', marginTop: '15px', fontStyle: 'italic' }}>
                                     {t('ui.certificateShareDescription')}
                                 </p>
                             </div>
@@ -1531,7 +1533,7 @@
             if (!hasStarted || !studentName) {
                 return (
                     <>
-                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent')}</a>
+                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
                     <div id="main-content" className="app-container" role="main">
                         <div className="lesson-panel">
                             <div className="header">
@@ -1568,7 +1570,7 @@
                                     <p>
                                         <TextWithTooltips text={t('ui.welcomeDescription')} />
                                     </p>
-                                    <p style={{ fontSize: '14px', color: '#888', fontStyle: 'italic', marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
+                                    <p style={{ fontSize: '14px', color: '#595959', fontStyle: 'italic', marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
                                         {t('ui.tutorialCredit')}
                                     </p>
                                     <form onSubmit={handleNameSubmit} className="name-input">
@@ -1600,7 +1602,7 @@
 
             return (
                 <>
-                <a href="#main-content" className="skip-link">{t('ui.skipToMainContent')}</a>
+                <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
                 <div id="main-content" className="app-container" role="main">
                     <div className="lesson-panel">
                         <div className="header">
