@@ -521,7 +521,7 @@
                                 
                                 const tooltipId = `tooltip-${keyCounter}`;
                                 parts.push(
-                                    <span key={tooltipId} className="tooltip-wrapper" tabIndex="0" role="button" aria-describedby={tooltipId}>
+                                    <span key={tooltipId} className="tooltip-wrapper" tabIndex="0" role="button" aria-label={t('ui.definitionOf', { term: matchedTerm })} aria-describedby={tooltipId}>
                                         {matchedTerm}
                                         <span id={tooltipId} className="tooltip" role="tooltip">
                                             {definition}
@@ -775,6 +775,8 @@
             const previewFrameRef = useRef(null);
             const codeRef = useRef('');
             const textareaRef = useRef(null);
+            const nextButtonRef = useRef(null);
+            const tryAgainButtonRef = useRef(null);
 
             // Update global language and HTML lang attribute
             useEffect(() => {
@@ -787,6 +789,19 @@
             useEffect(() => {
                 codeRef.current = code;
             }, [code]);
+
+            // Move focus to action button when feedback appears (accessibility)
+            useEffect(() => {
+                if (!feedback) return;
+                const t = setTimeout(() => {
+                    if (feedback.type === 'success' && nextButtonRef.current) {
+                        nextButtonRef.current.focus();
+                    } else if (feedback.type === 'error' && tryAgainButtonRef.current) {
+                        tryAgainButtonRef.current.focus();
+                    }
+                }, 100);
+                return () => clearTimeout(t);
+            }, [feedback]);
 
             // Update code template when language changes or translations load (if code matches any template)
             useEffect(() => {
@@ -1408,7 +1423,8 @@
                 
                 return (
                     <>
-                    <div className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
+                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent')}</a>
+                    <div id="main-content" className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
                         <div className="certificate-header">
                             <div className="certificate-language-selector">
                                 <button
@@ -1515,7 +1531,8 @@
             if (!hasStarted || !studentName) {
                 return (
                     <>
-                    <div className="app-container">
+                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent')}</a>
+                    <div id="main-content" className="app-container" role="main">
                         <div className="lesson-panel">
                             <div className="header">
                                 <div className="header-content">
@@ -1583,7 +1600,8 @@
 
             return (
                 <>
-                <div className="app-container">
+                <a href="#main-content" className="skip-link">{t('ui.skipToMainContent')}</a>
+                <div id="main-content" className="app-container" role="main">
                     <div className="lesson-panel">
                         <div className="header">
                             <div className="header-content">
@@ -1613,8 +1631,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div className="progress-section">
-                            <div className="progress-title">{t('ui.courseProgress')}</div>
+                        <div className="progress-section" role="region" aria-labelledby="course-progress-title">
+                            <div id="course-progress-title" className="progress-title">{t('ui.courseProgress')}</div>
                             <div className="progress-circles">
                                 <div className="progress-circle-container">
                                     <div 
@@ -1797,12 +1815,12 @@
                                     {feedback && (
                                         <>
                                             {feedback.type === 'error' && (
-                                                <button onClick={handleTryAgain} className="btn btn-secondary" aria-label={t('ui.tryAgain')}>
+                                                <button ref={tryAgainButtonRef} onClick={handleTryAgain} className="btn btn-secondary" aria-label={t('ui.tryAgain')}>
                                                     {t('ui.tryAgain')}
                                                 </button>
                                             )}
                                             {isVerified && !isLastLesson && (
-                                                <button onClick={handleNext} className="btn btn-success" aria-label={t('ui.nextLesson')}>
+                                                <button ref={nextButtonRef} onClick={handleNext} className="btn btn-success" aria-label={t('ui.nextLesson')}>
                                                     {t('ui.nextLesson')}
                                                 </button>
                                             )}
@@ -1811,7 +1829,7 @@
                                 </div>
 
                                 {feedback && (
-                                    <div className={`feedback ${feedback.type}`}>
+                                    <div className={`feedback ${feedback.type}`} role="status" aria-live="polite">
                                         {feedback.message}
                                     </div>
                                 )}
@@ -1843,6 +1861,7 @@
                                         readOnly 
                                         value={window.location.href}
                                         onClick={(e) => e.target.select()}
+                                        aria-label={t('ui.copyUrl')}
                                     />
                                 </div>
                             </div>

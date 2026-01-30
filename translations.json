@@ -59,7 +59,9 @@
       "glossaryTitle": "Glossary",
       "glossarySearchPlaceholder": "Search terms...",
       "glossaryClose": "Close glossary",
-      "glossaryNoResults": "No terms match your search."
+      "glossaryNoResults": "No terms match your search.",
+      "skipToMainContent": "Skip to main content",
+      "definitionOf": "Definition of {term}"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -903,7 +905,9 @@
       "glossaryTitle": "Glossaire",
       "glossarySearchPlaceholder": "Rechercher des termes...",
       "glossaryClose": "Fermer le glossaire",
-      "glossaryNoResults": "Aucun terme ne correspond à votre recherche."
+      "glossaryNoResults": "Aucun terme ne correspond à votre recherche.",
+      "skipToMainContent": "Aller au contenu principal",
+      "definitionOf": "Définition de {term}"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",
