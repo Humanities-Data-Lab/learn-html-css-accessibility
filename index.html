@@ -1583,9 +1583,9 @@
                                         onClick={downloadAllFiles}
                                         className="btn btn-primary"
                                         style={{ marginLeft: '12px', padding: '12px 24px', fontSize: '16px' }}
-                                        aria-label={t('ui.downloadAllFiles')}
+                                        aria-label={t('ui.downloadAllFiles') === 'ui.downloadAllFiles' ? (language === 'fr' ? 'Télécharger tous mes fichiers' : 'Download all my files') : t('ui.downloadAllFiles')}
                                     >
-                                        📥 {t('ui.downloadAllFiles')}
+                                        📥 {t('ui.downloadAllFiles') === 'ui.downloadAllFiles' ? (language === 'fr' ? 'Télécharger tous mes fichiers' : 'Download all my files') : t('ui.downloadAllFiles')}
                                     </button>
                                 </div>
                                 <p style={{ fontSize: '14px', color: '#595959', marginTop: '15px', fontStyle: 'italic' }}>
@@ -1875,8 +1875,8 @@
                                             {t('ui.back')}
                                         </button>
                                     )}
-                                    <button onClick={downloadCurrentHtml} type="button" className="btn btn-secondary" aria-label={t('ui.downloadHtml')}>
-                                        {t('ui.downloadHtml')}
+                                    <button onClick={downloadCurrentHtml} type="button" className="btn btn-secondary" aria-label={t('ui.downloadHtml') === 'ui.downloadHtml' ? (language === 'fr' ? 'Télécharger le HTML' : 'Download HTML') : t('ui.downloadHtml')}>
+                                        {t('ui.downloadHtml') === 'ui.downloadHtml' ? (language === 'fr' ? 'Télécharger le HTML' : 'Download HTML') : t('ui.downloadHtml')}
                                     </button>
                                     <button onClick={handleVerify} className="btn btn-primary" aria-label={t('ui.verifyCode')}>
                                         {t('ui.verifyCode')}
