@@ -81,6 +81,40 @@
             });
         }
 
+        const REPORT_BUG_EMAIL = 'dlach062@uottawa.ca';
+        const REPORT_BUG_DO_NOT_EDIT_LABEL = 'Please do not edit the section below. It contains technical information to help diagnose the issue.';
+        function getReportBugMailtoUrl(context) {
+            const lines = [
+                'Brief description of the bug:',
+                '',
+                '',
+                'Steps to reproduce:',
+                '1. ',
+                '2. ',
+                '3. ',
+                '',
+                '---',
+                REPORT_BUG_DO_NOT_EDIT_LABEL,
+                '---',
+                '',
+                'User agent: ' + (typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'),
+                'Platform: ' + (typeof navigator !== 'undefined' ? navigator.platform : 'N/A'),
+                'Language: ' + (typeof navigator !== 'undefined' ? navigator.language : 'N/A'),
+                'Screen: ' + (typeof screen !== 'undefined' ? screen.width + ' x ' + screen.height : 'N/A'),
+                'Viewport: ' + (typeof window !== 'undefined' ? window.innerWidth + ' x ' + window.innerHeight : 'N/A'),
+                'Document lang: ' + (typeof document !== 'undefined' && document.documentElement ? document.documentElement.getAttribute('lang') : 'N/A')
+            ];
+            if (context && context.lessonIndex != null) {
+                lines.push('Lesson index: ' + context.lessonIndex);
+            }
+            if (context && context.hasStarted != null) {
+                lines.push('Has started: ' + context.hasStarted);
+            }
+            const subject = 'Bug Report - Learn HTML, CSS & Accessible Web Design';
+            const body = lines.join('\r\n');
+            return 'mailto:' + REPORT_BUG_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        }
+
         // Get translated glossary definition
         function getTranslatedGlossary(term) {
             if (!translationsLoaded) {
@@ -1738,6 +1772,14 @@
                                 >
                                     📖 {t('ui.glossaryButton')}
                                 </button>
+                                <a
+                                    href={getReportBugMailtoUrl({ hasStarted: true })}
+                                    className="glossary-btn glossary-btn-certificate report-bug-btn"
+                                    style={{ textDecoration: 'none' }}
+                                    aria-label={t('ui.reportBug')}
+                                >
+                                    🐛 {t('ui.reportBug')}
+                                </a>
                                 <label htmlFor="certificate-language-select" className="sr-only">{t('ui.selectLanguage')}</label>
                                 <select 
                                     id="certificate-language-select"
@@ -1983,17 +2025,25 @@
                                     <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
                                 </div>
                             </div>
-                            <div className="language-selector">
-                                <button
-                                    ref={glossaryTriggerRef}
-                                    type="button"
-                                    className="glossary-btn"
-                                    onClick={() => setGlossaryOpen(true)}
-                                    aria-label={t('ui.glossaryButton')}
-                                    aria-haspopup="dialog"
-                                >
-                                    📖 {t('ui.glossaryButton')}
-                                </button>
+                                <div className="language-selector">
+                                    <button
+                                        ref={glossaryTriggerRef}
+                                        type="button"
+                                        className="glossary-btn"
+                                        onClick={() => setGlossaryOpen(true)}
+                                        aria-label={t('ui.glossaryButton')}
+                                        aria-haspopup="dialog"
+                                    >
+                                        📖 {t('ui.glossaryButton')}
+                                    </button>
+                                    <a
+                                        href={getReportBugMailtoUrl({ hasStarted })}
+                                        className="glossary-btn report-bug-btn"
+                                        style={{ textDecoration: 'none' }}
+                                        aria-label={t('ui.reportBug')}
+                                    >
+                                        🐛 {t('ui.reportBug')}
+                                    </a>
                                 <label htmlFor="language-select-main" className="sr-only">{t('ui.selectLanguage')}</label>
                                 <select 
                                     id="language-select-main"

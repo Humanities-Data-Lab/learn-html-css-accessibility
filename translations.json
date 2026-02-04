@@ -71,7 +71,8 @@
       "skipToMainContent": "Skip to main content",
       "definitionOf": "Definition of {term}",
       "backToLessons": "Back to lessons",
-      "viewCertificate": "View certificate"
+      "viewCertificate": "View certificate",
+      "reportBug": "Report bug"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -927,7 +928,8 @@
       "skipToMainContent": "Aller au contenu principal",
       "definitionOf": "Définition de {term}",
       "backToLessons": "Retour aux leçons",
-      "viewCertificate": "Voir le certificat"
+      "viewCertificate": "Voir le certificat",
+      "reportBug": "Signaler un bug"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",
