@@ -294,6 +294,7 @@ body {
     min-width: 44px;
     min-height: 44px;
     overflow: hidden;
+    background: #fff;
 }
 .header-content-with-avatar .avatar-change-btn .user-avatar,
 .header-content-with-avatar .avatar-change-btn .avatar-placeholder {
