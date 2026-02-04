@@ -1266,58 +1266,14 @@
                     return;
                 }
                 
-                // Handle Enter key - maintain indentation based on tag structure
+                // Handle Enter key - new line gets same indentation as the line above
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const lines = value.split('\n');
                     const lineIndex = value.substring(0, start).split('\n').length - 1;
                     const currentLine = lines[lineIndex] || '';
-                    
-                    // Get text before cursor
-                    const beforeCursor = value.substring(0, start);
-                    const textBeforeOnLine = beforeCursor.split('\n').pop() || '';
-                    
-                    // Check if current line ends with opening tag (not self-closing, not closing, not comment)
-                    const trimmedBefore = textBeforeOnLine.trim();
-                    const endsWithOpeningTag = trimmedBefore.endsWith('>') && 
-                                               !trimmedBefore.endsWith('/>') && 
-                                               !trimmedBefore.endsWith('-->') &&
-                                               trimmedBefore.startsWith('<') &&
-                                               !trimmedBefore.startsWith('</');
-                    
-                    // Check if we're right after a closing tag
-                    const endsWithClosingTag = trimmedBefore.endsWith('>') && 
-                                               trimmedBefore.startsWith('</');
-                    
-                    // Get current line indentation
                     const match = currentLine.match(/^(\s*)/);
-                    const currentIndent = match ? match[1] : '';
-                    
-                    // Calculate proper indentation
-                    let indent = currentIndent;
-                    if (endsWithOpeningTag) {
-                        // After opening tag - indent one level more for content
-                        indent = currentIndent + '    ';
-                    } else if (endsWithClosingTag) {
-                        // After closing tag - check if we should unindent
-                        // Count opening tags before this line to determine proper indent
-                        let tagLevel = 0;
-                        for (let i = 0; i < lineIndex; i++) {
-                            const line = lines[i];
-                            const opening = (line.match(/<[^/!?][^>]*>/g) || []).filter(t => 
-                                !t.endsWith('/>') && !t.startsWith('<!--')
-                            ).length;
-                            const closing = (line.match(/<\/[^>]+>/g) || []).length;
-                            const selfClosing = (line.match(/<[^>]+\/>/g) || []).length;
-                            tagLevel += opening - closing - selfClosing;
-                        }
-                        // Unindent one level for the closing tag
-                        indent = '    '.repeat(Math.max(0, tagLevel));
-                    } else {
-                        // Regular line - maintain current indentation
-                        indent = currentIndent;
-                    }
-                    
+                    const indent = match ? match[1] : '';
                     const before = value.substring(0, start);
                     const after = value.substring(end);
                     const newValue = before + '\n' + indent + after;
