@@ -767,7 +767,7 @@
                         <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-dialog-label">
                             <p id="avatar-picker-dialog-label" className="avatar-picker-label avatar-picker-dialog-label">{t('ui.chooseAvatar')}</p>
                             <div className="avatar-picker-grid avatar-picker-dialog-grid">
-                                {AVATAR_OPTIONS.map((url, index) => (
+                                {AVATAR_OPTIONS_SHUFFLED.map((url, index) => (
                                     <button
                                         key={url}
                                         type="button"
@@ -777,7 +777,7 @@
                                             onClose();
                                         }}
                                         aria-pressed={avatarUrl === url}
-                                        aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS.length })}
+                                        aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS_SHUFFLED.length })}
                                     >
                                         <img src={url} alt="" width="80" height="80" />
                                     </button>
@@ -864,6 +864,16 @@
             'https://images.unsplash.com/vector-1768160220370-5318f1830603?w=200&h=200&fit=crop'
         ];
 
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        const AVATAR_OPTIONS_SHUFFLED = shuffleArray(AVATAR_OPTIONS);
+
         // Compressed hash encoding/decoding with shorter property names
         function encodeState(state) {
             try {
@@ -944,7 +954,7 @@
 
         function App() {
             const [studentName, setStudentName] = useState('');
-            const [avatarUrl, setAvatarUrl] = useState(() => AVATAR_OPTIONS[0] || DEFAULT_AVATAR_URL);
+            const [avatarUrl, setAvatarUrl] = useState(() => AVATAR_OPTIONS_SHUFFLED[0] || DEFAULT_AVATAR_URL);
             const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
             const [code, setCode] = useState('');
             const [codeByLesson, setCodeByLesson] = useState(() => ({}));
@@ -1821,14 +1831,14 @@
                                     <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-label">
                                         <p id="avatar-picker-label" className="avatar-picker-label">{t('ui.chooseAvatar')}</p>
                                         <div className="avatar-picker-grid">
-                                            {AVATAR_OPTIONS.map((url, index) => (
+                                            {AVATAR_OPTIONS_SHUFFLED.map((url, index) => (
                                                 <button
                                                     key={url}
                                                     type="button"
                                                     className={`avatar-picker-option ${avatarUrl === url ? 'selected' : ''}`}
                                                     onClick={() => setAvatarUrl(url)}
                                                     aria-pressed={avatarUrl === url}
-                                                    aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS.length })}
+                                                    aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS_SHUFFLED.length })}
                                                 >
                                                     <img src={url} alt="" width="80" height="80" />
                                                 </button>
