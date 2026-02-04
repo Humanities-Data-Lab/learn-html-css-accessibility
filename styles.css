@@ -205,13 +205,14 @@ body {
 /* Avatar picker on welcome screen */
 .avatar-picker-section {
     margin: 28px 0 24px 0;
+    padding: 0 8px;
 }
 
 .avatar-picker-label {
     font-size: 18px;
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 14px;
+    margin: 0 0 14px 0;
 }
 
 .avatar-picker-grid {
@@ -219,6 +220,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+    padding: 8px 4px 12px;
 }
 /* When many avatars, cap height and scroll (welcome screen) */
 .lesson-content .avatar-picker-grid {
@@ -226,6 +228,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    padding: 12px 8px 20px;
 }
 
 .avatar-picker-option {
@@ -270,6 +273,27 @@ body {
 .user-avatar-header {
     width: 44px;
     height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Header avatar button: clip to circle so avatar is always circular */
+.header-content-with-avatar .avatar-change-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    overflow: hidden;
+}
+.header-content-with-avatar .avatar-change-btn .user-avatar,
+.header-content-with-avatar .avatar-change-btn .avatar-placeholder {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .avatar-change-btn {
@@ -311,9 +335,11 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding: 0;
 }
 .avatar-picker-dialog .glossary-dialog-header {
     flex-shrink: 0;
+    padding: 20px 24px 16px;
 }
 .avatar-picker-dialog .avatar-picker-section {
     flex: 1 1 auto;
@@ -321,9 +347,10 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding: 0 24px 24px;
 }
 .avatar-picker-dialog .avatar-picker-dialog-label {
-    margin-bottom: 12px;
+    margin: 0 0 16px 0;
     flex-shrink: 0;
 }
 .avatar-picker-dialog-grid {
@@ -332,6 +359,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    padding: 4px 0 16px 0;
 }
 
 .header-content-with-avatar {
