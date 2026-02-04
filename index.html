@@ -1840,7 +1840,7 @@
                                     </p>
                                     <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-label">
                                         <p id="avatar-picker-label" className="avatar-picker-label">{t('ui.chooseAvatar')}</p>
-                                        <div className="avatar-picker-grid">
+                                        <div className="avatar-picker-grid" aria-describedby="welcome-avatar-scroll-hint">
                                             {AVATAR_OPTIONS_SHUFFLED.map((url, index) => (
                                                 <button
                                                     key={url}
@@ -1854,6 +1854,7 @@
                                                 </button>
                                             ))}
                                         </div>
+                                        <p id="welcome-avatar-scroll-hint" className="avatar-picker-scroll-hint" role="status">{t('ui.avatarPickerScrollHint')}</p>
                                     </div>
                                     <form onSubmit={handleNameSubmit} className="name-input">
                                         <label htmlFor="student-name-input" className="sr-only">{t('ui.enterName')}</label>
