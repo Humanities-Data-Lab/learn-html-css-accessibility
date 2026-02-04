@@ -985,6 +985,13 @@ body {
     color: #856404;
 }
 
+.url-share .url-tip-note {
+    margin-top: 4px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    opacity: 0.95;
+}
+
 .url-share input {
     width: 100%;
     padding: 8px;
