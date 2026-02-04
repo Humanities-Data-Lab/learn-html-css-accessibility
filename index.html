@@ -1847,6 +1847,7 @@
                                 {currentLesson.whatToDo && (
                                     <div className="hint-section">
                                         <button
+                                            type="button"
                                             className="hint-button"
                                             onClick={() => setHintExpanded(!hintExpanded)}
                                             aria-expanded={hintExpanded}
@@ -1858,7 +1859,7 @@
                                         </button>
                                         <div
                                             id="hint-content"
-                                            className="hint-content"
+                                            className={`hint-content ${hintExpanded ? 'hint-content--expanded' : ''}`}
                                             aria-hidden={!hintExpanded}
                                             role="region"
                                             aria-label={t('ui.hintRegion')}
