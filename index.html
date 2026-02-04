@@ -779,7 +779,7 @@
                                         aria-pressed={avatarUrl === url}
                                         aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS_SHUFFLED.length })}
                                     >
-                                        <img src={url} alt="" width="80" height="80" />
+                                        <img src={url} alt="" width="80" height="80" onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR_URL; }} />
                                     </button>
                                 ))}
                             </div>
@@ -1722,7 +1722,7 @@
                                     aria-haspopup="dialog"
                                 >
                                     {avatarUrl ? (
-                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" />
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR_URL; }} />
                                     ) : (
                                         <span className="avatar-placeholder avatar-placeholder-certificate" aria-hidden="true" />
                                     )}
@@ -1864,7 +1864,7 @@
                                                     aria-pressed={avatarUrl === url}
                                                     aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS_SHUFFLED.length })}
                                                 >
-                                                    <img src={url} alt="" width="80" height="80" />
+                                                    <img src={url} alt="" width="80" height="80" onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR_URL; }} />
                                                 </button>
                                             ))}
                                         </div>
@@ -1924,7 +1924,7 @@
                                     aria-haspopup="dialog"
                                 >
                                     {avatarUrl ? (
-                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" />
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" onError={() => setAvatarUrl(DEFAULT_AVATAR_URL)} />
                                     ) : (
                                         <span className="avatar-placeholder" aria-hidden="true" />
                                     )}
