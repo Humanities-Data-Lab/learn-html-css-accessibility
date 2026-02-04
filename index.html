@@ -691,6 +691,9 @@
             );
         }
 
+        // Default avatar when none is found (e.g. old URL without avatar, or empty list)
+        const DEFAULT_AVATAR_URL = 'https://images.unsplash.com/vector-1749482379863-918278061c7f?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
         // Avatar options: illustration avatars from Unsplash (illustrations/avatar?license=free). All URLs verified 200.
         const AVATAR_OPTIONS = [
             'https://images.unsplash.com/vector-1740737650825-1ce4f5377085?w=200&h=200&fit=crop',
@@ -796,7 +799,7 @@
 
         function App() {
             const [studentName, setStudentName] = useState('');
-            const [avatarUrl, setAvatarUrl] = useState(() => AVATAR_OPTIONS[0] || '');
+            const [avatarUrl, setAvatarUrl] = useState(() => AVATAR_OPTIONS[0] || DEFAULT_AVATAR_URL);
             const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
             const [code, setCode] = useState('');
             const [codeByLesson, setCodeByLesson] = useState(() => ({}));
@@ -938,8 +941,8 @@
                         setStudentName(state.name || '');
                         if (state.avatarUrl && typeof state.avatarUrl === 'string') {
                             setAvatarUrl(state.avatarUrl);
-                        } else if (AVATAR_OPTIONS[0]) {
-                            setAvatarUrl(AVATAR_OPTIONS[0]);
+                        } else {
+                            setAvatarUrl(DEFAULT_AVATAR_URL);
                         }
                         // If it's a certificate URL (no code), show certificate view
                         if (!state.code && state.completedLessons && state.completedLessons.length === lessons.length) {
