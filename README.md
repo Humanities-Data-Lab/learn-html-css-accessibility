@@ -215,6 +215,12 @@ If you encounter any problems or have questions while using this tutorial, pleas
 2. That JavaScript is enabled
 3. The browser console for any error messages
 
+### Console messages you can ignore
+
+- **Babel**: “You are using the in-browser Babel transformer” — expected; the tutorial compiles JS in the browser. For production you would precompile (see [Babel setup](https://babeljs.io/docs/setup/)).
+- **“A listener indicated an asynchronous response…”** — usually from a browser extension (e.g. password manager, React DevTools). Safe to ignore, or try disabling extensions if it bothers you.
+- **“&lt;Item&gt; with non-plain text contents…” / “aria-label or aria-labelledby required”** — if they refer to `vendors.chunk.js` or similar, they come from an extension, not from this tutorial.
+
 ---
 
 **Happy Learning! 🚀**

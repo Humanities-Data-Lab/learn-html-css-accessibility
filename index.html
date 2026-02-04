@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn HTML, CSS & Accessible Web Design</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
     <link rel="stylesheet" href="styles.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -989,10 +990,10 @@
         }
     </style>
 `;
-                // Always inject base styles so the preview never looks broken or unstyled
+                // Inject base styles at the start of <head> so user <style> comes after and overrides (preview reflects their CSS)
                 let styledCode;
                 if (code.includes('</head>')) {
-                    styledCode = code.replace('</head>', basicStyles + '</head>');
+                    styledCode = code.replace('<head>', '<head>' + basicStyles);
                 } else if (code.includes('<head>')) {
                     styledCode = code.replace('<head>', '<head>' + basicStyles);
                 } else if (code.includes('<html>')) {
@@ -1976,7 +1977,7 @@
                             className="preview-frame"
                             title={t('ui.previewAria')}
                             aria-label={t('ui.previewAria')}
-                            sandbox="allow-same-origin allow-scripts"
+                            sandbox="allow-same-origin"
                             tabIndex="0"
                             onClick={() => {
                                 // Focus the iframe when clicked to enable keyboard navigation
