@@ -64,7 +64,9 @@
       "glossaryClose": "Close glossary",
       "glossaryNoResults": "No terms match your search.",
       "skipToMainContent": "Skip to main content",
-      "definitionOf": "Definition of {term}"
+      "definitionOf": "Definition of {term}",
+      "backToLessons": "Back to lessons",
+      "viewCertificate": "View certificate"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -913,7 +915,9 @@
       "glossaryClose": "Fermer le glossaire",
       "glossaryNoResults": "Aucun terme ne correspond à votre recherche.",
       "skipToMainContent": "Aller au contenu principal",
-      "definitionOf": "Définition de {term}"
+      "definitionOf": "Définition de {term}",
+      "backToLessons": "Retour aux leçons",
+      "viewCertificate": "Voir le certificat"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",

@@ -770,6 +770,7 @@
             const [language, setLanguage] = useState('en');
             const [refreshKey, setRefreshKey] = useState(0);
             const [glossaryOpen, setGlossaryOpen] = useState(false);
+            const [showCertificateView, setShowCertificateView] = useState(false);
             const [currentPageUrl, setCurrentPageUrl] = useState(() => typeof window !== 'undefined' ? window.location.href : '');
             const glossaryTriggerRef = useRef(null);
             const previewFrameRef = useRef(null);
@@ -898,10 +899,11 @@
                             setLanguage(state.language);
                         }
                         setStudentName(state.name || '');
-                        // If it's a certificate URL (no code), set to last lesson
+                        // If it's a certificate URL (no code), show certificate view
                         if (!state.code && state.completedLessons && state.completedLessons.length === lessons.length) {
                             setCurrentLessonIndex(lessons.length - 1);
                             setCode(''); // No code needed for certificate
+                            setShowCertificateView(true);
                         } else {
                             setCurrentLessonIndex(state.lessonIndex || 0);
                             setCode(state.code || '');
@@ -1026,6 +1028,10 @@
                     setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
                     // Mark lesson as completed (URL is updated by useEffect when completedLessons changes)
                     setCompletedLessons(prev => new Set([...prev, currentLessonIndex]));
+                    // If they just completed the last lesson, show certificate view
+                    if (currentLessonIndex === lessons.length - 1) {
+                        setShowCertificateView(true);
+                    }
                 } else {
                     const expectedElements = currentLesson.expectedElements || currentLessonRaw.expectedElements;
                     const elementsText = Array.isArray(expectedElements) ? expectedElements.join(', ') : expectedElements;
@@ -1443,9 +1449,8 @@
             const isVerified = feedback?.type === 'success';
             const allLessonsComplete = completedLessons.size === lessons.length;
 
-            // Show certificate when all lessons are complete
-            // Use refreshKey to ensure re-render when translations load
-            if (allLessonsComplete && hasStarted && studentName && refreshKey >= 0) {
+            // Show certificate when all lessons are complete and user is viewing certificate
+            if (allLessonsComplete && showCertificateView && hasStarted && studentName && refreshKey >= 0) {
                 const completionDate = new Date().toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-US', { 
                     year: 'numeric', 
                     month: 'long', 
@@ -1483,6 +1488,15 @@
                     <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
                     <div id="main-content" className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
                         <div className="certificate-header">
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => setShowCertificateView(false)}
+                                style={{ marginRight: '12px' }}
+                                aria-label={t('ui.backToLessons')}
+                            >
+                                ← {t('ui.backToLessons')}
+                            </button>
                             <div className="certificate-language-selector">
                                 <button
                                     ref={glossaryTriggerRef}
@@ -1785,6 +1799,18 @@
                                     <div className="progress-label">{t('categories.accessibility')}</div>
                                 </div>
                             </div>
+                            {allLessonsComplete && (
+                                <div style={{ marginTop: '16px' }}>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => setShowCertificateView(true)}
+                                        aria-label={t('ui.viewCertificate')}
+                                    >
+                                        🏆 {t('ui.viewCertificate')}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                         <div className="progress-indicator">
                             <span>{currentLesson.category}: {currentLesson.title}</span>
