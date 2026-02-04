@@ -82,34 +82,52 @@
         }
 
         const REPORT_BUG_EMAIL = 'dlach062@uottawa.ca';
-        const REPORT_BUG_DO_NOT_EDIT_LABEL = 'Please do not edit the section below. It contains technical information to help diagnose the issue.';
         function getReportBugMailtoUrl(context) {
-            const lines = [
-                'Brief description of the bug:',
-                '',
-                '',
-                'Steps to reproduce:',
-                '1. ',
-                '2. ',
-                '3. ',
-                '',
-                '---',
-                REPORT_BUG_DO_NOT_EDIT_LABEL,
-                '---',
-                '',
+            const en = translations.en?.ui || {};
+            const fr = translations.fr?.ui || {};
+            const u = (obj, key, fallback) => (obj[key] && obj[key] !== key ? obj[key] : fallback);
+            const briefEn = u(en, 'bugReportEmailBriefDescription', 'Brief description of the bug:');
+            const stepsEn = u(en, 'bugReportEmailStepsToReproduce', 'Steps to reproduce:');
+            const doNotEditEn = u(en, 'bugReportEmailDoNotEdit', 'Please do not edit the section below. It contains technical information to help diagnose the issue.');
+            const whatToAttachEn = u(en, 'bugReportEmailWhatToAttach', 'What you can attach to help (optional):');
+            const whatToAttachIntroEn = u(en, 'bugReportEmailWhatToAttachIntro', 'You can attach these when you send this email:');
+            const harEn = u(en, 'bugReportEmailHar', 'HAR file: DevTools (F12) → Network tab → reproduce the issue → right-click in the list → Save all as HAR with content. Attach the .har file to your email.');
+            const consoleEn = u(en, 'bugReportEmailConsole', 'Console errors: DevTools (F12) → Console tab → right-click in the console → Save as… (or copy/paste errors into the email body).');
+            const screenshotEn = u(en, 'bugReportEmailScreenshot', 'Screenshot of the issue (browser or OS screenshot tool).');
+            const currentUrlEn = u(en, 'bugReportEmailCurrentUrl', 'Current page URL is included in the technical section below.');
+            const frenchSectionEn = u(en, 'bugReportEmailFrenchSection', '--- Français ---');
+            const briefFr = u(fr, 'bugReportEmailBriefDescription', 'Description courte du bug :');
+            const stepsFr = u(fr, 'bugReportEmailStepsToReproduce', 'Étapes pour reproduire :');
+            const doNotEditFr = u(fr, 'bugReportEmailDoNotEdit', 'Veuillez ne pas modifier la section ci-dessous. Elle contient des informations techniques pour aider à diagnostiquer le problème.');
+            const whatToAttachFr = u(fr, 'bugReportEmailWhatToAttach', 'Ce que vous pouvez joindre pour nous aider (optionnel) :');
+            const whatToAttachIntroFr = u(fr, 'bugReportEmailWhatToAttachIntro', 'Vous pouvez joindre ce qui suit lorsque vous envoyez ce courriel :');
+            const harFr = u(fr, 'bugReportEmailHar', 'Fichier HAR : Outils de développement (F12) → onglet Réseau → reproduisez le problème → clic droit dans la liste → Enregistrer tout au format HAR avec contenu. Joignez le fichier .har à votre courriel.');
+            const consoleFr = u(fr, 'bugReportEmailConsole', 'Erreurs de la console : Outils de développement (F12) → onglet Console → clic droit dans la console → Enregistrer sous… (ou copiez/collez les erreurs dans le corps du courriel).');
+            const screenshotFr = u(fr, 'bugReportEmailScreenshot', "Capture d'écran du problème (outil de capture du navigateur ou du système).");
+            const currentUrlFr = u(fr, 'bugReportEmailCurrentUrl', "L'URL de la page actuelle est indiquée dans la section technique ci-dessous.");
+            const currentPageUrl = (typeof window !== 'undefined' && window.location ? window.location.href : 'N/A');
+            const techLines = [
                 'User agent: ' + (typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'),
                 'Platform: ' + (typeof navigator !== 'undefined' ? navigator.platform : 'N/A'),
                 'Language: ' + (typeof navigator !== 'undefined' ? navigator.language : 'N/A'),
                 'Screen: ' + (typeof screen !== 'undefined' ? screen.width + ' x ' + screen.height : 'N/A'),
                 'Viewport: ' + (typeof window !== 'undefined' ? window.innerWidth + ' x ' + window.innerHeight : 'N/A'),
-                'Document lang: ' + (typeof document !== 'undefined' && document.documentElement ? document.documentElement.getAttribute('lang') : 'N/A')
+                'Document lang: ' + (typeof document !== 'undefined' && document.documentElement ? document.documentElement.getAttribute('lang') : 'N/A'),
+                'Current URL: ' + currentPageUrl
             ];
-            if (context && context.lessonIndex != null) {
-                lines.push('Lesson index: ' + context.lessonIndex);
-            }
-            if (context && context.hasStarted != null) {
-                lines.push('Has started: ' + context.hasStarted);
-            }
+            if (context && context.lessonIndex != null) techLines.push('Lesson index: ' + context.lessonIndex);
+            if (context && context.hasStarted != null) techLines.push('Has started: ' + context.hasStarted);
+            const englishBlock = [
+                briefEn, '', '', stepsEn, '1. ', '2. ', '3. ', '',
+                whatToAttachEn, '', whatToAttachIntroEn, '- ' + harEn, '- ' + consoleEn, '- ' + screenshotEn, '- ' + currentUrlEn, '',
+                '---', doNotEditEn, '---', ''
+            ].concat(techLines);
+            const frenchBlock = [
+                '', frenchSectionEn, '', briefFr, '', '', stepsFr, '1. ', '2. ', '3. ', '',
+                whatToAttachFr, '', whatToAttachIntroFr, '- ' + harFr, '- ' + consoleFr, '- ' + screenshotFr, '- ' + currentUrlFr, '',
+                '---', doNotEditFr, '---', ''
+            ].concat(techLines);
+            const lines = englishBlock.concat(frenchBlock);
             const subject = 'Bug Report - Learn HTML, CSS & Accessible Web Design';
             const body = lines.join('\r\n');
             return 'mailto:' + REPORT_BUG_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);

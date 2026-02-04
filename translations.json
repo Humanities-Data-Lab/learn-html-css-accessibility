@@ -72,7 +72,17 @@
       "definitionOf": "Definition of {term}",
       "backToLessons": "Back to lessons",
       "viewCertificate": "View certificate",
-      "reportBug": "Report bug"
+      "reportBug": "Report bug",
+      "bugReportEmailBriefDescription": "Brief description of the bug:",
+      "bugReportEmailStepsToReproduce": "Steps to reproduce:",
+      "bugReportEmailDoNotEdit": "Please do not edit the section below. It contains technical information to help diagnose the issue.",
+      "bugReportEmailWhatToAttach": "What you can attach to help (optional):",
+      "bugReportEmailWhatToAttachIntro": "You can attach these when you send this email:",
+      "bugReportEmailHar": "HAR file: DevTools (F12) → Network tab → reproduce the issue → right-click in the list → Save all as HAR with content. Attach the .har file to your email.",
+      "bugReportEmailConsole": "Console errors: DevTools (F12) → Console tab → right-click in the console → Save as… (or copy/paste errors into the email body).",
+      "bugReportEmailScreenshot": "Screenshot of the issue (browser or OS screenshot tool).",
+      "bugReportEmailCurrentUrl": "Current page URL is included in the technical section below.",
+      "bugReportEmailFrenchSection": "--- Français ---"
     },
     "categories": {
       "htmlFundamentals": "HTML Fundamentals",
@@ -929,7 +939,17 @@
       "definitionOf": "Définition de {term}",
       "backToLessons": "Retour aux leçons",
       "viewCertificate": "Voir le certificat",
-      "reportBug": "Signaler un bug"
+      "reportBug": "Signaler un bug",
+      "bugReportEmailBriefDescription": "Description courte du bug :",
+      "bugReportEmailStepsToReproduce": "Étapes pour reproduire :",
+      "bugReportEmailDoNotEdit": "Veuillez ne pas modifier la section ci-dessous. Elle contient des informations techniques pour aider à diagnostiquer le problème.",
+      "bugReportEmailWhatToAttach": "Ce que vous pouvez joindre pour nous aider (optionnel) :",
+      "bugReportEmailWhatToAttachIntro": "Vous pouvez joindre ce qui suit lorsque vous envoyez ce courriel :",
+      "bugReportEmailHar": "Fichier HAR : Outils de développement (F12) → onglet Réseau → reproduisez le problème → clic droit dans la liste → Enregistrer tout au format HAR avec contenu. Joignez le fichier .har à votre courriel.",
+      "bugReportEmailConsole": "Erreurs de la console : Outils de développement (F12) → onglet Console → clic droit dans la console → Enregistrer sous… (ou copiez/collez les erreurs dans le corps du courriel).",
+      "bugReportEmailScreenshot": "Capture d’écran du problème (outil de capture du navigateur ou du système).",
+      "bugReportEmailCurrentUrl": "L’URL de la page actuelle est indiquée dans la section technique ci-dessous.",
+      "bugReportEmailFrenchSection": "--- Version française ---"
     },
     "categories": {
       "htmlFundamentals": "Fondamentaux HTML",
