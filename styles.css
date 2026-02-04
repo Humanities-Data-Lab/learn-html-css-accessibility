@@ -220,6 +220,13 @@ body {
     justify-content: center;
     gap: 12px;
 }
+/* When many avatars, cap height and scroll (welcome screen) */
+.lesson-content .avatar-picker-grid {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
 
 .avatar-picker-option {
     padding: 4px;
@@ -301,14 +308,30 @@ body {
 .avatar-picker-dialog {
     max-width: 90vw;
     max-height: 85vh;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.avatar-picker-dialog .glossary-dialog-header {
+    flex-shrink: 0;
+}
+.avatar-picker-dialog .avatar-picker-section {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 .avatar-picker-dialog .avatar-picker-dialog-label {
     margin-bottom: 12px;
+    flex-shrink: 0;
 }
 .avatar-picker-dialog-grid {
-    max-height: 60vh;
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 .header-content-with-avatar {
