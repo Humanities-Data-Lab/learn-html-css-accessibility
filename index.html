@@ -1811,6 +1811,16 @@
                                     </button>
                                 </div>
                             )}
+                            <div className="url-share" style={{ marginTop: '16px' }}>
+                                <p><strong>{t('ui.tip')}</strong> {t('ui.copyUrl')}</p>
+                                <input 
+                                    type="text" 
+                                    readOnly 
+                                    value={window.location.href}
+                                    onClick={(e) => e.target.select()}
+                                    aria-label={t('ui.copyUrl')}
+                                />
+                            </div>
                         </div>
                         <div className="progress-indicator">
                             <span>{currentLesson.category}: {currentLesson.title}</span>
@@ -1944,16 +1954,6 @@
                                     </div>
                                 )}
 
-                                <div className="url-share">
-                                    <p><strong>{t('ui.tip')}</strong> {t('ui.copyUrl')}</p>
-                                    <input 
-                                        type="text" 
-                                        readOnly 
-                                        value={window.location.href}
-                                        onClick={(e) => e.target.select()}
-                                        aria-label={t('ui.copyUrl')}
-                                    />
-                                </div>
                             </div>
                         </div>
                     </div>
