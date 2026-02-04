@@ -20,23 +20,29 @@
         // Translation system - load all content from external JSON file
         let translations = {};
         let translationsLoaded = false;
+        // So t() has a valid language before the first React render (useEffect runs after paint)
+        if (typeof window !== 'undefined') window.currentLanguage = window.currentLanguage || 'en';
 
-        // Load translations.json
-        fetch('translations.json')
-            .then(response => response.json())
+        // Load translations.json (requires HTTP server; fetch fails for file:// in most browsers)
+        const translationsUrl = new URL('translations.json', document.baseURI || window.location.href).href;
+        fetch(translationsUrl)
+            .then(response => {
+                if (!response.ok) throw new Error(response.statusText);
+                return response.json();
+            })
             .then(data => {
                 translations = data;
                 translationsLoaded = true;
-                // Force update any components waiting for translations
-                if (window.forceUpdate) {
-                    window.forceUpdate();
-                }
-                // Also trigger a custom event for components to listen to
+                if (window.forceUpdate) window.forceUpdate();
                 window.dispatchEvent(new CustomEvent('translationsLoaded'));
             })
             .catch(error => {
-                console.error('Error loading translations:', error);
-                // Fallback: translations will be empty, app will use keys
+                console.warn('Translations not loaded (run from a server, e.g. python3 -m http.server):', error.message);
+                // Minimal fallback so UI strings still show when fetch fails (e.g. file://)
+                translations = {
+                    en: { ui: { backToLessons: 'Back to lessons', viewCertificate: 'View certificate' } },
+                    fr: { ui: { backToLessons: 'Retour aux leçons', viewCertificate: 'Voir le certificat' } }
+                };
                 translationsLoaded = true;
                 window.dispatchEvent(new CustomEvent('translationsLoaded'));
             });
