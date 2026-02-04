@@ -202,6 +202,94 @@ body {
     outline-offset: 2px;
 }
 
+/* Avatar picker on welcome screen */
+.avatar-picker-section {
+    margin: 28px 0 24px 0;
+}
+
+.avatar-picker-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 14px;
+}
+
+.avatar-picker-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.avatar-picker-option {
+    padding: 4px;
+    border: 3px solid #e0e0e0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
+}
+
+.avatar-picker-option:hover {
+    border-color: #2563a8;
+}
+
+.avatar-picker-option:focus {
+    outline: 3px solid #2563a8;
+    outline-offset: 2px;
+}
+
+.avatar-picker-option.selected {
+    border-color: #2563a8;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #2563a8;
+}
+
+.avatar-picker-option img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* User avatar in header and certificate */
+.user-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.user-avatar-header {
+    width: 44px;
+    height: 44px;
+}
+
+.header-content-with-avatar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.user-avatar-certificate {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 12px;
+}
+
+.student-name-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.student-name-block .student-name {
+    margin: 0;
+    padding: 0;
+}
+
 .lesson-section {
     margin-bottom: 40px;
 }

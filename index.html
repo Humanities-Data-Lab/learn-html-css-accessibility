@@ -691,6 +691,18 @@
             );
         }
 
+        // Avatar options: free character/avatar images from Unsplash (https://unsplash.com/s/photos/character-avatar?license=free)
+        const AVATAR_OPTIONS = [
+            'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1500648767791-000f15a67242?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1519345182560-3fcd7e263ee0?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=200&h=200&fit=crop'
+        ];
+
         // Compressed hash encoding/decoding with shorter property names
         function encodeState(state) {
             try {
@@ -700,7 +712,8 @@
                     l: state.lessonIndex,   // lessonIndex
                     c: state.code,          // code
                     lang: state.language,   // language
-                    cl: state.completedLessons // completedLessons
+                    cl: state.completedLessons, // completedLessons
+                    a: state.avatarUrl || null  // avatarUrl
                 };
                 const json = JSON.stringify(compressed);
                 // Use base64url encoding (URL-safe, no padding needed for shorter URLs)
@@ -735,7 +748,8 @@
                     lessonIndex: compressed.l,
                     code: compressed.c,
                     language: compressed.lang,
-                    completedLessons: compressed.cl
+                    completedLessons: compressed.cl,
+                    avatarUrl: compressed.a || null
                 };
             } catch (e) {
                 // Try old format decoding as fallback
@@ -754,7 +768,8 @@
                 const compressed = {
                     n: state.name,
                     lang: state.language,
-                    cl: state.completedLessons
+                    cl: state.completedLessons,
+                    a: state.avatarUrl || null
                 };
                 const json = JSON.stringify(compressed);
                 return btoa(json)
@@ -768,6 +783,7 @@
 
         function App() {
             const [studentName, setStudentName] = useState('');
+            const [avatarUrl, setAvatarUrl] = useState(() => AVATAR_OPTIONS[0] || '');
             const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
             const [code, setCode] = useState('');
             const [codeByLesson, setCodeByLesson] = useState(() => ({}));
@@ -907,6 +923,11 @@
                             setLanguage(state.language);
                         }
                         setStudentName(state.name || '');
+                        if (state.avatarUrl && typeof state.avatarUrl === 'string') {
+                            setAvatarUrl(state.avatarUrl);
+                        } else if (AVATAR_OPTIONS[0]) {
+                            setAvatarUrl(AVATAR_OPTIONS[0]);
+                        }
                         // If it's a certificate URL (no code), show certificate view
                         if (!state.code && state.completedLessons && state.completedLessons.length === lessons.length) {
                             setCurrentLessonIndex(lessons.length - 1);
@@ -933,6 +954,7 @@
                 if (hasStarted && studentName) {
                     const state = {
                         name: studentName,
+                        avatarUrl: avatarUrl || null,
                         lessonIndex: currentLessonIndex,
                         code: code,
                         language: language,
@@ -944,7 +966,7 @@
                     // replaceState does not fire hashchange, so update fake browser URL bar
                     setCurrentPageUrl(window.location.href);
                 }
-            }, [studentName, currentLessonIndex, code, completedLessons, hasStarted, language]);
+            }, [studentName, avatarUrl, currentLessonIndex, code, completedLessons, hasStarted, language]);
 
             // Update preview when code changes with basic styling (always inject so preview is readable)
             useEffect(() => {
@@ -1491,8 +1513,9 @@
                             <p className="description">
                                 {t('ui.certificateDescription')}
                             </p>
-                            <div className="student-name" aria-label={t('ui.studentNameAria', { name: studentName })}>
-                                {studentName}
+                            <div className="student-name-block" aria-label={t('ui.studentNameAria', { name: studentName })}>
+                                {avatarUrl ? <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" /> : null}
+                                <span className="student-name">{studentName}</span>
                             </div>
                             <p className="description">
                                 <TextWithTooltips text={t('ui.certificateCompleted')} />
@@ -1522,6 +1545,7 @@
                                             // Use shorter certificate URL format (without code)
                                             const certState = {
                                                 name: studentName,
+                                                avatarUrl: avatarUrl || null,
                                                 language: language,
                                                 completedLessons: Array.from(completedLessons)
                                             };
@@ -1539,6 +1563,7 @@
                                             // Use shorter certificate URL format (without code)
                                             const certState = {
                                                 name: studentName,
+                                                avatarUrl: avatarUrl || null,
                                                 language: language,
                                                 completedLessons: Array.from(completedLessons)
                                             };
@@ -1615,6 +1640,23 @@
                                     <p style={{ fontSize: '14px', color: '#595959', fontStyle: 'italic', marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
                                         {t('ui.tutorialCredit')}
                                     </p>
+                                    <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-label">
+                                        <p id="avatar-picker-label" className="avatar-picker-label">{t('ui.chooseAvatar')}</p>
+                                        <div className="avatar-picker-grid">
+                                            {AVATAR_OPTIONS.map((url, index) => (
+                                                <button
+                                                    key={url}
+                                                    type="button"
+                                                    className={`avatar-picker-option ${avatarUrl === url ? 'selected' : ''}`}
+                                                    onClick={() => setAvatarUrl(url)}
+                                                    aria-pressed={avatarUrl === url}
+                                                    aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS.length })}
+                                                >
+                                                    <img src={url} alt="" width="80" height="80" />
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                     <form onSubmit={handleNameSubmit} className="name-input">
                                         <label htmlFor="student-name-input" className="sr-only">{t('ui.enterName')}</label>
                                         <input 
@@ -1648,9 +1690,14 @@
                 <div id="main-content" className="app-container" role="main">
                     <div className="lesson-panel">
                         <div className="header">
-                            <div className="header-content">
-                                <h1>{t('ui.title')}</h1>
-                                <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
+                            <div className="header-content header-content-with-avatar">
+                                {avatarUrl ? (
+                                    <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" />
+                                ) : null}
+                                <div>
+                                    <h1>{t('ui.title')}</h1>
+                                    <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
+                                </div>
                             </div>
                             <div className="language-selector">
                                 <button
