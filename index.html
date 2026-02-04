@@ -2037,7 +2037,7 @@
                                         📖 {t('ui.glossaryButton')}
                                     </button>
                                     <a
-                                        href={getReportBugMailtoUrl({ hasStarted })}
+                                        href={getReportBugMailtoUrl({ lessonIndex: currentLessonIndex, hasStarted: true })}
                                         className="glossary-btn report-bug-btn"
                                         style={{ textDecoration: 'none' }}
                                         aria-label={t('ui.reportBug')}
