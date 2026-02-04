@@ -692,7 +692,7 @@
         }
 
         // Avatar picker popup: change avatar from header or certificate (accessible dialog)
-        function AvatarPickerPopup({ open, onClose, avatarUrl, setAvatarUrl, triggerRef }) {
+        function AvatarPickerPopup({ open, onClose, avatarUrl, setAvatarUrl, triggerRef, validAvatarOptions, onAvatarFailed }) {
             const dialogRef = useRef(null);
             const closeButtonRef = useRef(null);
 
@@ -767,7 +767,7 @@
                         <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-dialog-label">
                             <p id="avatar-picker-dialog-label" className="avatar-picker-label avatar-picker-dialog-label">{t('ui.chooseAvatar')}</p>
                             <div className="avatar-picker-grid avatar-picker-dialog-grid" aria-describedby="avatar-picker-scroll-hint">
-                                {AVATAR_OPTIONS_SHUFFLED.map((url, index) => (
+                                {(validAvatarOptions || AVATAR_OPTIONS_SHUFFLED).map((url, index) => (
                                     <button
                                         key={url}
                                         type="button"
@@ -777,9 +777,9 @@
                                             onClose();
                                         }}
                                         aria-pressed={avatarUrl === url}
-                                        aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS_SHUFFLED.length })}
+                                        aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: (validAvatarOptions || AVATAR_OPTIONS_SHUFFLED).length })}
                                     >
-                                        <img src={url} alt="" width="80" height="80" onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR_URL; }} />
+                                        <img src={url} alt="" width="80" height="80" onError={() => { if (onAvatarFailed) onAvatarFailed(url); }} />
                                     </button>
                                 ))}
                             </div>
@@ -903,6 +903,15 @@
             return a;
         }
         const AVATAR_OPTIONS_SHUFFLED = shuffleArray(AVATAR_OPTIONS);
+        const AVATAR_FAILED_STORAGE_KEY = 'avatarFailedUrls';
+        function getInitialFailedAvatarUrls() {
+            try {
+                const raw = typeof localStorage !== 'undefined' && localStorage.getItem(AVATAR_FAILED_STORAGE_KEY);
+                return new Set(raw ? JSON.parse(raw) : []);
+            } catch (e) {
+                return new Set();
+            }
+        }
 
         // Compressed hash encoding/decoding with shorter property names
         function encodeState(state) {
@@ -984,7 +993,16 @@
 
         function App() {
             const [studentName, setStudentName] = useState('');
-            const [avatarUrl, setAvatarUrl] = useState(() => AVATAR_OPTIONS_SHUFFLED[0] || DEFAULT_AVATAR_URL);
+            const [failedAvatarUrls, setFailedAvatarUrls] = useState(getInitialFailedAvatarUrls);
+            const validAvatarOptions = React.useMemo(
+                () => AVATAR_OPTIONS_SHUFFLED.filter((url) => !failedAvatarUrls.has(url)),
+                [failedAvatarUrls]
+            );
+            const [avatarUrl, setAvatarUrl] = useState(() => {
+                const failed = getInitialFailedAvatarUrls();
+                const valid = AVATAR_OPTIONS_SHUFFLED.filter((u) => !failed.has(u));
+                return valid[0] || DEFAULT_AVATAR_URL;
+            });
             const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
             const [code, setCode] = useState('');
             const [codeByLesson, setCodeByLesson] = useState(() => ({}));
@@ -1005,6 +1023,23 @@
             const textareaRef = useRef(null);
             const nextButtonRef = useRef(null);
             const prevLessonIndexRef = useRef(undefined);
+
+            const onAvatarFailed = (url) => {
+                setFailedAvatarUrls((prev) => {
+                    const next = new Set(prev);
+                    next.add(url);
+                    try {
+                        localStorage.setItem(AVATAR_FAILED_STORAGE_KEY, JSON.stringify([...next]));
+                    } catch (e) {}
+                    return next;
+                });
+            };
+
+            useEffect(() => {
+                if (failedAvatarUrls.has(avatarUrl)) {
+                    setAvatarUrl(validAvatarOptions[0] || DEFAULT_AVATAR_URL);
+                }
+            }, [failedAvatarUrls, avatarUrl]);
 
             // Keep fake browser address bar in sync with current URL (hash changes, etc.)
             useEffect(() => {
@@ -1728,7 +1763,7 @@
                                     aria-haspopup="dialog"
                                 >
                                     {avatarUrl ? (
-                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR_URL; }} />
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" onError={() => { onAvatarFailed(avatarUrl); setAvatarUrl(DEFAULT_AVATAR_URL); }} />
                                     ) : (
                                         <span className="avatar-placeholder avatar-placeholder-certificate" aria-hidden="true" />
                                     )}
@@ -1861,16 +1896,16 @@
                                     <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-label">
                                         <p id="avatar-picker-label" className="avatar-picker-label">{t('ui.chooseAvatar')}</p>
                                         <div className="avatar-picker-grid" aria-describedby="welcome-avatar-scroll-hint">
-                                            {AVATAR_OPTIONS_SHUFFLED.map((url, index) => (
+                                            {validAvatarOptions.map((url, index) => (
                                                 <button
                                                     key={url}
                                                     type="button"
                                                     className={`avatar-picker-option ${avatarUrl === url ? 'selected' : ''}`}
                                                     onClick={() => setAvatarUrl(url)}
                                                     aria-pressed={avatarUrl === url}
-                                                    aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS_SHUFFLED.length })}
+                                                    aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: validAvatarOptions.length })}
                                                 >
-                                                    <img src={url} alt="" width="80" height="80" onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_AVATAR_URL; }} />
+                                                    <img src={url} alt="" width="80" height="80" onError={() => onAvatarFailed(url)} />
                                                 </button>
                                             ))}
                                         </div>
@@ -1906,6 +1941,8 @@
                             avatarUrl={avatarUrl}
                             setAvatarUrl={setAvatarUrl}
                             triggerRef={avatarTriggerRef}
+                            validAvatarOptions={validAvatarOptions}
+                            onAvatarFailed={onAvatarFailed}
                         />
                     )}
                     </>
@@ -1930,7 +1967,7 @@
                                     aria-haspopup="dialog"
                                 >
                                     {avatarUrl ? (
-                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" onError={() => setAvatarUrl(DEFAULT_AVATAR_URL)} />
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" onError={() => { onAvatarFailed(avatarUrl); setAvatarUrl(DEFAULT_AVATAR_URL); }} />
                                     ) : (
                                         <span className="avatar-placeholder" aria-hidden="true" />
                                     )}
@@ -2287,6 +2324,8 @@
                         avatarUrl={avatarUrl}
                         setAvatarUrl={setAvatarUrl}
                         triggerRef={avatarTriggerRef}
+                        validAvatarOptions={validAvatarOptions}
+                        onAvatarFailed={onAvatarFailed}
                     />
                 )}
                 </>
