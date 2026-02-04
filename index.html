@@ -918,15 +918,14 @@
                 }
             }, []);
 
-            // Update URL hash when state changes - saves code continuously as user types
+            // Update URL hash when state changes - saves progress (including after each successful verify)
             useEffect(() => {
                 if (hasStarted && studentName) {
                     const state = {
                         name: studentName,
                         lessonIndex: currentLessonIndex,
-                        code: code, // This saves the code every time it changes
-                        language: language, // Save language preference
-                        // Convert Set to array for JSON serialization
+                        code: code,
+                        language: language,
                         completedLessons: Array.from(completedLessons)
                     };
                     const hash = encodeState(state);
@@ -1023,7 +1022,9 @@
                 const currentLesson = getTranslatedLesson(currentLessonRaw, language);
                 if (currentLessonRaw.validator(code)) {
                     setFeedback({ type: 'success', message: t('ui.successMessage') });
-                    // Mark lesson as completed
+                    // Save this lesson's code so "Download all my files" on certificate includes it
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                    // Mark lesson as completed (URL is updated by useEffect when completedLessons changes)
                     setCompletedLessons(prev => new Set([...prev, currentLessonIndex]));
                 } else {
                     const expectedElements = currentLesson.expectedElements || currentLessonRaw.expectedElements;
@@ -1460,9 +1461,10 @@
                 const downloadAllFiles = () => {
                     if (typeof window.JSZip === 'undefined') return;
                     const zip = new window.JSZip();
-                    lessons.forEach((lessonRaw) => {
+                    lessons.forEach((lessonRaw, index) => {
                         const lesson = getTranslatedLesson(lessonRaw, language);
-                        const raw = codeByLesson[lessonRaw.id] ?? lesson.codeTemplate ?? '';
+                        // Use saved code, or current lesson's code (last lesson never gets saved via Next), or template
+                        const raw = codeByLesson[lessonRaw.id] ?? (index === currentLessonIndex ? code : null) ?? lesson.codeTemplate ?? '';
                         const html = wrapInDoc(raw, lessonRaw.id);
                         zip.file(`${lessonRaw.id}.html`, html);
                     });
