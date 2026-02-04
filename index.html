@@ -691,6 +691,104 @@
             );
         }
 
+        // Avatar picker popup: change avatar from header or certificate (accessible dialog)
+        function AvatarPickerPopup({ open, onClose, avatarUrl, setAvatarUrl, triggerRef }) {
+            const dialogRef = useRef(null);
+            const closeButtonRef = useRef(null);
+
+            useEffect(() => {
+                if (open) {
+                    const t = setTimeout(() => closeButtonRef.current?.focus(), 50);
+                    return () => clearTimeout(t);
+                } else if (triggerRef?.current) {
+                    triggerRef.current.focus();
+                }
+            }, [open, triggerRef]);
+
+            useEffect(() => {
+                if (!open) return;
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        e.preventDefault();
+                        onClose();
+                    }
+                    if (e.key === 'Tab' && dialogRef.current) {
+                        const focusable = dialogRef.current.querySelectorAll(
+                            'button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+                        );
+                        const list = Array.from(focusable).filter(el => el.offsetParent !== null);
+                        const idx = list.indexOf(document.activeElement);
+                        if (idx === -1) return;
+                        if (e.shiftKey) {
+                            if (idx <= 0) {
+                                e.preventDefault();
+                                list[list.length - 1].focus();
+                            }
+                        } else {
+                            if (idx >= list.length - 1) {
+                                e.preventDefault();
+                                list[0].focus();
+                            }
+                        }
+                    }
+                };
+                document.addEventListener('keydown', handleKeyDown);
+                return () => document.removeEventListener('keydown', handleKeyDown);
+            }, [open, onClose]);
+
+            if (!open) return null;
+
+            return (
+                <div
+                    className="glossary-overlay"
+                    onClick={(e) => e.target === e.currentTarget && onClose()}
+                    role="presentation"
+                >
+                    <div
+                        ref={dialogRef}
+                        className="glossary-dialog avatar-picker-dialog"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="avatar-picker-dialog-title"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="glossary-dialog-header">
+                            <h2 id="avatar-picker-dialog-title" className="glossary-title">{t('ui.chooseAvatar')}</h2>
+                            <button
+                                ref={closeButtonRef}
+                                type="button"
+                                className="glossary-close-btn"
+                                onClick={onClose}
+                                aria-label={t('ui.glossaryClose')}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-dialog-label">
+                            <p id="avatar-picker-dialog-label" className="avatar-picker-label avatar-picker-dialog-label">{t('ui.chooseAvatar')}</p>
+                            <div className="avatar-picker-grid avatar-picker-dialog-grid">
+                                {AVATAR_OPTIONS.map((url, index) => (
+                                    <button
+                                        key={url}
+                                        type="button"
+                                        className={`avatar-picker-option ${avatarUrl === url ? 'selected' : ''}`}
+                                        onClick={() => {
+                                            setAvatarUrl(url);
+                                            onClose();
+                                        }}
+                                        aria-pressed={avatarUrl === url}
+                                        aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: AVATAR_OPTIONS.length })}
+                                    >
+                                        <img src={url} alt="" width="80" height="80" />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         // Default avatar when none is found (e.g. old URL without avatar, or empty list)
         const DEFAULT_AVATAR_URL = 'https://images.unsplash.com/vector-1749482379863-918278061c7f?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
@@ -825,9 +923,11 @@
             const [language, setLanguage] = useState('en');
             const [refreshKey, setRefreshKey] = useState(0);
             const [glossaryOpen, setGlossaryOpen] = useState(false);
+            const [avatarPickerOpen, setAvatarPickerOpen] = useState(false);
             const [showCertificateView, setShowCertificateView] = useState(false);
             const [currentPageUrl, setCurrentPageUrl] = useState(() => typeof window !== 'undefined' ? window.location.href : '');
             const glossaryTriggerRef = useRef(null);
+            const avatarTriggerRef = useRef(null);
             const previewFrameRef = useRef(null);
             const codeRef = useRef('');
             const textareaRef = useRef(null);
@@ -1545,7 +1645,22 @@
                                 {t('ui.certificateDescription')}
                             </p>
                             <div className="student-name-block" aria-label={t('ui.studentNameAria', { name: studentName })}>
-                                {avatarUrl ? <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" /> : null}
+                                <button
+                                    type="button"
+                                    className="avatar-change-btn avatar-change-btn-certificate"
+                                    onClick={(e) => {
+                                        avatarTriggerRef.current = e.currentTarget;
+                                        setAvatarPickerOpen(true);
+                                    }}
+                                    aria-label={t('ui.changeAvatar')}
+                                    aria-haspopup="dialog"
+                                >
+                                    {avatarUrl ? (
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" />
+                                    ) : (
+                                        <span className="avatar-placeholder avatar-placeholder-certificate" aria-hidden="true" />
+                                    )}
+                                </button>
                                 <span className="student-name">{studentName}</span>
                             </div>
                             <p className="description">
@@ -1711,6 +1826,15 @@
                         </div>
                     </div>
                     {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                    {avatarPickerOpen && (
+                        <AvatarPickerPopup
+                            open={avatarPickerOpen}
+                            onClose={() => setAvatarPickerOpen(false)}
+                            avatarUrl={avatarUrl}
+                            setAvatarUrl={setAvatarUrl}
+                            triggerRef={avatarTriggerRef}
+                        />
+                    )}
                     </>
                 );
             }
@@ -1722,9 +1846,22 @@
                     <div className="lesson-panel">
                         <div className="header">
                             <div className="header-content header-content-with-avatar">
-                                {avatarUrl ? (
-                                    <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" />
-                                ) : null}
+                                <button
+                                    type="button"
+                                    className="avatar-change-btn"
+                                    onClick={(e) => {
+                                        avatarTriggerRef.current = e.currentTarget;
+                                        setAvatarPickerOpen(true);
+                                    }}
+                                    aria-label={t('ui.changeAvatar')}
+                                    aria-haspopup="dialog"
+                                >
+                                    {avatarUrl ? (
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" />
+                                    ) : (
+                                        <span className="avatar-placeholder" aria-hidden="true" />
+                                    )}
+                                </button>
                                 <div>
                                     <h1>{t('ui.title')}</h1>
                                     <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
@@ -2070,6 +2207,15 @@
                     </div>
                 </div>
                 {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                {avatarPickerOpen && (
+                    <AvatarPickerPopup
+                        open={avatarPickerOpen}
+                        onClose={() => setAvatarPickerOpen(false)}
+                        avatarUrl={avatarUrl}
+                        setAvatarUrl={setAvatarUrl}
+                        triggerRef={avatarTriggerRef}
+                    />
+                )}
                 </>
             );
         }

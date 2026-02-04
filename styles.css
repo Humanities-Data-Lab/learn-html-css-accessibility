@@ -265,6 +265,52 @@ body {
     height: 44px;
 }
 
+.avatar-change-btn {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.avatar-change-btn:hover {
+    opacity: 0.9;
+}
+.avatar-change-btn:focus {
+    outline: 3px solid #2563a8;
+    outline-offset: 2px;
+}
+.avatar-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e0e0e0;
+}
+.avatar-change-btn-certificate .user-avatar,
+.avatar-change-btn-certificate .avatar-placeholder-certificate {
+    margin-bottom: 0;
+}
+.avatar-placeholder-certificate {
+    width: 80px;
+    height: 80px;
+}
+
+/* Avatar picker dialog (reuses glossary overlay) */
+.avatar-picker-dialog {
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow: auto;
+}
+.avatar-picker-dialog .avatar-picker-dialog-label {
+    margin-bottom: 12px;
+}
+.avatar-picker-dialog-grid {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
 .header-content-with-avatar {
     display: flex;
     align-items: center;
