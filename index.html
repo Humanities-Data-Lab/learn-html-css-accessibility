@@ -766,7 +766,7 @@
                         </div>
                         <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-dialog-label">
                             <p id="avatar-picker-dialog-label" className="avatar-picker-label avatar-picker-dialog-label">{t('ui.chooseAvatar')}</p>
-                            <div className="avatar-picker-grid avatar-picker-dialog-grid">
+                            <div className="avatar-picker-grid avatar-picker-dialog-grid" aria-describedby="avatar-picker-scroll-hint">
                                 {AVATAR_OPTIONS_SHUFFLED.map((url, index) => (
                                     <button
                                         key={url}
@@ -783,6 +783,7 @@
                                     </button>
                                 ))}
                             </div>
+                            <p id="avatar-picker-scroll-hint" className="avatar-picker-scroll-hint" role="status">{t('ui.avatarPickerScrollHint')}</p>
                         </div>
                     </div>
                 </div>
