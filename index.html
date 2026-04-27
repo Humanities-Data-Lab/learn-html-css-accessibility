@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML, CSS & Accessible Web Design</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Translation system - load all content from external JSON file
+        let translations = {};
+        let translationsLoaded = false;
+        // Bump when you change translations.json to avoid stale cache
+        const TRANSLATIONS_VERSION = 1;
+        if (typeof window !== 'undefined') window.currentLanguage = window.currentLanguage || 'en';
+
+        // Load translations.json (requires HTTP server; fetch fails for file:// in most browsers)
+        const translationsBase = new URL('translations.json', document.baseURI || window.location.href).href;
+        const translationsUrl = translationsBase + (translationsBase.includes('?') ? '&' : '?') + 'v=' + TRANSLATIONS_VERSION;
+        fetch(translationsUrl, { cache: 'no-store' })
+            .then(response => {
+                if (!response.ok) throw new Error(response.statusText);
+                return response.json();
+            })
+            .then(data => {
+                translations = data;
+                translationsLoaded = true;
+                if (window.forceUpdate) window.forceUpdate();
+                window.dispatchEvent(new CustomEvent('translationsLoaded'));
+            })
+            .catch(error => {
+                console.warn('Translations not loaded (run from a server, e.g. python3 -m http.server):', error.message);
+                // Minimal fallback so UI strings still show when fetch fails (e.g. file://)
+                translations = {
+                    en: { ui: { backToLessons: 'Back to lessons', viewCertificate: 'View certificate' } },
+                    fr: { ui: { backToLessons: 'Retour aux leçons', viewCertificate: 'Voir le certificat' } }
+                };
+                translationsLoaded = true;
+                window.dispatchEvent(new CustomEvent('translationsLoaded'));
+            });
+
+        // Translation helper function
+        function t(key, params = {}) {
+            if (!translationsLoaded) return key;
+            const lang = window.currentLanguage || 'en';
+            const keys = key.split('.');
+            let value = translations[lang];
+            
+            for (const k of keys) {
+                if (value && typeof value === 'object' && k in value) {
+                    value = value[k];
+                } else {
+                    // Fallback to English if translation not found
+                    value = translations.en;
+                    for (const k2 of keys) {
+                        if (value && typeof value === 'object' && k2 in value) {
+                            value = value[k2];
+                        } else {
+                            return key;
+                        }
+                    }
+                    break;
+                }
+            }
+            
+            if (typeof value !== 'string') return key;
+            
+            // Replace parameters
+            return value.replace(/\{(\w+)\}/g, (match, param) => {
+                return params[param] !== undefined ? params[param] : match;
+            });
+        }
+
+        const REPORT_BUG_EMAIL = 'dlach062@uottawa.ca';
+        function getReportBugMailtoUrl(context) {
+            const en = translations.en?.ui || {};
+            const fr = translations.fr?.ui || {};
+            const u = (obj, key, fallback) => (obj[key] && obj[key] !== key ? obj[key] : fallback);
+            const briefEn = u(en, 'bugReportEmailBriefDescription', 'Brief description of the bug:');
+            const stepsEn = u(en, 'bugReportEmailStepsToReproduce', 'Steps to reproduce:');
+            const doNotEditEn = u(en, 'bugReportEmailDoNotEdit', 'Please do not edit the section below. It contains technical information to help diagnose the issue.');
+            const whatToAttachEn = u(en, 'bugReportEmailWhatToAttach', 'What you can attach to help (optional):');
+            const whatToAttachIntroEn = u(en, 'bugReportEmailWhatToAttachIntro', 'You can attach these when you send this email:');
+            const harEn = u(en, 'bugReportEmailHar', 'HAR file: DevTools (F12) → Network tab → reproduce the issue → right-click in the list → Save all as HAR with content. Attach the .har file to your email.');
+            const consoleEn = u(en, 'bugReportEmailConsole', 'Console errors: DevTools (F12) → Console tab → right-click in the console → Save as… (or copy/paste errors into the email body).');
+            const screenshotEn = u(en, 'bugReportEmailScreenshot', 'Screenshot of the issue (browser or OS screenshot tool).');
+            const currentUrlEn = u(en, 'bugReportEmailCurrentUrl', 'Current page URL is included in the technical section below.');
+            const frenchSectionEn = u(en, 'bugReportEmailFrenchSection', '--- Français ---');
+            const briefFr = u(fr, 'bugReportEmailBriefDescription', 'Description courte du bug :');
+            const stepsFr = u(fr, 'bugReportEmailStepsToReproduce', 'Étapes pour reproduire :');
+            const doNotEditFr = u(fr, 'bugReportEmailDoNotEdit', 'Veuillez ne pas modifier la section ci-dessous. Elle contient des informations techniques pour aider à diagnostiquer le problème.');
+            const whatToAttachFr = u(fr, 'bugReportEmailWhatToAttach', 'Ce que vous pouvez joindre pour nous aider (optionnel) :');
+            const whatToAttachIntroFr = u(fr, 'bugReportEmailWhatToAttachIntro', 'Vous pouvez joindre ce qui suit lorsque vous envoyez ce courriel :');
+            const harFr = u(fr, 'bugReportEmailHar', 'Fichier HAR : Outils de développement (F12) → onglet Réseau → reproduisez le problème → clic droit dans la liste → Enregistrer tout au format HAR avec contenu. Joignez le fichier .har à votre courriel.');
+            const consoleFr = u(fr, 'bugReportEmailConsole', 'Erreurs de la console : Outils de développement (F12) → onglet Console → clic droit dans la console → Enregistrer sous… (ou copiez/collez les erreurs dans le corps du courriel).');
+            const screenshotFr = u(fr, 'bugReportEmailScreenshot', "Capture d'écran du problème (outil de capture du navigateur ou du système).");
+            const currentUrlFr = u(fr, 'bugReportEmailCurrentUrl', "L'URL de la page actuelle est indiquée dans la section technique ci-dessous.");
+            const currentPageUrl = (typeof window !== 'undefined' && window.location ? window.location.href : 'N/A');
+            const techLines = [
+                'User agent: ' + (typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'),
+                'Platform: ' + (typeof navigator !== 'undefined' ? navigator.platform : 'N/A'),
+                'Language: ' + (typeof navigator !== 'undefined' ? navigator.language : 'N/A'),
+                'Screen: ' + (typeof screen !== 'undefined' ? screen.width + ' x ' + screen.height : 'N/A'),
+                'Viewport: ' + (typeof window !== 'undefined' ? window.innerWidth + ' x ' + window.innerHeight : 'N/A'),
+                'Document lang: ' + (typeof document !== 'undefined' && document.documentElement ? document.documentElement.getAttribute('lang') : 'N/A'),
+                'Current URL: ' + currentPageUrl
+            ];
+            if (context && context.lessonIndex != null) techLines.push('Lesson index: ' + context.lessonIndex);
+            if (context && context.hasStarted != null) techLines.push('Has started: ' + context.hasStarted);
+            const englishBlock = [
+                briefEn, '', '', stepsEn, '1. ', '2. ', '3. ', '',
+                whatToAttachEn, '', whatToAttachIntroEn, '- ' + harEn, '- ' + consoleEn, '- ' + screenshotEn, '- ' + currentUrlEn, '',
+                '---', doNotEditEn, '---', ''
+            ].concat(techLines);
+            const frenchBlock = [
+                '', frenchSectionEn, '', briefFr, '', '', stepsFr, '1. ', '2. ', '3. ', '',
+                whatToAttachFr, '', whatToAttachIntroFr, '- ' + harFr, '- ' + consoleFr, '- ' + screenshotFr, '- ' + currentUrlFr, '',
+                '---', doNotEditFr, '---', ''
+            ].concat(techLines);
+            const lines = englishBlock.concat(frenchBlock);
+            const subject = 'Bug Report - Learn HTML, CSS & Accessible Web Design';
+            const body = lines.join('\r\n');
+            return 'mailto:' + REPORT_BUG_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        }
+
+        // Get translated glossary definition
+        function getTranslatedGlossary(term) {
+            if (!translationsLoaded) {
+                // Fallback to English glossary in translations if available
+                const enGlossary = translations.en?.glossary;
+                if (enGlossary && typeof enGlossary === 'object') {
+                    return enGlossary[term] || enGlossary[term.toLowerCase()];
+                }
+                return null;
+            }
+            const lang = window.currentLanguage || 'en';
+            
+            // Try to get from translated glossary
+            const translatedGlossary = translations[lang]?.glossary;
+            if (translatedGlossary && typeof translatedGlossary === 'object') {
+                if (term in translatedGlossary) {
+                    return translatedGlossary[term];
+                }
+                if (term.toLowerCase() in translatedGlossary) {
+                    return translatedGlossary[term.toLowerCase()];
+                }
+            }
+            
+            // Fallback to English glossary in translations
+            const enGlossary = translations.en?.glossary;
+            if (enGlossary && typeof enGlossary === 'object') {
+                if (term in enGlossary) {
+                    return enGlossary[term];
+                }
+                if (term.toLowerCase() in enGlossary) {
+                    return enGlossary[term.toLowerCase()];
+                }
+            }
+            
+            return null;
+        }
+
+        // Get translated lesson data
+        function getTranslatedLesson(lesson, langOverride = null) {
+            if (!translationsLoaded) return lesson;
+            const lang = langOverride || window.currentLanguage || 'en';
+            const lessonTranslations = translations[lang]?.lessons?.[lesson.id];
+            
+            // Map category names to translation keys
+            const categoryMap = {
+                'HTML Fundamentals': 'htmlFundamentals',
+                'HTML': 'html',
+                'CSS': 'css',
+                'Accessibility': 'accessibility'
+            };
+            const categoryKey = categoryMap[lesson.category] || lesson.category.toLowerCase().replace(/\s+/g, '');
+            const translatedCategory = t(`categories.${categoryKey}`) || lesson.category;
+            
+            if (!lessonTranslations) {
+                // Fallback to English or original lesson
+                const enTranslations = translations.en?.lessons?.[lesson.id];
+                if (enTranslations) {
+                    return {
+                        ...lesson,
+                        category: translatedCategory,
+                        title: enTranslations.title || lesson.title,
+                        description: enTranslations.description || lesson.description,
+                        whyImportant: enTranslations.whyImportant || lesson.whyImportant,
+                        whatToDo: enTranslations.whatToDo || lesson.whatToDo,
+                        w3schoolsLinks: enTranslations.w3schoolsLinks || lesson.w3schoolsLinks,
+                        expectedElements: enTranslations.expectedElements || lesson.expectedElements,
+                        codeTemplate: enTranslations.codeTemplate || lesson.codeTemplate
+                    };
+                }
+                // If no translations at all, use original with translated category
+                return {
+                    ...lesson,
+                    category: translatedCategory
+                };
+            }
+            
+            return {
+                ...lesson,
+                category: translatedCategory,
+                title: lessonTranslations.title || lesson.title,
+                description: lessonTranslations.description || lesson.description,
+                whyImportant: lessonTranslations.whyImportant || lesson.whyImportant,
+                whatToDo: lessonTranslations.whatToDo || lesson.whatToDo,
+                w3schoolsLinks: lessonTranslations.w3schoolsLinks || lesson.w3schoolsLinks,
+                expectedElements: lessonTranslations.expectedElements || lesson.expectedElements,
+                codeTemplate: lessonTranslations.codeTemplate || lesson.codeTemplate
+            };
+        }
+
+        // Lesson data structure
+        const lessons = [
+            {
+                id: 'fundamentals-1',
+                category: 'HTML Fundamentals',
+                validator: (code) => {
+                    const hasOpeningTag = /<[a-z]+[^>]*>/i.test(code);
+                    const hasClosingTag = /<\/[a-z]+>/i.test(code);
+                    return hasOpeningTag && hasClosingTag;
+                }
+            },
+            {
+                id: 'fundamentals-2',
+                category: 'HTML Fundamentals',
+                validator: (code) => {
+                    const hasP = /<p[^>]*>[\s\S]*?<\/p>/i.test(code);
+                    const hasContent = /<p[^>]*>[^<]+<\/p>/i.test(code);
+                    return hasP && hasContent;
+                }
+            },
+            {
+                id: 'fundamentals-3',
+                category: 'HTML Fundamentals',
+                validator: (code) => {
+                    const hasId = /<[a-z]+[^>]*\s+id\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    const hasClass = /<[a-z]+[^>]*\s+class\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    return hasId && hasClass;
+                }
+            },
+            {
+                id: 'fundamentals-4',
+                category: 'HTML Fundamentals',
+                validator: (code) => {
+                    const hasDiv = /<div[^>]*>[\s\S]*?<\/div>/i.test(code);
+                    const hasDivWithClass = /<div[^>]*class\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/div>/i.test(code);
+                    const hasSpan = /<span[^>]*>[\s\S]*?<\/span>/i.test(code);
+                    const hasStrong = /<strong[^>]*>[\s\S]*?<\/strong>/i.test(code);
+                    const hasEm = /<em[^>]*>[\s\S]*?<\/em>/i.test(code);
+                    return hasDivWithClass && hasSpan && (hasStrong || hasEm);
+                }
+            },
+            {
+                id: 'html-1',
+                category: 'HTML',
+                validator: (code) => {
+                    const hasHtml = /<html/i.test(code);
+                    const hasHead = /<head/i.test(code);
+                    const hasTitle = /<title/i.test(code);
+                    const hasBody = /<body/i.test(code);
+                    return hasHtml && hasHead && hasTitle && hasBody;
+                }
+            },
+            {
+                id: 'html-2',
+                category: 'HTML',
+                validator: (code) => {
+                    const hasH1 = /<h1[^>]*>[\s\S]*?<\/h1>/i.test(code);
+                    const hasP = /<p[^>]*>[\s\S]*?<\/p>/i.test(code);
+                    return hasH1 && hasP;
+                }
+            },
+            {
+                id: 'html-3',
+                category: 'HTML',
+                validator: (code) => {
+                    // Use [\s\S]* instead of .* to match newlines
+                    const hasList = /<(ul|ol)[^>]*>[\s\S]*?<\/(ul|ol)>/i.test(code);
+                    const hasLi = /<li[^>]*>[\s\S]*?<\/li>/i.test(code);
+                    return hasList && hasLi;
+                }
+            },
+            {
+                id: 'html-4',
+                category: 'HTML',
+                validator: (code) => {
+                    const hasLink = /<a[^>]*href\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/a>/i.test(code);
+                    return hasLink;
+                }
+            },
+            {
+                id: 'html-5',
+                category: 'HTML',
+                validator: (code) => {
+                    const hasImg = /<img[^>]*src\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    const hasAlt = /<img[^>]*alt\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    return hasImg && hasAlt;
+                }
+            },
+            {
+                id: 'css-1',
+                category: 'CSS',
+                validator: (code) => {
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasCssRule = /[a-z-]+\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasCssRule;
+                }
+            },
+            {
+                id: 'css-2',
+                category: 'CSS',
+                validator: (code) => {
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasTextStyling = /(color|font-size|font-weight)\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasTextStyling;
+                }
+            },
+            {
+                id: 'css-3',
+                category: 'CSS',
+                validator: (code) => {
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasBgOrBorder = /(background-color|border)\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasBgOrBorder;
+                }
+            },
+            {
+                id: 'css-4',
+                category: 'CSS',
+                validator: (code) => {
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasSpacing = /(margin|padding)\s*:\s*[^;]+;/i.test(code);
+                    return hasStyle && hasSpacing;
+                }
+            },
+            {
+                id: 'css-5',
+                category: 'CSS',
+                validator: (code) => {
+                    const hasStyle = /<style[^>]*>/i.test(code);
+                    const hasIdOrClass = /(#[a-z-]+|\.[a-z-]+)\s*\{/i.test(code);
+                    return hasStyle && hasIdOrClass;
+                }
+            },
+            {
+                id: 'accessibility-1',
+                category: 'Accessibility',
+                validator: (code) => {
+                    const hasLang = /<html[^>]*lang\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    const hasSemantic = /<(header|main|footer|nav|article|section)[^>]*>/i.test(code);
+                    return hasLang && hasSemantic;
+                }
+            },
+            {
+                id: 'accessibility-2',
+                category: 'Accessibility',
+                validator: (code) => {
+                    const hasImg = /<img[^>]*>/i.test(code);
+                    const hasAlt = /<img[^>]*alt\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+                    return hasImg && hasAlt && code.match(/alt\s*=\s*["'][^"']{10,}["']/i);
+                }
+            },
+            {
+                id: 'accessibility-3',
+                category: 'Accessibility',
+                validator: (code) => {
+                    const hasH1 = /<h1[^>]*>/i.test(code);
+                    const hasH2 = /<h2[^>]*>/i.test(code);
+                    const h1Index = code.search(/<h1[^>]*>/i);
+                    const h2Index = code.search(/<h2[^>]*>/i);
+                    return hasH1 && hasH2 && h1Index < h2Index;
+                }
+            },
+            {
+                id: 'accessibility-4',
+                category: 'Accessibility',
+                validator: (code) => {
+                    const hasNav = /<nav[^>]*>/i.test(code);
+                    const hasLinks = /<a[^>]*href[^>]*>/i.test(code);
+                    const hasFocusStyle = /:focus\s*\{[^}]*\}/i.test(code);
+                    return hasNav && hasLinks && hasFocusStyle;
+                }
+            },
+            {
+                id: 'accessibility-5',
+                category: 'Accessibility',
+                validator: (code) => {
+                    const hasAriaLabel = /aria-label\s*=\s*["'][^"']+["']/i.test(code);
+                    const hasRole = /role\s*=\s*["'][^"']+["']/i.test(code);
+                    return hasAriaLabel && hasRole;
+                }
+            },
+            {
+                id: 'accessibility-6',
+                category: 'Accessibility',
+                validator: (code) => {
+                    const hasAriaDescribedby = /aria-describedby\s*=\s*["'][^"']+["']/i.test(code);
+                    const hasAriaExpanded = /aria-expanded\s*=\s*["'](true|false)["']/i.test(code);
+                    const hasRole = /role\s*=\s*["'][^"']+["']/i.test(code);
+                    return (hasAriaDescribedby || hasAriaExpanded) && hasRole;
+                }
+            }
+        ];
+
+
+        // Glossary of key terms with definitions
+        // Glossary is now loaded from translations.json (translations.en.glossary)
+        // No hardcoded glossary object needed
+
+        // Function to wrap terms with tooltips (legacy function, using TextWithTooltips component instead)
+        function addTooltips(text) {
+            if (!text) return text;
+            
+            // Get English glossary from translations
+            const englishGlossary = translations.en?.glossary || {};
+            
+            // Sort terms by length (longest first) to match longer phrases first
+            const sortedTerms = Object.keys(englishGlossary).sort((a, b) => b.length - a.length);
+            
+            let result = text;
+            const usedIndices = new Set();
+            
+            sortedTerms.forEach(term => {
+                // Create regex to find the term, case-insensitive, but not inside HTML tags
+                const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+                const matches = [...result.matchAll(regex)];
+                
+                // Process matches in reverse order to maintain indices
+                matches.reverse().forEach(match => {
+                    const startIndex = match.index;
+                    const endIndex = startIndex + match[0].length;
+                    
+                    // Check if this position is already wrapped or inside HTML tags
+                    let isInsideTag = false;
+                    const beforeMatch = result.substring(0, startIndex);
+                    const lastOpenTag = beforeMatch.lastIndexOf('<');
+                    const lastCloseTag = beforeMatch.lastIndexOf('>');
+                    if (lastOpenTag > lastCloseTag) {
+                        isInsideTag = true;
+                    }
+                    
+                    // Check if already wrapped
+                    let alreadyWrapped = false;
+                    for (let i = startIndex; i < endIndex; i++) {
+                        if (usedIndices.has(i)) {
+                            alreadyWrapped = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!isInsideTag && !alreadyWrapped) {
+                        const termText = match[0];
+                        const definition = getTranslatedGlossary(term);
+                        if (definition) {
+                            const tooltipId = `tooltip-${term.replace(/[^a-z0-9]/gi, '-')}-${startIndex}`;
+                            const wrapped = (
+                                <span key={tooltipId} className="tooltip-wrapper" title={definition} id={tooltipId}>
+                                    {termText}
+                                </span>
+                            );
+                            
+                            // Mark indices as used
+                            for (let i = startIndex; i < endIndex; i++) {
+                                usedIndices.add(i);
+                            }
+                            
+                            // Replace in result (we'll handle this differently since we need React elements)
+                            // For now, we'll use a placeholder and process later
+                        }
+                    }
+                });
+            });
+            
+            // Since we're working with strings, we'll create a function that returns React elements
+            return result;
+        }
+
+        // Component to render text with tooltips
+        function TextWithTooltips({ text }) {
+            if (!text) return null;
+            
+            const lang = window.currentLanguage || 'en';
+            
+            // Get English glossary from translations
+            const englishGlossary = translations.en?.glossary || {};
+            
+            // Create a case-insensitive lookup map using translated glossary
+            const glossaryMap = new Map();
+            Object.keys(englishGlossary).forEach(key => {
+                const translatedDef = getTranslatedGlossary(key);
+                glossaryMap.set(key.toLowerCase(), translatedDef);
+            });
+            
+            // Get terms to match - include both English and French terms when language is French
+            let termsToMatch = Object.keys(englishGlossary);
+            if (lang === 'fr' && translations.fr && translations.fr.glossary) {
+                // Add French terms from French glossary
+                const frenchGlossary = translations.fr.glossary;
+                const frenchTerms = Object.keys(frenchGlossary).filter(key => {
+                    // Only include French-specific terms (not English keys that are already in englishGlossary)
+                    return !englishGlossary.hasOwnProperty(key);
+                });
+                termsToMatch = [...termsToMatch, ...frenchTerms];
+            }
+            
+            const sortedTerms = termsToMatch.sort((a, b) => b.length - a.length);
+            const parts = [];
+            let remaining = text;
+            let keyCounter = 0;
+            
+            while (remaining.length > 0) {
+                let matched = false;
+                
+                for (const term of sortedTerms) {
+                    // Escape special regex characters
+                    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    // For terms with angle brackets, don't use word boundaries
+                    const useWordBoundary = !term.startsWith('<') && !term.includes('>');
+                    // Also check if term might appear in CSS selectors (after . or #)
+                    // Match both standalone word and as part of CSS selector
+                    let regex;
+                    if (useWordBoundary) {
+                        // Match as standalone word OR as part of CSS selector (.term or #term)
+                        // For CSS selectors, don't require word boundary after (allow space, end of string, etc.)
+                        regex = new RegExp(`(\\b${escapedTerm}\\b|\\.${escapedTerm}(?=\\s|$|\\b)|#${escapedTerm}(?=\\s|$|\\b))`, 'i');
+                    } else {
+                        // For HTML tags and other special cases
+                        regex = new RegExp(escapedTerm, 'gi');
+                    }
+                    
+                    const match = remaining.match(regex);
+                    
+                    if (match) {
+                        const matchIndex = remaining.indexOf(match[0]);
+                        const beforeMatch = remaining.substring(0, matchIndex);
+                        let matchedTerm = match[0];
+                        // If matched term includes . or # prefix but glossary term doesn't, extract just the term part for lookup
+                        // But keep the full match (including . or #) for display
+                        const afterMatch = remaining.substring(matchIndex + matchedTerm.length);
+                        
+                        // Check if the match is part of a hyphenated term (like "main-content")
+                        // Don't match if the character before or after is a hyphen (unless it's a CSS selector)
+                        const charBefore = beforeMatch.length > 0 ? beforeMatch[beforeMatch.length - 1] : '';
+                        const charAfter = afterMatch.length > 0 ? afterMatch[0] : '';
+                        const isInHyphenatedTerm = (charBefore === '-' || charAfter === '-') && !matchedTerm.startsWith('.') && !matchedTerm.startsWith('#');
+                        
+                        // Check if inside HTML tag (but allow HTML tag names themselves)
+                        const lastOpenTag = beforeMatch.lastIndexOf('<');
+                        const lastCloseTag = beforeMatch.lastIndexOf('>');
+                        const isInsideTag = lastOpenTag > lastCloseTag && !term.startsWith('<');
+                        
+                        if (!isInsideTag && !isInHyphenatedTerm) {
+                            // Get definition - check if it's a French term first
+                            let definition = glossaryMap.get(term.toLowerCase());
+                            if (!definition) {
+                                // Try to get from French glossary if it's a French term
+                                if (lang === 'fr' && translations.fr && translations.fr.glossary && translations.fr.glossary[term]) {
+                                    definition = translations.fr.glossary[term];
+                                } else {
+                                    definition = getTranslatedGlossary(term);
+                                }
+                            }
+                            if (definition) {
+                                if (beforeMatch) {
+                                    parts.push(<React.Fragment key={`text-${keyCounter++}`}>{beforeMatch}</React.Fragment>);
+                                }
+                                
+                                const tooltipId = `tooltip-${keyCounter}`;
+                                parts.push(
+                                    <span key={tooltipId} className="tooltip-wrapper" title={definition} id={tooltipId}>
+                                        {matchedTerm}
+                                    </span>
+                                );
+                                keyCounter++;
+                                
+                                remaining = afterMatch;
+                                matched = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (!matched) {
+                    // No match found, add remaining text
+                    if (remaining.length > 0) {
+                        parts.push(<React.Fragment key={`text-${keyCounter++}`}>{remaining}</React.Fragment>);
+                    }
+                    break;
+                }
+            }
+            
+            return <>{parts}</>;
+        }
+
+        // Glossary popup: searchable list of all terms with definitions (accessible dialog)
+        function GlossaryPopup({ open, onClose, language, triggerRef }) {
+            const [searchQuery, setSearchQuery] = useState('');
+            const dialogRef = useRef(null);
+            const searchInputRef = useRef(null);
+            const closeButtonRef = useRef(null);
+
+            // Build glossary entries for current language (term + definition)
+            const lang = language || window.currentLanguage || 'en';
+            const allTerms = React.useMemo(() => {
+                const glossary = translations[lang]?.glossary || translations.en?.glossary || {};
+                const enGlossary = translations.en?.glossary || {};
+                const keys = new Set([...Object.keys(enGlossary), ...Object.keys(glossary)]);
+                return Array.from(keys)
+                    .map(term => ({ term, definition: getTranslatedGlossary(term) || glossary[term] || enGlossary[term] }))
+                    .filter(e => e.definition)
+                    .sort((a, b) => a.term.localeCompare(b.term, undefined, { sensitivity: 'base' }));
+            }, [lang]);
+
+            const filteredTerms = React.useMemo(() => {
+                if (!searchQuery.trim()) return allTerms;
+                const q = searchQuery.toLowerCase().trim();
+                return allTerms.filter(
+                    ({ term, definition }) =>
+                        term.toLowerCase().includes(q) ||
+                        (typeof definition === 'string' && definition.toLowerCase().includes(q))
+                );
+            }, [allTerms, searchQuery]);
+
+            // When opened: focus search input; when closed: return focus to trigger button
+            useEffect(() => {
+                if (open) {
+                    setSearchQuery('');
+                    const t = setTimeout(() => searchInputRef.current?.focus(), 50);
+                    return () => clearTimeout(t);
+                } else if (triggerRef?.current) {
+                    triggerRef.current.focus();
+                }
+            }, [open]);
+
+            // Escape key closes dialog
+            useEffect(() => {
+                if (!open) return;
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        e.preventDefault();
+                        onClose();
+                    }
+                    if (e.key === 'Tab' && dialogRef.current) {
+                        const focusable = dialogRef.current.querySelectorAll(
+                            'button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+                        );
+                        const list = Array.from(focusable).filter(el => el.offsetParent !== null);
+                        const idx = list.indexOf(document.activeElement);
+                        if (idx === -1) return;
+                        if (e.shiftKey) {
+                            if (idx <= 0) {
+                                e.preventDefault();
+                                list[list.length - 1].focus();
+                            }
+                        } else {
+                            if (idx >= list.length - 1) {
+                                e.preventDefault();
+                                list[0].focus();
+                            }
+                        }
+                    }
+                };
+                document.addEventListener('keydown', handleKeyDown);
+                return () => document.removeEventListener('keydown', handleKeyDown);
+            }, [open, onClose]);
+
+            if (!open) return null;
+
+            return (
+                <div
+                    className="glossary-overlay"
+                    onClick={(e) => e.target === e.currentTarget && onClose()}
+                    role="presentation"
+                >
+                    <div
+                        ref={dialogRef}
+                        className="glossary-dialog"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="glossary-title"
+                        aria-describedby="glossary-desc"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="glossary-dialog-header">
+                            <h2 id="glossary-title" className="glossary-title">{t('ui.glossaryTitle')}</h2>
+                            <button
+                                ref={closeButtonRef}
+                                type="button"
+                                className="glossary-close-btn"
+                                onClick={onClose}
+                                aria-label={t('ui.glossaryClose')}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <p id="glossary-desc" className="sr-only">
+                            {t('ui.glossarySearchPlaceholder')}
+                        </p>
+                        <div className="glossary-search-wrapper">
+                            <label htmlFor="glossary-search-input" className="sr-only">{t('ui.glossarySearchPlaceholder')}</label>
+                            <input
+                                ref={searchInputRef}
+                                id="glossary-search-input"
+                                type="search"
+                                className="glossary-search"
+                                placeholder={t('ui.glossarySearchPlaceholder')}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                aria-label={t('ui.glossarySearchPlaceholder')}
+                                autoComplete="off"
+                            />
+                        </div>
+                        <div className="glossary-list-wrapper" role="region" aria-label={t('ui.glossaryTitle')}>
+                            {filteredTerms.length === 0 ? (
+                                <p className="glossary-no-results">{t('ui.glossaryNoResults')}</p>
+                            ) : (
+                                <dl className="glossary-list">
+                                    {filteredTerms.map(({ term, definition }) => (
+                                        <React.Fragment key={term}>
+                                            <dt className="glossary-term">{term}</dt>
+                                            <dd className="glossary-def">{definition}</dd>
+                                        </React.Fragment>
+                                    ))}
+                                </dl>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Avatar picker popup: change avatar from header or certificate (accessible dialog)
+        function AvatarPickerPopup({ open, onClose, avatarUrl, setAvatarUrl, triggerRef, validAvatarOptions, onAvatarFailed }) {
+            const dialogRef = useRef(null);
+            const closeButtonRef = useRef(null);
+
+            useEffect(() => {
+                if (open) {
+                    const t = setTimeout(() => closeButtonRef.current?.focus(), 50);
+                    return () => clearTimeout(t);
+                } else if (triggerRef?.current) {
+                    triggerRef.current.focus();
+                }
+            }, [open, triggerRef]);
+
+            useEffect(() => {
+                if (!open) return;
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        e.preventDefault();
+                        onClose();
+                    }
+                    if (e.key === 'Tab' && dialogRef.current) {
+                        const focusable = dialogRef.current.querySelectorAll(
+                            'button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+                        );
+                        const list = Array.from(focusable).filter(el => el.offsetParent !== null);
+                        const idx = list.indexOf(document.activeElement);
+                        if (idx === -1) return;
+                        if (e.shiftKey) {
+                            if (idx <= 0) {
+                                e.preventDefault();
+                                list[list.length - 1].focus();
+                            }
+                        } else {
+                            if (idx >= list.length - 1) {
+                                e.preventDefault();
+                                list[0].focus();
+                            }
+                        }
+                    }
+                };
+                document.addEventListener('keydown', handleKeyDown);
+                return () => document.removeEventListener('keydown', handleKeyDown);
+            }, [open, onClose]);
+
+            if (!open) return null;
+
+            return (
+                <div
+                    className="glossary-overlay"
+                    onClick={(e) => e.target === e.currentTarget && onClose()}
+                    role="presentation"
+                >
+                    <div
+                        ref={dialogRef}
+                        className="glossary-dialog avatar-picker-dialog"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="avatar-picker-dialog-title"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="glossary-dialog-header">
+                            <h2 id="avatar-picker-dialog-title" className="glossary-title">{t('ui.chooseAvatar')}</h2>
+                            <button
+                                ref={closeButtonRef}
+                                type="button"
+                                className="glossary-close-btn"
+                                onClick={onClose}
+                                aria-label={t('ui.glossaryClose')}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-dialog-label">
+                            <p id="avatar-picker-dialog-label" className="avatar-picker-label avatar-picker-dialog-label">{t('ui.chooseAvatar')}</p>
+                            <div className="avatar-picker-grid avatar-picker-dialog-grid" aria-describedby="avatar-picker-scroll-hint">
+                                {(validAvatarOptions || AVATAR_OPTIONS_SHUFFLED).map((url, index) => (
+                                    <button
+                                        key={url}
+                                        type="button"
+                                        className={`avatar-picker-option ${avatarUrl === url ? 'selected' : ''}`}
+                                        onClick={() => {
+                                            setAvatarUrl(url);
+                                            onClose();
+                                        }}
+                                        aria-pressed={avatarUrl === url}
+                                        aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: (validAvatarOptions || AVATAR_OPTIONS_SHUFFLED).length })}
+                                    >
+                                        <img src={url} alt="" width="80" height="80" onError={() => { if (onAvatarFailed) onAvatarFailed(url); }} />
+                                    </button>
+                                ))}
+                            </div>
+                            <p id="avatar-picker-scroll-hint" className="avatar-picker-scroll-hint" role="status">{t('ui.avatarPickerScrollHint')}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Default avatar when none is found (e.g. old URL without avatar, or empty list)
+        const DEFAULT_AVATAR_URL = 'https://images.unsplash.com/vector-1749482379863-918278061c7f?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
+        const AVATAR_OPTIONS = [
+            'https://images.unsplash.com/vector-1740737650825-1ce4f5377085?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738312097380-45562da00459?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1740738536404-c36db193ce34?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738324175695-6ec76f4cfc0d?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738324167707-8544b2ff5112?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738324146064-9ec68da36386?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1745610393569-9373c9c64117?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1745610393550-7a2877ee86d4?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1767626090408-a23fae603963?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1769600877914-695985faffd0?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707507-70631351d4da?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828279123-1be593020ecd?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828270468-bf8f66495c78?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828273289-dc3d1d636534?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707507-32489206caca?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707532-6edc412421a0?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828264271-3ebf9c62a2b6?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828275705-20c2eb7ff245?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707514-15e659b8362f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828282882-6a7c8a143bc2?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1739809756455-1ba8c27e1cde?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1751454198115-e9be0467eb64?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707493-c4415994ff72?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707496-20efb8b8b79f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742828289827-0546ec29c990?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707487-9d6997ef84cd?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1767986147364-53f5fde33ddb?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1757308084924-7df00c6dcaf3?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1741461267840-1bbdfddec191?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1749532960819-52efc5526003?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1749532960847-0321e8e5c2c7?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1749575996438-f2605c692208?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1756526871066-51fa2c0a72e8?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1762513871844-e6fc96cab58d?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1766996683231-7037ba226238?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1739803316030-62b80e20fcc4?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1739803880192-a247d1337285?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742118848550-cafc9d362a98?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1740154685814-248df852b339?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1739887195320-3bb1cf32f9a9?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1749056273641-49f4a939728f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1763991574089-2c9b4846fb98?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1770058349439-d8a981fc74e8?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1751914321904-37f901f6ed79?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1766156002026-7430fba63e92?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759400775660-825488f4f480?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1763972942693-67ca55549b3b?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1769016422140-d4386246e27b?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1768405713751-91a8f766b0cc?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1769600559923-81aa7833d981?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1750024503526-059fcb06bc9f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1745159143245-d9b0ac560834?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1754404182423-b3f4853fc6b5?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1754891285053-cbb1b7379f6f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1767330125626-bbf826e86b91?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1757389589707-1ba9d8ce956d?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1751261838455-a02ec2880045?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759822387966-556778384239?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1761464066196-c8cd6ec00865?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1762238468298-b06588dd93cf?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1750078513686-9482510ec96e?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759843694832-ee1719f618f2?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1739203267529-6e1852ec52f5?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759758319051-f4b1e0adc291?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1752043295818-053016c3f290?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1752059236897-47183885377d?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1752043296398-57dfe7029207?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1752043295982-f28ea72c8564?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1752121382679-41dea151e738?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1761152971540-48688ba3b0b4?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759217894945-fa2bdf487715?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1742542556398-b5055c8ae4be?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738925817619-373f37f72ba3?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1754891284961-8d16361254ff?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1743527707498-bee7b10a6d00?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738925788379-c3a08c334070?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738925818029-c517f72da894?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738925788108-e8de5ef91533?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759146697365-e59dfc9cf552?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1756861912404-f754408a8bc6?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738626037146-668846de9f01?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738925310534-6013fbe76ad5?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1738925655464-bcc480f5bc94?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759197703507-56ffcab27676?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1755601497976-0ea8c4fc415f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1745399722381-56b4177d413f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1764872870311-7adbe2a024b7?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1756774243068-0bd49156883d?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1760426758826-f499b756683b?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1740286698380-67774257b976?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1760012740214-0fafdafb299a?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1755879608186-aa9d58039937?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1749482379863-918278061c7f?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1759538102456-66feb0244f6e?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1764619477795-1bead98365d5?w=200&h=200&fit=crop',
+            'https://images.unsplash.com/vector-1769600502135-d75bb207a9e6?w=200&h=200&fit=crop'
+        ];
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        const AVATAR_OPTIONS_SHUFFLED = shuffleArray(AVATAR_OPTIONS);
+        const AVATAR_FAILED_STORAGE_KEY = 'avatarFailedUrls';
+        function getInitialFailedAvatarUrls() {
+            try {
+                const raw = typeof localStorage !== 'undefined' && localStorage.getItem(AVATAR_FAILED_STORAGE_KEY);
+                return new Set(raw ? JSON.parse(raw) : []);
+            } catch (e) {
+                return new Set();
+            }
+        }
+
+        // Compressed hash encoding/decoding with shorter property names
+        function encodeState(state) {
+            try {
+                // Use shorter property names to reduce size
+                const compressed = {
+                    n: state.name,           // name
+                    l: state.lessonIndex,   // lessonIndex
+                    c: state.code,          // code
+                    lang: state.language,   // language
+                    cl: state.completedLessons, // completedLessons
+                    a: state.avatarUrl || null  // avatarUrl
+                };
+                const json = JSON.stringify(compressed);
+                // Use base64url encoding (URL-safe, no padding needed for shorter URLs)
+                return btoa(json)
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, '');
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function decodeState(hash) {
+            try {
+                // Restore base64 padding if needed and convert from base64url
+                let base64 = hash.replace(/-/g, '+').replace(/_/g, '/');
+                while (base64.length % 4) {
+                    base64 += '=';
+                }
+                const json = atob(base64);
+                const compressed = JSON.parse(json);
+                
+                // Check if it's old format (full property names) or new format (short names)
+                if (compressed.name !== undefined) {
+                    // Old format - return as is
+                    return compressed;
+                }
+                
+                // New format - expand back to full property names
+                return {
+                    name: compressed.n,
+                    lessonIndex: compressed.l,
+                    code: compressed.c,
+                    language: compressed.lang,
+                    completedLessons: compressed.cl,
+                    avatarUrl: compressed.a || null
+                };
+            } catch (e) {
+                // Try old format decoding as fallback
+                try {
+                    const json = decodeURIComponent(atob(hash));
+                    return JSON.parse(json);
+                } catch (e2) {
+                    return null;
+                }
+            }
+        }
+        
+        // Special encoding for certificate URLs (no code needed)
+        function encodeCertificateState(state) {
+            try {
+                const compressed = {
+                    n: state.name,
+                    lang: state.language,
+                    cl: state.completedLessons,
+                    a: state.avatarUrl || null
+                };
+                const json = JSON.stringify(compressed);
+                return btoa(json)
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, '');
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function App() {
+            const [studentName, setStudentName] = useState('');
+            const [failedAvatarUrls, setFailedAvatarUrls] = useState(getInitialFailedAvatarUrls);
+            const validAvatarOptions = React.useMemo(
+                () => AVATAR_OPTIONS_SHUFFLED.filter((url) => !failedAvatarUrls.has(url)),
+                [failedAvatarUrls]
+            );
+            const [avatarUrl, setAvatarUrl] = useState(() => {
+                const failed = getInitialFailedAvatarUrls();
+                const valid = AVATAR_OPTIONS_SHUFFLED.filter((u) => !failed.has(u));
+                return valid[0] || DEFAULT_AVATAR_URL;
+            });
+            const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+            const [code, setCode] = useState('');
+            const [codeByLesson, setCodeByLesson] = useState(() => ({}));
+            const [feedback, setFeedback] = useState(null);
+            const [hasStarted, setHasStarted] = useState(false);
+            const [hintExpanded, setHintExpanded] = useState(false);
+            const [completedLessons, setCompletedLessons] = useState(new Set());
+            const [language, setLanguage] = useState('en');
+            const [refreshKey, setRefreshKey] = useState(0);
+            const [glossaryOpen, setGlossaryOpen] = useState(false);
+            const [avatarPickerOpen, setAvatarPickerOpen] = useState(false);
+            const [showCertificateView, setShowCertificateView] = useState(false);
+            const [currentPageUrl, setCurrentPageUrl] = useState(() => typeof window !== 'undefined' ? window.location.href : '');
+            const glossaryTriggerRef = useRef(null);
+            const avatarTriggerRef = useRef(null);
+            const previewFrameRef = useRef(null);
+            const codeRef = useRef('');
+            const textareaRef = useRef(null);
+            const nextButtonRef = useRef(null);
+            const prevLessonIndexRef = useRef(undefined);
+
+            const onAvatarFailed = (url) => {
+                setFailedAvatarUrls((prev) => {
+                    const next = new Set(prev);
+                    next.add(url);
+                    try {
+                        localStorage.setItem(AVATAR_FAILED_STORAGE_KEY, JSON.stringify([...next]));
+                    } catch (e) {}
+                    return next;
+                });
+            };
+
+            useEffect(() => {
+                if (failedAvatarUrls.has(avatarUrl)) {
+                    setAvatarUrl(validAvatarOptions[0] || DEFAULT_AVATAR_URL);
+                }
+            }, [failedAvatarUrls, avatarUrl]);
+
+            // Keep fake browser address bar in sync with current URL (hash changes, etc.)
+            useEffect(() => {
+                const updateUrl = () => setCurrentPageUrl(window.location.href);
+                updateUrl();
+                window.addEventListener('hashchange', updateUrl);
+                window.addEventListener('popstate', updateUrl);
+                return () => {
+                    window.removeEventListener('hashchange', updateUrl);
+                    window.removeEventListener('popstate', updateUrl);
+                };
+            }, []);
+
+            // Update global language and HTML lang attribute
+            useEffect(() => {
+                window.currentLanguage = language;
+                document.documentElement.lang = language;
+                setRefreshKey(prev => prev + 1); // Force re-render
+            }, [language]);
+
+            // Keep codeRef in sync with code state
+            useEffect(() => {
+                codeRef.current = code;
+            }, [code]);
+
+            // Move focus to action button when feedback appears (accessibility)
+            useEffect(() => {
+                if (!feedback) return;
+                const t = setTimeout(() => {
+                    if (feedback.type === 'success' && nextButtonRef.current) {
+                        nextButtonRef.current.focus();
+                    }
+                }, 100);
+                return () => clearTimeout(t);
+            }, [feedback]);
+
+            // Update code template when language changes or translations load (if code matches any template)
+            useEffect(() => {
+                if (!hasStarted || currentLessonIndex >= lessons.length || !translationsLoaded) return;
+                
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                const originalTemplate = currentLessonRaw.codeTemplate || '';
+                const translatedLesson = getTranslatedLesson(currentLessonRaw, language);
+                const translatedTemplate = translatedLesson.codeTemplate || '';
+                
+                // Get the template for the current language
+                const currentLangTemplate = translatedTemplate || originalTemplate;
+                
+                // Helper function to normalize code for comparison (normalizes whitespace)
+                const normalizeCode = (code) => {
+                    return code.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+                        .replace(/\n\s*\n/g, '\n')  // Remove blank lines
+                        .replace(/[ \t]+/g, ' ')      // Normalize spaces/tabs
+                        .replace(/\n /g, '\n')        // Remove leading spaces after newlines
+                        .trim();
+                };
+                
+                // If we have templates and they differ, check if we should update
+                if (originalTemplate && translatedTemplate && originalTemplate !== translatedTemplate) {
+                    const currentCode = codeRef.current;
+                    const normalizedCurrent = normalizeCode(currentCode);
+                    const normalizedOriginal = normalizeCode(originalTemplate);
+                    const normalizedTranslated = normalizeCode(translatedTemplate);
+                    
+                    // Update if code matches either template (normalized) or is empty
+                    if (normalizedCurrent === normalizedOriginal || 
+                        normalizedCurrent === normalizedTranslated || 
+                        currentCode.trim() === '') {
+                        setCode(currentLangTemplate);
+                    }
+                } else if (currentLangTemplate && codeRef.current.trim() === '') {
+                    // If no translation but code is empty, set the template
+                    setCode(currentLangTemplate);
+                }
+            }, [language, currentLessonIndex, hasStarted, translationsLoaded]);
+
+            // When switching lessons, load code from codeByLesson or template (not on initial mount, to avoid overwriting URL-loaded code)
+            useEffect(() => {
+                if (!hasStarted || currentLessonIndex >= lessons.length) return;
+                const prev = prevLessonIndexRef.current;
+                prevLessonIndexRef.current = currentLessonIndex;
+                if (prev === undefined) return; // initial mount - code was set by load-from-URL or template effect
+                if (prev === currentLessonIndex) return; // same lesson, e.g. codeByLesson updated
+                const lessonRaw = lessons[currentLessonIndex];
+                const lesson = getTranslatedLesson(lessonRaw, language);
+                const saved = codeByLesson[lessonRaw.id];
+                setCode(saved ?? lesson.codeTemplate ?? '');
+            }, [currentLessonIndex, hasStarted, language, codeByLesson]);
+
+            // Set up forceUpdate function for translations loading
+            useEffect(() => {
+                window.forceUpdate = () => setRefreshKey(prev => prev + 1);
+                
+                // Listen for translations loaded event
+                const handleTranslationsLoaded = () => {
+                    setRefreshKey(prev => prev + 1);
+                };
+                window.addEventListener('translationsLoaded', handleTranslationsLoaded);
+                
+                // Also check if translations are already loaded
+                if (translationsLoaded) {
+                    setRefreshKey(prev => prev + 1);
+                }
+                
+                return () => { 
+                    window.forceUpdate = null;
+                    window.removeEventListener('translationsLoaded', handleTranslationsLoaded);
+                };
+            }, []);
+
+            // Load state from URL hash on mount
+            useEffect(() => {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    const state = decodeState(hash);
+                    if (state) {
+                        // Restore language first, as it affects other state
+                        if (state.language) {
+                            setLanguage(state.language);
+                        }
+                        setStudentName(state.name || '');
+                        if (state.avatarUrl && typeof state.avatarUrl === 'string') {
+                            setAvatarUrl(state.avatarUrl);
+                        } else {
+                            setAvatarUrl(DEFAULT_AVATAR_URL);
+                        }
+                        // If it's a certificate URL (no code), show certificate view
+                        if (!state.code && state.completedLessons && state.completedLessons.length === lessons.length) {
+                            setCurrentLessonIndex(lessons.length - 1);
+                            setCode(''); // No code needed for certificate
+                            setShowCertificateView(true);
+                        } else {
+                            setCurrentLessonIndex(state.lessonIndex || 0);
+                            setCode(state.code || '');
+                            if (state.code != null && state.lessonIndex != null && lessons[state.lessonIndex]) {
+                                setCodeByLesson(prev => ({ ...prev, [lessons[state.lessonIndex].id]: state.code }));
+                            }
+                        }
+                        // Restore completed lessons from array to Set
+                        if (state.completedLessons && Array.isArray(state.completedLessons)) {
+                            setCompletedLessons(new Set(state.completedLessons));
+                        }
+                        setHasStarted(true);
+                    }
+                }
+            }, []);
+
+            // Update URL hash when state changes - saves progress (including after each successful verify)
+            useEffect(() => {
+                if (hasStarted && studentName) {
+                    const state = {
+                        name: studentName,
+                        avatarUrl: avatarUrl || null,
+                        lessonIndex: currentLessonIndex,
+                        code: code,
+                        language: language,
+                        completedLessons: Array.from(completedLessons)
+                    };
+                    const hash = encodeState(state);
+                    // Use replaceState to avoid adding to browser history on every keystroke
+                    window.history.replaceState(null, '', '#' + hash);
+                    // replaceState does not fire hashchange, so update fake browser URL bar
+                    setCurrentPageUrl(window.location.href);
+                }
+            }, [studentName, avatarUrl, currentLessonIndex, code, completedLessons, hasStarted, language]);
+
+            // Update preview when code changes with basic styling (always inject so preview is readable)
+            useEffect(() => {
+                if (!previewFrameRef.current || !code) return;
+                const iframe = previewFrameRef.current;
+                const doc = iframe.contentDocument;
+                if (!doc) return;
+
+                const basicStyles = `
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html { color: #333; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fafafa;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            margin: 20px 0 10px 0;
+        }
+        p {
+            margin: 10px 0;
+        }
+        a {
+            color: #25639a;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        a:focus {
+            outline: 3px solid #25639a;
+            outline-offset: 2px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        ul, ol {
+            margin: 10px 0 10px 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+`;
+                // Inject base styles at the end of <head> so user <style> runs first and overrides (preview reflects their CSS)
+                let styledCode;
+                if (code.includes('</head>')) {
+                    styledCode = code.replace('</head>', basicStyles + '</head>');
+                } else if (code.includes('<head>')) {
+                    styledCode = code.replace('<head>', '<head>' + basicStyles);
+                } else if (code.includes('<html>')) {
+                    styledCode = code.replace('<html>', '<html><head>' + basicStyles + '</head>');
+                } else {
+                    styledCode = '<!DOCTYPE html><html><head><meta charset="UTF-8">' + basicStyles + '</head><body>' + code + '</body></html>';
+                }
+
+                doc.open();
+                doc.write(styledCode);
+                doc.close();
+            }, [code]);
+
+            const handleNameSubmit = (e) => {
+                e.preventDefault();
+                const nameInput = e.target.querySelector('input');
+                const name = nameInput.value.trim();
+                if (name) {
+                    setStudentName(name);
+                    setHasStarted(true);
+                    const firstLesson = getTranslatedLesson(lessons[0], language);
+                    setCode(firstLesson.codeTemplate || '');
+                }
+            };
+
+            const handleVerify = () => {
+                const currentLessonRaw = lessons[currentLessonIndex];
+                const currentLesson = getTranslatedLesson(currentLessonRaw, language);
+                if (currentLessonRaw.validator(code)) {
+                    setFeedback({ type: 'success', message: t('ui.successMessage') });
+                    // Save this lesson's code so "Download all my files" on certificate includes it
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                    // Mark lesson as completed (URL is updated by useEffect when completedLessons changes)
+                    setCompletedLessons(prev => new Set([...prev, currentLessonIndex]));
+                    // If they just completed the last lesson, show certificate view
+                    if (currentLessonIndex === lessons.length - 1) {
+                        setShowCertificateView(true);
+                    }
+                } else {
+                    const expectedElements = currentLesson.expectedElements || currentLessonRaw.expectedElements;
+                    const elementsText = Array.isArray(expectedElements) ? expectedElements.join(', ') : expectedElements;
+                    setFeedback({ 
+                        type: 'error', 
+                        message: t('ui.errorMessage', { elements: elementsText })
+                    });
+                }
+            };
+
+            const handleNext = () => {
+                if (currentLessonIndex < lessons.length - 1) {
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                    setCurrentLessonIndex(currentLessonIndex + 1);
+                    setFeedback(null);
+                    setHintExpanded(false); // Reset hint when moving to next lesson
+                }
+            };
+
+            const handleBack = () => {
+                if (currentLessonIndex > 0) {
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                    setCurrentLessonIndex(currentLessonIndex - 1);
+                    setFeedback(null);
+                    setHintExpanded(false); // Reset hint when moving to previous lesson
+                }
+            };
+
+            const handleSkip = () => {
+                if (currentLessonIndex < lessons.length - 1) {
+                    const currentLessonRaw = lessons[currentLessonIndex];
+                    setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                    setCurrentLessonIndex(currentLessonIndex + 1);
+                    setFeedback(null);
+                    setHintExpanded(false); // Reset hint when skipping
+                }
+            };
+
+            // Jump to first incomplete lesson of a section, or first lesson if all complete
+            const jumpToSection = (category) => {
+                // Find all lessons in this category
+                const sectionLessons = lessons
+                    .map((lesson, index) => ({ lesson, index }))
+                    .filter(({ lesson }) => lesson.category === category);
+                
+                if (sectionLessons.length === 0) return;
+                
+                // Find the first incomplete lesson
+                const firstIncomplete = sectionLessons.find(
+                    ({ index }) => !completedLessons.has(index)
+                );
+                
+                // Use first incomplete lesson, or first lesson if all are complete
+                const targetIndex = firstIncomplete ? firstIncomplete.index : sectionLessons[0].index;
+                const currentLessonRaw = lessons[currentLessonIndex];
+                setCodeByLesson(prev => ({ ...prev, [currentLessonRaw.id]: code }));
+                setCurrentLessonIndex(targetIndex);
+                setFeedback(null);
+                setHintExpanded(false);
+            };
+
+            // Wrap code in a full HTML document if it's a fragment (no DOCTYPE/html)
+            const wrapInDocumentIfNeeded = (rawCode, lessonId) => {
+                const trimmed = rawCode.trim();
+                if (/^\s*<!DOCTYPE/i.test(trimmed) || /^\s*<html[\s>]/i.test(trimmed)) return rawCode;
+                return `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${lessonId}</title>\n</head>\n<body>\n${rawCode}\n</body>\n</html>`;
+            };
+
+            const downloadCurrentHtml = () => {
+                const html = wrapInDocumentIfNeeded(code, currentLessonRaw.id);
+                const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${currentLessonRaw.id}.html`;
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+
+            // Helper function to calculate indentation based on tag structure
+            const calculateIndentation = (text, lineIndex) => {
+                const lines = text.split('\n');
+                let indentLevel = 0;
+                
+                // Count opening and closing tags up to this line
+                for (let i = 0; i <= lineIndex && i < lines.length; i++) {
+                    const line = lines[i];
+                    // Count opening tags (but not self-closing or comments)
+                    const openingTags = (line.match(/<[^/!?][^>]*>/g) || []).filter(tag => 
+                        !tag.endsWith('/>') && 
+                        !tag.startsWith('<!--') &&
+                        !tag.startsWith('<!')
+                    ).length;
+                    // Count closing tags
+                    const closingTags = (line.match(/<\/[^>]+>/g) || []).length;
+                    // Count self-closing tags (reduce indent since they don't need closing)
+                    const selfClosingTags = (line.match(/<[^>]+\/>/g) || []).length;
+                    
+                    indentLevel += openingTags - closingTags - selfClosingTags;
+                }
+                
+                return '    '.repeat(Math.max(0, indentLevel));
+            };
+            
+            // Auto-format code with proper indentation
+            const autoFormatCode = (code) => {
+                if (!code || code.trim() === '') return code;
+                
+                const lines = code.split('\n');
+                const formattedLines = [];
+                let indentLevel = 0;
+                const indentSize = 4;
+                const indentChar = ' '.repeat(indentSize);
+                
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    const trimmed = line.trim();
+                    
+                    // Skip empty lines but preserve them
+                    if (trimmed === '') {
+                        formattedLines.push('');
+                        continue;
+                    }
+                    
+                    // Extract all tags from the trimmed line
+                    const allTags = [];
+                    let tagMatch;
+                    const tagRegex = /<\/?[^>]+>/g;
+                    while ((tagMatch = tagRegex.exec(trimmed)) !== null) {
+                        allTags.push(tagMatch[0]);
+                    }
+                    
+                    // Categorize tags
+                    const openingTags = [];
+                    const closingTags = [];
+                    const selfClosingTags = [];
+                    
+                    for (const tag of allTags) {
+                        if (tag.startsWith('<!--') || tag.startsWith('<!')) {
+                            // Comments don't affect indentation
+                            continue;
+                        } else if (tag.startsWith('</')) {
+                            closingTags.push(tag);
+                        } else if (tag.endsWith('/>')) {
+                            selfClosingTags.push(tag);
+                        } else {
+                            openingTags.push(tag);
+                        }
+                    }
+                    
+                    // Check if line starts with a closing tag (after trimming)
+                    const startsWithClosingTag = trimmed.startsWith('</');
+                    
+                    // If line starts with closing tag, decrease indent BEFORE formatting this line
+                    if (startsWithClosingTag) {
+                        indentLevel = Math.max(0, indentLevel - 1);
+                    }
+                    
+                    // Calculate indentation for this line
+                    const indent = indentChar.repeat(Math.max(0, indentLevel));
+                    formattedLines.push(indent + trimmed);
+                    
+                    // Adjust indent level for NEXT line based on tags on THIS line
+                    // Check if line has both opening and closing tag on same line (like <div>content</div>)
+                    const hasOpeningAndClosing = openingTags.length > 0 && closingTags.length > 0;
+                    
+                    if (hasOpeningAndClosing) {
+                        // If opening and closing on same line, net effect is 0 for next line indent
+                        // Self-closing tags don't affect indent
+                    } else {
+                        // Normal case: adjust based on tag types
+                        indentLevel += openingTags.length;
+                        indentLevel -= closingTags.length;
+                        // Self-closing tags don't affect indent (already handled by not being opening/closing)
+                    }
+                    
+                    // Ensure indent level doesn't go negative
+                    indentLevel = Math.max(0, indentLevel);
+                }
+                
+                return formattedLines.join('\n');
+            };
+            
+            
+            // Auto-indentation handler
+            const handleKeyDown = (e) => {
+                const textarea = e.target;
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const value = textarea.value;
+
+                // Handle Tab key - indent/unindent
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const lines = value.split('\n');
+                    const lineIndex = value.substring(0, start).split('\n').length - 1;
+                    const currentLine = lines[lineIndex] || '';
+                    
+                    if (e.shiftKey) {
+                        // Shift+Tab: unindent
+                        if (currentLine.startsWith('    ')) {
+                            lines[lineIndex] = currentLine.substring(4);
+                            const newValue = lines.join('\n');
+                            setCode(newValue);
+                            setTimeout(() => {
+                                const newStart = Math.max(0, start - 4);
+                                const newEnd = Math.max(0, end - 4);
+                                textarea.setSelectionRange(newStart, newEnd);
+                            }, 0);
+                        }
+                    } else {
+                        // Tab: indent
+                        lines[lineIndex] = '    ' + currentLine;
+                        const newValue = lines.join('\n');
+                        setCode(newValue);
+                        setTimeout(() => {
+                            const newStart = start + 4;
+                            const newEnd = end + 4;
+                            textarea.setSelectionRange(newStart, newEnd);
+                        }, 0);
+                    }
+                    return;
+                }
+                
+                // Handle Enter key - new line gets same indentation as the line above
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const lines = value.split('\n');
+                    const lineIndex = value.substring(0, start).split('\n').length - 1;
+                    const currentLine = lines[lineIndex] || '';
+                    const match = currentLine.match(/^(\s*)/);
+                    const indent = match ? match[1] : '';
+                    const before = value.substring(0, start);
+                    const after = value.substring(end);
+                    const newValue = before + '\n' + indent + after;
+                    setCode(newValue);
+                    setTimeout(() => {
+                        const newPos = start + 1 + indent.length;
+                        textarea.setSelectionRange(newPos, newPos);
+                    }, 0);
+                    return;
+                }
+                
+                // Handle typing '>' - check if we need to auto-adjust indentation
+                if (e.key === '>') {
+                    const before = value.substring(0, start);
+                    const lines = value.split('\n');
+                    const lineIndex = value.substring(0, start).split('\n').length - 1;
+                    const currentLine = lines[lineIndex] || '';
+                    const textBeforeOnLine = before.split('\n').pop() || '';
+                    
+                    // Check if we're typing a closing tag like </div>
+                    if (textBeforeOnLine.trim().startsWith('</')) {
+                        // Calculate proper indentation for closing tag
+                        let tagLevel = 0;
+                        for (let i = 0; i < lineIndex; i++) {
+                            const line = lines[i];
+                            const opening = (line.match(/<[^/!?][^>]*>/g) || []).filter(t => 
+                                !t.endsWith('/>') && !t.startsWith('<!--')
+                            ).length;
+                            const closing = (line.match(/<\/[^>]+>/g) || []).length;
+                            const selfClosing = (line.match(/<[^>]+\/>/g) || []).length;
+                            tagLevel += opening - closing - selfClosing;
+                        }
+                        
+                        // Auto-adjust indentation if needed
+                        const properIndent = '    '.repeat(Math.max(0, tagLevel));
+                        const currentIndent = currentLine.match(/^(\s*)/)?.[1] || '';
+                        
+                        if (currentIndent !== properIndent) {
+                            e.preventDefault();
+                            const indentDiff = properIndent.length - currentIndent.length;
+                            const newLine = properIndent + textBeforeOnLine.trim() + '>';
+                            lines[lineIndex] = newLine;
+                            const newValue = lines.join('\n');
+                            setCode(newValue);
+                            setTimeout(() => {
+                                const newPos = start + indentDiff;
+                                textarea.setSelectionRange(newPos, newPos);
+                            }, 0);
+                            return;
+                        }
+                    }
+                }
+            };
+            
+            // Auto-format on paste or when typing closing tags
+            const handleCodeChange = (newValue) => {
+                setCode(newValue);
+            };
+            
+            // Manual format function - called when user clicks Format button
+            const handleFormat = () => {
+                if (textareaRef.current) {
+                    const textarea = textareaRef.current;
+                    const cursorPos = textarea.selectionStart;
+                    const formatted = autoFormatCode(code);
+                    
+                    if (formatted !== code) {
+                        // Try to maintain cursor position
+                        const linesBefore = code.substring(0, cursorPos).split('\n');
+                        const currentLineIndex = linesBefore.length - 1;
+                        const currentLine = linesBefore[currentLineIndex] || '';
+                        const cursorInLine = currentLine.length;
+                        
+                        const formattedLines = formatted.split('\n');
+                        let newCursorPos = cursorPos;
+                        
+                        if (currentLineIndex < formattedLines.length) {
+                            const newCurrentLine = formattedLines[currentLineIndex];
+                            const oldTrimmed = currentLine.trim();
+                            const newTrimmed = newCurrentLine.trim();
+                            
+                            if (oldTrimmed === newTrimmed) {
+                                // Same content, just indentation changed
+                                const oldIndent = currentLine.length - currentLine.trimStart().length;
+                                const newIndent = newCurrentLine.length - newCurrentLine.trimStart().length;
+                                const contentPos = cursorInLine - oldIndent;
+                                const newLinePos = newIndent + contentPos;
+                                
+                                // Sum positions of all previous lines
+                                let pos = 0;
+                                for (let i = 0; i < currentLineIndex; i++) {
+                                    pos += formattedLines[i].length + 1; // +1 for newline
+                                }
+                                newCursorPos = pos + newLinePos;
+                            }
+                        }
+                        
+                        // Ensure cursor position is valid
+                        newCursorPos = Math.max(0, Math.min(newCursorPos, formatted.length));
+                        
+                        setCode(formatted);
+                        
+                        // Restore cursor position after React updates
+                        setTimeout(() => {
+                            if (textarea && textarea.selectionStart !== undefined) {
+                                textarea.setSelectionRange(newCursorPos, newCursorPos);
+                                textarea.focus();
+                            }
+                        }, 10);
+                    }
+                }
+            };
+
+            // Calculate progress for each section
+            const getSectionProgress = (category) => {
+                const sectionLessons = lessons.filter(l => l.category === category);
+                let completed = 0;
+                sectionLessons.forEach(lesson => {
+                    const lessonIdx = lessons.findIndex(l => l.id === lesson.id);
+                    if (completedLessons.has(lessonIdx)) {
+                        completed++;
+                    }
+                });
+                return { completed, total: sectionLessons.length };
+            };
+
+            const htmlFundamentalsProgress = getSectionProgress('HTML Fundamentals');
+            const htmlProgress = getSectionProgress('HTML');
+            const cssProgress = getSectionProgress('CSS');
+            const accessibilityProgress = getSectionProgress('Accessibility');
+
+            const isSectionComplete = (progress) => progress.completed === progress.total && progress.total > 0;
+
+            const currentLessonRaw = lessons[currentLessonIndex];
+            const currentLesson = getTranslatedLesson(currentLessonRaw, language);
+            const isLastLesson = currentLessonIndex === lessons.length - 1;
+            const isVerified = feedback?.type === 'success';
+            const allLessonsComplete = completedLessons.size === lessons.length;
+
+            // Show certificate when all lessons are complete and user is viewing certificate
+            if (allLessonsComplete && showCertificateView && hasStarted && studentName && refreshKey >= 0) {
+                const completionDate = new Date().toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+
+                const wrapInDoc = (rawCode, lessonId) => {
+                    const trimmed = (rawCode || '').trim();
+                    if (/^\s*<!DOCTYPE/i.test(trimmed) || /^\s*<html[\s>]/i.test(trimmed)) return rawCode || '';
+                    return `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${lessonId}</title>\n</head>\n<body>\n${trimmed || ''}\n</body>\n</html>`;
+                };
+
+                const downloadAllFiles = () => {
+                    if (typeof window.JSZip === 'undefined') return;
+                    const zip = new window.JSZip();
+                    lessons.forEach((lessonRaw, index) => {
+                        const lesson = getTranslatedLesson(lessonRaw, language);
+                        // Use saved code, or current lesson's code (last lesson never gets saved via Next), or template
+                        const raw = codeByLesson[lessonRaw.id] ?? (index === currentLessonIndex ? code : null) ?? lesson.codeTemplate ?? '';
+                        const html = wrapInDoc(raw, lessonRaw.id);
+                        zip.file(`${lessonRaw.id}.html`, html);
+                    });
+                    zip.generateAsync({ type: 'blob' }).then((blob) => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `html-css-accessibility-lessons-${studentName.replace(/[^a-z0-9]/gi, '-')}.zip`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    });
+                };
+                
+                return (
+                    <>
+                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
+                    <div id="main-content" className="certificate" role="main" aria-label={t('ui.certificateTitle')}>
+                        <div className="certificate-header">
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => setShowCertificateView(false)}
+                                style={{ marginRight: '12px' }}
+                                aria-label={t('ui.backToLessons')}
+                            >
+                                ← {t('ui.backToLessons')}
+                            </button>
+                            <div className="certificate-language-selector">
+                                <button
+                                    ref={glossaryTriggerRef}
+                                    type="button"
+                                    className="glossary-btn glossary-btn-certificate"
+                                    onClick={() => setGlossaryOpen(true)}
+                                    aria-label={t('ui.glossaryButton')}
+                                    aria-haspopup="dialog"
+                                >
+                                    📖 {t('ui.glossaryButton')}
+                                </button>
+                                <a
+                                    href={getReportBugMailtoUrl({ hasStarted: true })}
+                                    className="glossary-btn glossary-btn-certificate report-bug-btn"
+                                    style={{ textDecoration: 'none' }}
+                                    aria-label={t('ui.reportBug')}
+                                >
+                                    🐛 {t('ui.reportBug')}
+                                </a>
+                                <label htmlFor="certificate-language-select" className="sr-only">{t('ui.selectLanguage')}</label>
+                                <select 
+                                    id="certificate-language-select"
+                                    value={language} 
+                                    onChange={(e) => setLanguage(e.target.value)}
+                                    aria-label={t('ui.selectLanguage')}
+                                    className="certificate-language-select"
+                                >
+                                    <option value="en">English</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="certificate-content">
+                            <h1>{t('ui.certificateTitle')}</h1>
+                            <h2>{t('ui.certificateSubtitle')}</h2>
+                            <p className="description">
+                                {t('ui.certificateDescription')}
+                            </p>
+                            <div className="student-name-block" aria-label={t('ui.studentNameAria', { name: studentName })}>
+                                <button
+                                    type="button"
+                                    className="avatar-change-btn avatar-change-btn-certificate"
+                                    onClick={(e) => {
+                                        avatarTriggerRef.current = e.currentTarget;
+                                        setAvatarPickerOpen(true);
+                                    }}
+                                    aria-label={t('ui.changeAvatar')}
+                                    aria-haspopup="dialog"
+                                >
+                                    {avatarUrl ? (
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-certificate" width="80" height="80" onError={() => { onAvatarFailed(avatarUrl); setAvatarUrl(DEFAULT_AVATAR_URL); }} />
+                                    ) : (
+                                        <span className="avatar-placeholder avatar-placeholder-certificate" aria-hidden="true" />
+                                    )}
+                                </button>
+                                <span className="student-name">{studentName}</span>
+                            </div>
+                            <p className="description">
+                                <TextWithTooltips text={t('ui.certificateCompleted')} />
+                            </p>
+                            <p className="description" style={{ marginTop: '40px' }}>
+                                {t('ui.certificateCovered')}
+                            </p>
+                            <ul style={{ textAlign: 'left', display: 'inline-block', marginTop: '20px', fontSize: '16px', lineHeight: '2' }}>
+                                <li><TextWithTooltips text={t('ui.certificateItem1')} /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem2')} /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem3')} /></li>
+                                <li><TextWithTooltips text={t('ui.certificateItem4')} /></li>
+                            </ul>
+                            <p className="date">
+                                {t('ui.completedOn')} {completionDate}
+                            </p>
+                            <div style={{ marginTop: '40px', fontSize: '48px' }} role="img" aria-label={t('ui.congratulations')}>🎉</div>
+                            <div className="certificate-share" style={{ marginTop: '50px', paddingTop: '30px', borderTop: '2px solid #e0e0e0' }}>
+                                <p style={{ fontSize: '16px', color: '#555', marginBottom: '15px' }}>
+                                    <strong>{t('ui.certificateShare')}</strong>
+                                </p>
+                                <div className="url-share">
+                                    <input 
+                                        type="text" 
+                                        readOnly 
+                                        value={(() => {
+                                            // Use shorter certificate URL format (without code)
+                                            const certState = {
+                                                name: studentName,
+                                                avatarUrl: avatarUrl || null,
+                                                language: language,
+                                                completedLessons: Array.from(completedLessons)
+                                            };
+                                            const certHash = encodeCertificateState(certState);
+                                            return window.location.origin + window.location.pathname + '#' + certHash;
+                                        })()}
+                                        onClick={(e) => e.target.select()}
+                                        style={{ width: '100%', maxWidth: '600px', padding: '10px', fontSize: '14px', border: '2px solid #ddd', borderRadius: '5px' }}
+                                        aria-label={t('ui.certificateShare')}
+                                    />
+                                </div>
+                                <div style={{ marginTop: '20px', marginBottom: '15px' }}>
+                                    <a
+                                        href={`mailto:?subject=${encodeURIComponent(t('ui.emailCertificateSubject'))}&body=${encodeURIComponent(t('ui.emailCertificateBody') + ' ' + (() => {
+                                            // Use shorter certificate URL format (without code)
+                                            const certState = {
+                                                name: studentName,
+                                                avatarUrl: avatarUrl || null,
+                                                language: language,
+                                                completedLessons: Array.from(completedLessons)
+                                            };
+                                            const certHash = encodeCertificateState(certState);
+                                            return window.location.origin + window.location.pathname + '#' + certHash;
+                                        })())}`}
+                                        className="btn btn-primary"
+                                        style={{ display: 'inline-block', textDecoration: 'none', padding: '12px 24px', fontSize: '16px' }}
+                                        aria-label={t('ui.emailCertificate')}
+                                    >
+                                        📧 {t('ui.emailCertificate')}
+                                    </a>
+                                    <button
+                                        type="button"
+                                        onClick={downloadAllFiles}
+                                        className="btn btn-primary"
+                                        style={{ marginLeft: '12px', padding: '12px 24px', fontSize: '16px' }}
+                                        aria-label={t('ui.downloadAllFiles') === 'ui.downloadAllFiles' ? (language === 'fr' ? 'Télécharger tous mes fichiers' : 'Download all my files') : t('ui.downloadAllFiles')}
+                                    >
+                                        📥 {t('ui.downloadAllFiles') === 'ui.downloadAllFiles' ? (language === 'fr' ? 'Télécharger tous mes fichiers' : 'Download all my files') : t('ui.downloadAllFiles')}
+                                    </button>
+                                </div>
+                                <p style={{ fontSize: '14px', color: '#595959', marginTop: '15px', fontStyle: 'italic' }}>
+                                    {t('ui.certificateShareDescription')}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                    </>
+                );
+            }
+
+            if (!hasStarted || !studentName) {
+                return (
+                    <>
+                    <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
+                    <div id="main-content" className="app-container" role="main">
+                        <div className="lesson-panel">
+                            <div className="header">
+                                <div className="header-content">
+                                    <h1>{t('ui.title')}</h1>
+                                    <p>{t('ui.subtitle')}</p>
+                                </div>
+                                <div className="language-selector">
+                                    <button
+                                        ref={glossaryTriggerRef}
+                                        type="button"
+                                        className="glossary-btn"
+                                        onClick={() => setGlossaryOpen(true)}
+                                        aria-label={t('ui.glossaryButton')}
+                                        aria-haspopup="dialog"
+                                    >
+                                        📖 {t('ui.glossaryButton')}
+                                    </button>
+                                    <label htmlFor="language-select" className="sr-only">{t('ui.selectLanguage')}</label>
+                                    <select 
+                                        id="language-select"
+                                        value={language} 
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                        aria-label={t('ui.selectLanguage')}
+                                    >
+                                        <option value="en">English</option>
+                                        <option value="fr">Français</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="lesson-content">
+                                <div className="welcome-screen">
+                                    <h2>{t('ui.welcome')}</h2>
+                                    <p>
+                                        <TextWithTooltips text={t('ui.welcomeDescription')} />
+                                    </p>
+                                    <p style={{ fontSize: '14px', color: '#595959', fontStyle: 'italic', marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #e0e0e0' }}>
+                                        {t('ui.tutorialCredit')}
+                                    </p>
+                                    <div className="avatar-picker-section" role="group" aria-labelledby="avatar-picker-label">
+                                        <p id="avatar-picker-label" className="avatar-picker-label">{t('ui.chooseAvatar')}</p>
+                                        <div className="avatar-picker-grid" aria-describedby="welcome-avatar-scroll-hint">
+                                            {validAvatarOptions.map((url, index) => (
+                                                <button
+                                                    key={url}
+                                                    type="button"
+                                                    className={`avatar-picker-option ${avatarUrl === url ? 'selected' : ''}`}
+                                                    onClick={() => setAvatarUrl(url)}
+                                                    aria-pressed={avatarUrl === url}
+                                                    aria-label={t('ui.chooseAvatarOption', { number: index + 1, total: validAvatarOptions.length })}
+                                                >
+                                                    <img src={url} alt="" width="80" height="80" onError={() => onAvatarFailed(url)} />
+                                                </button>
+                                            ))}
+                                        </div>
+                                        <p id="welcome-avatar-scroll-hint" className="avatar-picker-scroll-hint" role="status">{t('ui.avatarPickerScrollHint')}</p>
+                                    </div>
+                                    <form onSubmit={handleNameSubmit} className="name-input">
+                                        <label htmlFor="student-name-input" className="sr-only">{t('ui.enterName')}</label>
+                                        <input 
+                                            id="student-name-input"
+                                            type="text" 
+                                            placeholder={t('ui.enterName')} 
+                                            value={studentName} 
+                                            onChange={(e) => setStudentName(e.target.value)}
+                                            required
+                                            autoFocus
+                                            aria-label={t('ui.enterName')}
+                                            aria-describedby="name-certificate-note"
+                                        />
+                                        <p id="name-certificate-note" style={{ fontSize: '13px', color: '#666', marginTop: '8px', marginBottom: '15px', fontStyle: 'italic' }}>
+                                            {t('ui.nameCertificateNote')}
+                                        </p>
+                                        <button type="submit" className="btn btn-primary" aria-label={t('ui.startLearning')}>{t('ui.startLearning')}</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                    {avatarPickerOpen && (
+                        <AvatarPickerPopup
+                            open={avatarPickerOpen}
+                            onClose={() => setAvatarPickerOpen(false)}
+                            avatarUrl={avatarUrl}
+                            setAvatarUrl={setAvatarUrl}
+                            triggerRef={avatarTriggerRef}
+                            validAvatarOptions={validAvatarOptions}
+                            onAvatarFailed={onAvatarFailed}
+                        />
+                    )}
+                    </>
+                );
+            }
+
+            return (
+                <>
+                <a href="#main-content" className="skip-link">{t('ui.skipToMainContent') || 'Skip to main content'}</a>
+                <div id="main-content" className="app-container" role="main">
+                    <div className="lesson-panel">
+                        <div className="header">
+                            <div className="header-content header-content-with-avatar">
+                                <button
+                                    type="button"
+                                    className="avatar-change-btn"
+                                    onClick={(e) => {
+                                        avatarTriggerRef.current = e.currentTarget;
+                                        setAvatarPickerOpen(true);
+                                    }}
+                                    aria-label={t('ui.changeAvatar')}
+                                    aria-haspopup="dialog"
+                                >
+                                    {avatarUrl ? (
+                                        <img src={avatarUrl} alt="" className="user-avatar user-avatar-header" width="44" height="44" onError={() => { onAvatarFailed(avatarUrl); setAvatarUrl(DEFAULT_AVATAR_URL); }} />
+                                    ) : (
+                                        <span className="avatar-placeholder" aria-hidden="true" />
+                                    )}
+                                </button>
+                                <div>
+                                    <h1>{t('ui.title')}</h1>
+                                    <p>{t('ui.welcomeUser', { name: studentName, current: currentLessonIndex + 1, total: lessons.length })}</p>
+                                </div>
+                            </div>
+                                <div className="language-selector">
+                                    <button
+                                        ref={glossaryTriggerRef}
+                                        type="button"
+                                        className="glossary-btn"
+                                        onClick={() => setGlossaryOpen(true)}
+                                        aria-label={t('ui.glossaryButton')}
+                                        aria-haspopup="dialog"
+                                    >
+                                        📖 {t('ui.glossaryButton')}
+                                    </button>
+                                    <a
+                                        href={getReportBugMailtoUrl({ lessonIndex: currentLessonIndex, hasStarted: true })}
+                                        className="glossary-btn report-bug-btn"
+                                        style={{ textDecoration: 'none' }}
+                                        aria-label={t('ui.reportBug')}
+                                    >
+                                        🐛 {t('ui.reportBug')}
+                                    </a>
+                                <label htmlFor="language-select-main" className="sr-only">{t('ui.selectLanguage')}</label>
+                                <select 
+                                    id="language-select-main"
+                                    value={language} 
+                                    onChange={(e) => setLanguage(e.target.value)}
+                                    aria-label={t('ui.selectLanguage')}
+                                >
+                                    <option value="en">English</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="progress-section" role="region" aria-labelledby="course-progress-title">
+                            <div id="course-progress-title" className="progress-title">{t('ui.courseProgress')}</div>
+                            <div className="progress-circles">
+                                <div className="progress-circle-container">
+                                    <div 
+                                        className={`progress-circle ${isSectionComplete(htmlFundamentalsProgress) ? 'completed' : htmlFundamentalsProgress.completed > 0 ? 'in-progress' : ''}`}
+                                        onClick={() => jumpToSection('HTML Fundamentals')}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                jumpToSection('HTML Fundamentals');
+                                            }
+                                        }}
+                                        tabIndex="0"
+                                        role="button"
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.htmlFundamentals'), completed: htmlFundamentalsProgress.completed, total: htmlFundamentalsProgress.total })}
+                                    >
+                                        {htmlFundamentalsProgress.completed}/{htmlFundamentalsProgress.total}
+                                        {isSectionComplete(htmlFundamentalsProgress) && (
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
+                                        )}
+                                    </div>
+                                    <div className="progress-label">{t('categories.htmlFundamentals')}</div>
+                                </div>
+                                <div className="progress-circle-container">
+                                    <div 
+                                        className={`progress-circle ${isSectionComplete(htmlProgress) ? 'completed' : htmlProgress.completed > 0 ? 'in-progress' : ''}`}
+                                        onClick={() => jumpToSection('HTML')}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                jumpToSection('HTML');
+                                            }
+                                        }}
+                                        tabIndex="0"
+                                        role="button"
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.html'), completed: htmlProgress.completed, total: htmlProgress.total })}
+                                    >
+                                        {htmlProgress.completed}/{htmlProgress.total}
+                                        {isSectionComplete(htmlProgress) && (
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
+                                        )}
+                                    </div>
+                                    <div className="progress-label">{t('categories.html')}</div>
+                                </div>
+                                <div className="progress-circle-container">
+                                    <div 
+                                        className={`progress-circle ${isSectionComplete(cssProgress) ? 'completed' : cssProgress.completed > 0 ? 'in-progress' : ''}`}
+                                        onClick={() => jumpToSection('CSS')}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                jumpToSection('CSS');
+                                            }
+                                        }}
+                                        tabIndex="0"
+                                        role="button"
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.css'), completed: cssProgress.completed, total: cssProgress.total })}
+                                    >
+                                        {cssProgress.completed}/{cssProgress.total}
+                                        {isSectionComplete(cssProgress) && (
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
+                                        )}
+                                    </div>
+                                    <div className="progress-label">{t('categories.css')}</div>
+                                </div>
+                                <div className="progress-circle-container">
+                                    <div 
+                                        className={`progress-circle ${isSectionComplete(accessibilityProgress) ? 'completed' : accessibilityProgress.completed > 0 ? 'in-progress' : ''}`}
+                                        onClick={() => jumpToSection('Accessibility')}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                jumpToSection('Accessibility');
+                                            }
+                                        }}
+                                        tabIndex="0"
+                                        role="button"
+                                        aria-label={t('ui.jumpToSection', { section: t('categories.accessibility'), completed: accessibilityProgress.completed, total: accessibilityProgress.total })}
+                                    >
+                                        {accessibilityProgress.completed}/{accessibilityProgress.total}
+                                        {isSectionComplete(accessibilityProgress) && (
+                                            <span className="progress-star" role="img" aria-label={t('ui.completed')}>⭐</span>
+                                        )}
+                                    </div>
+                                    <div className="progress-label">{t('categories.accessibility')}</div>
+                                </div>
+                            </div>
+                            {allLessonsComplete && (
+                                <div style={{ marginTop: '16px' }}>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => setShowCertificateView(true)}
+                                        aria-label={t('ui.viewCertificate')}
+                                    >
+                                        🏆 {t('ui.viewCertificate')}
+                                    </button>
+                                </div>
+                            )}
+                            <div className="url-share" style={{ marginTop: '16px' }}>
+                                <p><strong>{t('ui.tip')}</strong> {t('ui.copyUrl')}</p>
+                                <p className="url-tip-note">{t('ui.noFilesSaved')}</p>
+                                <input 
+                                    type="text" 
+                                    readOnly 
+                                    value={window.location.href}
+                                    onClick={(e) => e.target.select()}
+                                    aria-label={t('ui.copyUrl')}
+                                />
+                            </div>
+                        </div>
+                        <div className="progress-indicator">
+                            <span>{currentLesson.category}: {currentLesson.title}</span>
+                        </div>
+                        <div className="lesson-content">
+                            <div className="lesson-section">
+                                <h2 className="lesson-title">{currentLesson.title}</h2>
+                                <div className="lesson-description">
+                                    <p><strong>{t('ui.whatWeLearning')}</strong> <TextWithTooltips text={currentLesson.description} /></p>
+                                    <p style={{ marginTop: '15px' }}>
+                                        <strong>{t('ui.whyImportant')}</strong> <TextWithTooltips text={currentLesson.whyImportant} />
+                                    </p>
+                                </div>
+
+                                {currentLesson.whatToDo && (
+                                    <div className="hint-section">
+                                        <button
+                                            type="button"
+                                            className="hint-button"
+                                            onClick={() => setHintExpanded(!hintExpanded)}
+                                            aria-expanded={hintExpanded}
+                                            aria-controls="hint-content"
+                                            aria-label={hintExpanded ? t('ui.hideHint') : t('ui.showHint')}
+                                        >
+                                            <span>{t('ui.needHint')}</span>
+                                            <span className="hint-icon" aria-hidden="true">▼</span>
+                                        </button>
+                                        <div
+                                            id="hint-content"
+                                            className={`hint-content ${hintExpanded ? 'hint-content--expanded' : ''}`}
+                                            aria-hidden={!hintExpanded}
+                                            role="region"
+                                            aria-label={t('ui.hintRegion')}
+                                        >
+                                            <h3>{t('ui.whatToDo')}</h3>
+                                            <ol>
+                                                {currentLesson.whatToDo.map((step, index) => (
+                                                    <li key={index}><TextWithTooltips text={step} /></li>
+                                                ))}
+                                            </ol>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="code-input">
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                                        <label htmlFor="code-editor">{t('ui.typeCodeHere')}</label>
+                                        <button 
+                                            onClick={handleFormat}
+                                            className="btn btn-secondary"
+                                            style={{ fontSize: '14px', padding: '6px 12px' }}
+                                            type="button"
+                                            aria-label={t('ui.formatCode')}
+                                        >
+                                            {t('ui.formatCode')}
+                                        </button>
+                                    </div>
+                                    <div className="code-editor-container">
+                                        <div className="code-editor-header">
+                                            <div className="code-editor-dot red" aria-hidden="true"></div>
+                                            <div className="code-editor-dot yellow" aria-hidden="true"></div>
+                                            <div className="code-editor-dot green" aria-hidden="true"></div>
+                                            <span className="code-editor-title">code.html</span>
+                                        </div>
+                                        <textarea
+                                            ref={textareaRef}
+                                            id="code-editor"
+                                            value={code}
+                                            onChange={(e) => handleCodeChange(e.target.value)}
+                                            onKeyDown={handleKeyDown}
+                                            placeholder={t('ui.codePlaceholder')}
+                                            aria-label="Code editor for typing HTML and CSS"
+                                            aria-describedby="code-editor-description"
+                                        />
+                                    </div>
+                                    <div id="code-editor-description" className="sr-only">
+                                        {t('ui.codeEditorDescription')}
+                                    </div>
+                                </div>
+
+                                <div className="button-group">
+                                    {currentLessonIndex > 0 && (
+                                        <button onClick={handleBack} className="btn btn-secondary" aria-label={t('ui.back')}>
+                                            {t('ui.back')}
+                                        </button>
+                                    )}
+                                    <button onClick={downloadCurrentHtml} type="button" className="btn btn-secondary" aria-label={t('ui.downloadHtml') === 'ui.downloadHtml' ? (language === 'fr' ? 'Télécharger le HTML' : 'Download HTML') : t('ui.downloadHtml')}>
+                                        {t('ui.downloadHtml') === 'ui.downloadHtml' ? (language === 'fr' ? 'Télécharger le HTML' : 'Download HTML') : t('ui.downloadHtml')}
+                                    </button>
+                                    <button onClick={handleVerify} className="btn btn-primary" aria-label={t('ui.verifyCode')}>
+                                        {t('ui.verifyCode')}
+                                    </button>
+                                    {!isLastLesson && (
+                                        <button onClick={handleSkip} className="btn btn-secondary" aria-label={t('ui.skip')}>
+                                            {t('ui.skip')}
+                                        </button>
+                                    )}
+                                    {feedback && (
+                                        <>
+                                            {isVerified && !isLastLesson && (
+                                                <button ref={nextButtonRef} onClick={handleNext} className="btn btn-success" aria-label={t('ui.nextLesson')}>
+                                                    {t('ui.nextLesson')}
+                                                </button>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+
+                                {feedback && (
+                                    <div className={`feedback ${feedback.type}`} role="status" aria-live="polite">
+                                        {feedback.message}
+                                    </div>
+                                )}
+
+                                {currentLesson.w3schoolsLinks && currentLesson.w3schoolsLinks.length > 0 && (
+                                    <div className="w3schools-links">
+                                        <h3>{t('ui.learnMore')}</h3>
+                                        <ul>
+                                            {currentLesson.w3schoolsLinks.map((link, index) => (
+                                                <li key={index}>
+                                                    <a 
+                                                        href={link.url} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        aria-label={`${link.text} - opens in new tab`}
+                                                    >
+                                                        {link.text}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="preview-panel">
+                        <div className="preview-browser-window">
+                            <div className="preview-browser-chrome">
+                                <div className="preview-browser-tab-row">
+                                    <div className="preview-browser-dots" aria-hidden="true">
+                                        <span className="preview-dot" />
+                                        <span className="preview-dot" />
+                                        <span className="preview-dot" />
+                                    </div>
+                                    <div className="preview-browser-tabs" aria-hidden="true">
+                                        <span className="preview-tab preview-tab-active">
+                                            {t('ui.preview')}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="preview-browser-toolbar">
+                                    <div className="preview-nav-buttons" aria-hidden="true">
+                                        <span className="preview-nav-btn preview-nav-back">‹</span>
+                                        <span className="preview-nav-btn preview-nav-forward">›</span>
+                                        <span className="preview-nav-btn preview-nav-refresh">↻</span>
+                                    </div>
+                                    <div className="preview-browser-bar">
+                                        <span className="preview-bar-icon" aria-hidden="true">🔒</span>
+                                        <input
+                                            type="text"
+                                            className="preview-bar-url"
+                                            readOnly
+                                            value={currentPageUrl}
+                                            onFocus={(e) => e.target.select()}
+                                            onClick={(e) => e.target.select()}
+                                            aria-label={t('ui.pageUrlAria')}
+                                        />
+                                    </div>
+                                    {currentLessonRaw.id === 'accessibility-4' && (
+                                        <span className="preview-browser-hint">
+                                            💡 {t('ui.clickToTestKeyboard')}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <iframe
+                            ref={previewFrameRef}
+                            className="preview-frame"
+                            title={t('ui.previewAria')}
+                            aria-label={t('ui.previewAria')}
+                            sandbox="allow-same-origin"
+                            tabIndex="0"
+                            onClick={() => {
+                                // Focus the iframe when clicked to enable keyboard navigation
+                                if (previewFrameRef.current) {
+                                    previewFrameRef.current.focus();
+                                    // Also try to focus the first focusable element inside
+                                    setTimeout(() => {
+                                        const iframe = previewFrameRef.current;
+                                        if (iframe && iframe.contentDocument) {
+                                            const firstLink = iframe.contentDocument.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+                                            if (firstLink) {
+                                                firstLink.focus();
+                                            }
+                                        }
+                                    }, 100);
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
+                {glossaryOpen && <GlossaryPopup open={glossaryOpen} onClose={() => setGlossaryOpen(false)} language={language} triggerRef={glossaryTriggerRef} />}
+                {avatarPickerOpen && (
+                    <AvatarPickerPopup
+                        open={avatarPickerOpen}
+                        onClose={() => setAvatarPickerOpen(false)}
+                        avatarUrl={avatarUrl}
+                        setAvatarUrl={setAvatarUrl}
+                        triggerRef={avatarTriggerRef}
+                        validAvatarOptions={validAvatarOptions}
+                        onAvatarFailed={onAvatarFailed}
+                    />
+                )}
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

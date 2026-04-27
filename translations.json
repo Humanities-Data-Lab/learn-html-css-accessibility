@@ -1,0 +1,1925 @@
+{
+  "en": {
+    "ui": {
+      "title": "Learn HTML, CSS & Accessible Web Design",
+      "subtitle": "An interactive tutorial - Complete in ~1.5 hours",
+      "welcome": "Welcome to Web Development!",
+      "welcomeDescription": "This interactive tutorial will teach you the fundamentals of HTML, CSS, and accessible web design. You'll build a webpage step by step, learning essential concepts along the way.",
+      "tutorialCredit": "This tutorial was built for teaching workshops, but can be taken on its own as a self-paced learning experience. It is written in Canadian English (except where CSS requires American spelling in code).",
+      "enterName": "Enter your name",
+      "chooseAvatar": "Choose your avatar",
+      "chooseAvatarOption": "Avatar option {number} of {total}",
+      "avatarPickerScrollHint": "Scroll for more avatars",
+      "changeAvatar": "Change avatar",
+      "startLearning": "Start Learning",
+      "nameCertificateNote": "This name will appear on your shareable certificate when you complete all lessons.",
+      "welcomeUser": "Welcome, {name}! • Lesson {current} of {total}",
+      "courseProgress": "Course Progress - Click any section to jump to it",
+      "whatWeLearning": "What we're learning:",
+      "whyImportant": "Why it's important:",
+      "needHint": "💡 Need a hint? Click to see what to do",
+      "hideHint": "Hide hint",
+      "showHint": "Show hint",
+      "whatToDo": "📋 What to do:",
+      "typeCodeHere": "Type your code here:",
+      "codeEditorDescription": "Code editor with manual formatting. Press Tab to indent, Shift+Tab to unindent, Enter to maintain indentation. Click the Format button to format your code.",
+      "back": "← Back",
+      "verifyCode": "Verify Code",
+      "skip": "Skip →",
+      "tryAgain": "Try Again",
+      "nextLesson": "Next Lesson →",
+      "learnMore": "📚 Learn More on W3Schools",
+      "tip": "💡 Tip:",
+      "copyUrl": "Copy this URL to save your progress and resume later:",
+      "noFilesSaved": "No files are saved on our server—this is the only way to re-access your progress.",
+      "preview": "Your Webpage Preview",
+      "previewAria": "Live preview of your HTML and CSS code",
+      "pageUrlAria": "Current page URL, select to copy",
+      "certificateTitle": "Certificate of Completion",
+      "certificateSubtitle": "HTML, CSS & Accessible Web Design",
+      "certificateDescription": "This certifies that",
+      "certificateCompleted": "has successfully completed the interactive tutorial on HTML fundamentals, CSS styling, and accessible web design principles.",
+      "certificateCovered": "This course covered:",
+      "completedOn": "Completed on",
+      "congratulations": "Congratulations",
+      "certificateShare": "Share this certificate with anyone by copying the URL:",
+      "certificateShareDescription": "You can copy the URL above to share your certificate with anyone.",
+      "emailCertificate": "Email Certificate",
+      "emailCertificateSubject": "Check out my certificate",
+      "emailCertificateBody": "I've completed the HTML, CSS & Accessible Web Design tutorial! Check out my certificate:",
+      "certificateItem1": "HTML Fundamentals and Document Structure",
+      "certificateItem2": "CSS Styling and Layout",
+      "certificateItem3": "Accessible Web Design Principles",
+      "certificateItem4": "Semantic HTML and Keyboard Navigation",
+      "successMessage": "Great job! Your code is correct!",
+      "errorMessage": "Not quite right. Make sure you include: {elements}",
+      "selectLanguage": "Select language",
+      "studentNameAria": "Student name: {name}",
+      "completed": "Completed",
+      "jumpToSection": "Jump to {section} section. {completed} of {total} lessons completed.",
+      "hintRegion": "Hint instructions",
+      "codePlaceholder": "<!-- Start typing your HTML/CSS code here... -->",
+      "clickToTestKeyboard": "Click in the preview, then press Tab to test keyboard navigation",
+      "formatCode": "Format",
+      "downloadHtml": "Download HTML",
+      "downloadAllFiles": "Download all my files",
+      "glossaryButton": "Glossary",
+      "glossaryTitle": "Glossary",
+      "glossarySearchPlaceholder": "Search terms...",
+      "glossaryClose": "Close glossary",
+      "glossaryNoResults": "No terms match your search.",
+      "skipToMainContent": "Skip to main content",
+      "definitionOf": "Definition of {term}",
+      "backToLessons": "Back to lessons",
+      "viewCertificate": "View certificate",
+      "reportBug": "Report bug",
+      "bugReportEmailBriefDescription": "Brief description of the bug:",
+      "bugReportEmailStepsToReproduce": "Steps to reproduce:",
+      "bugReportEmailDoNotEdit": "Please do not edit the section below. It contains technical information to help diagnose the issue.",
+      "bugReportEmailWhatToAttach": "What you can attach to help (optional):",
+      "bugReportEmailWhatToAttachIntro": "You can attach these when you send this email:",
+      "bugReportEmailHar": "HAR file: DevTools (F12) → Network tab → reproduce the issue → right-click in the list → Save all as HAR with content. Attach the .har file to your email.",
+      "bugReportEmailConsole": "Console errors: DevTools (F12) → Console tab → right-click in the console → Save as… (or copy/paste errors into the email body).",
+      "bugReportEmailScreenshot": "Screenshot of the issue (browser or OS screenshot tool).",
+      "bugReportEmailCurrentUrl": "Current page URL is included in the technical section below.",
+      "bugReportEmailFrenchSection": "--- Français ---"
+    },
+    "categories": {
+      "htmlFundamentals": "HTML Fundamentals",
+      "html": "HTML",
+      "css": "CSS",
+      "accessibility": "Accessibility"
+    },
+    "lessons": {
+      "fundamentals-1": {
+        "title": "Understanding HTML Tags",
+        "description": "HTML uses \"tags\" to mark up content. Tags are written inside angle brackets like <tag>. Most tags come in pairs: an opening tag <tag> and a closing tag </tag>. The closing tag has a forward slash before the tag name. Everything between the opening and closing tags is the content.",
+        "whyImportant": "Tags are the building blocks of HTML. Understanding how tags work is essential - they tell the browser what type of content you're creating (heading, paragraph, link, etc.).",
+        "whatToDo": [
+          "Type an opening tag using angle brackets, like <div>",
+          "Add some text or content",
+          "Type the closing tag with a forward slash, like </div>",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Elements",
+            "url": "https://www.w3schools.com/html/html_elements.asp"
+          },
+          {
+            "text": "HTML Tags",
+            "url": "https://www.w3schools.com/html/html_intro.asp"
+          }
+        ],
+        "expectedElements": [
+          "Opening tag <tag>",
+          "Closing tag </tag>"
+        ]
+      },
+      "fundamentals-2": {
+        "title": "Your First HTML Tag",
+        "description": "Let's write your very first HTML tag! We'll start with a paragraph tag. Type <p> to open it, add some text, then close it with </p>. The <p> tag creates a paragraph of text. Remember: opening tag, content, closing tag!",
+        "whyImportant": "Writing your first tag helps you understand the basic pattern all HTML follows. Once you master this, you can learn any HTML tag.",
+        "whatToDo": [
+          "Type <p> (opening paragraph tag)",
+          "Add some text, like \"Hello World\"",
+          "Type </p> (closing paragraph tag)",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Paragraphs",
+            "url": "https://www.w3schools.com/html/html_paragraphs.asp"
+          }
+        ],
+        "expectedElements": [
+          "<p> opening tag",
+          "Some text content",
+          "</p> closing tag"
+        ]
+      },
+      "fundamentals-3": {
+        "title": "Understanding HTML Attributes",
+        "description": "Attributes provide extra information about tags. They go inside the opening tag like this: <tag attribute=\"value\">. For example, a link tag uses href=\"url\" to specify where the link goes. Attributes always have a name, an equals sign, and a value in quotes. Two very important attributes are id and class: id gives an element a unique identifier (only one element per page can have a specific id), while class groups multiple elements together (many elements can share the same class).",
+        "whyImportant": "Attributes make tags more powerful. They let you customise how tags behave - like setting colors, sizes, links, and more. Almost every HTML tag can use attributes. The id and class attributes are especially important because they let you target specific elements with CSS and JavaScript. When you apply an id or class to a parent element, it doesn't automatically apply to its children - children need their own attributes unless you use CSS selectors to target them based on their parent.",
+        "whatToDo": [
+          "Add a tag with an id attribute, like <div id=\"myDiv\">",
+          "Add another tag with a class attribute, like <p class=\"text\">",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<p>This is a paragraph</p>\n<!-- Add tags with id and class attributes here -->",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Attributes",
+            "url": "https://www.w3schools.com/html/html_attributes.asp"
+          },
+          {
+            "text": "HTML id Attribute",
+            "url": "https://www.w3schools.com/html/html_id.asp"
+          },
+          {
+            "text": "HTML class Attribute",
+            "url": "https://www.w3schools.com/html/html_classes.asp"
+          }
+        ],
+        "expectedElements": [
+          "A tag with id attribute",
+          "A tag with class attribute"
+        ]
+      },
+      "fundamentals-4": {
+        "title": "Common HTML Tags: div, span, and More",
+        "description": "The <div> tag is a container that groups content together. It doesn't have any visual meaning by itself, but it helps organize your page. The <span> tag is similar but for inline content. You'll also use <strong> for bold text and <em> for italic text. These are some of the most common tags you'll use! HTML elements form a hierarchy - parent elements contain child elements. When you add an id or class to a parent element (like a <div>), it doesn't automatically apply to its children. Each element needs its own attributes. However, you can use CSS to style children based on their parent - for example, \".parent .child\" targets elements with class \"child\" inside elements with class \"parent\".",
+        "whyImportant": "Understanding common tags like <div> and <span> helps you structure your content. They're building blocks for organizing and styling your webpage. Semantic tags like <strong> and <em> also help with accessibility. Understanding HTML hierarchy is crucial - parent-child relationships determine how CSS selectors work and how you organize your code. When choosing ids and classes, use descriptive names that explain the element's purpose (like \"header\" or \"main-content\" instead of \"div1\" or \"box\").",
+        "whatToDo": [
+          "Add a <div> tag with a class attribute",
+          "Add a <span> tag with some content",
+          "Add a <strong> or <em> tag to highlight some text",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<p>This is a paragraph</p>\n<!-- Add div with class, span, strong, and em tags here -->\n<!-- Remember: parent elements contain children, but children need their own attributes -->",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML div Tag",
+            "url": "https://www.w3schools.com/tags/tag_div.asp"
+          },
+          {
+            "text": "HTML span Tag",
+            "url": "https://www.w3schools.com/tags/tag_span.asp"
+          },
+          {
+            "text": "HTML strong Tag",
+            "url": "https://www.w3schools.com/tags/tag_strong.asp"
+          },
+          {
+            "text": "HTML em Tag",
+            "url": "https://www.w3schools.com/tags/tag_em.asp"
+          }
+        ],
+        "expectedElements": [
+          "<div> with class attribute",
+          "<span>",
+          "<strong> or <em>"
+        ]
+      },
+      "html-1": {
+        "title": "HTML Document Structure",
+        "description": "Every HTML webpage needs a basic structure. The <html> tag wraps everything. Inside it, <head> contains information about the page (like the title), and <body> contains the visible content. The <title> tag goes in the head and sets the browser tab title.",
+        "whyImportant": "This structure tells browsers \"this is an HTML document\" and organizes your page into visible content (body) and metadata (head). Without this structure, browsers might not display your page correctly.",
+        "whatToDo": [
+          "Make sure you have the <html> tag that wraps everything",
+          "Add a <head> section with a <title> tag inside",
+          "Add a <body> section for visible content",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome to my page!</h1>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Basic Structure",
+            "url": "https://www.w3schools.com/html/html_basic.asp"
+          },
+          {
+            "text": "HTML head Element",
+            "url": "https://www.w3schools.com/html/html_head.asp"
+          },
+          {
+            "text": "HTML title Tag",
+            "url": "https://www.w3schools.com/tags/tag_title.asp"
+          }
+        ],
+        "expectedElements": [
+          "<html>",
+          "<head>",
+          "<title>",
+          "<body>"
+        ]
+      },
+      "html-2": {
+        "title": "Adding Content with Headings and Paragraphs",
+        "description": "Now let's add actual content to your webpage! Headings (<h1> to <h6>) help organize your content, and paragraphs (<p>) contain your text. We'll add a main heading and a paragraph inside the body.",
+        "whyImportant": "Headings create a hierarchy that helps both users and search engines understand your content. Paragraphs make your text readable and well-organized.",
+        "whatToDo": [
+          "Add an <h1> tag with a main heading",
+          "Add a <p> tag with paragraph text",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <!-- Add your heading and paragraph here -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Headings",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "HTML Paragraphs",
+            "url": "https://www.w3schools.com/html/html_paragraphs.asp"
+          }
+        ],
+        "expectedElements": [
+          "<h1>",
+          "<p>"
+        ]
+      },
+      "html-3": {
+        "title": "Creating Lists",
+        "description": "Lists are great for organizing information. HTML has two types: ordered lists (<ol>) with numbers, and unordered lists (<ul>) with bullets. Each item uses <li> (list item).",
+        "whyImportant": "Lists make information scannable and easy to digest. They're essential for navigation menus, feature lists, and step-by-step instructions.",
+        "whatToDo": [
+          "Add a <ul> (unordered list) or <ol> (ordered list) tag",
+          "Add <li> elements inside your list",
+          "Each <li> represents one item in the list",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Here are some things I like:</p>\n    <!-- Add your list here -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Lists",
+            "url": "https://www.w3schools.com/html/html_lists.asp"
+          },
+          {
+            "text": "HTML Unordered Lists",
+            "url": "https://www.w3schools.com/html/html_lists_unordered.asp"
+          },
+          {
+            "text": "HTML Ordered Lists",
+            "url": "https://www.w3schools.com/html/html_lists_ordered.asp"
+          }
+        ],
+        "expectedElements": [
+          "<ul> or <ol>",
+          "<li>"
+        ]
+      },
+      "html-4": {
+        "title": "Adding Links",
+        "description": "Links (<a>) connect your webpage to other pages or websites. The href attribute tells the browser where to go when clicked. Links are what make the web \"web-like\"!",
+        "whyImportant": "Links are the foundation of navigation on the web. They allow users to move between pages and discover new content.",
+        "whatToDo": [
+          "Add an <a> tag to create a link",
+          "Add the href=\"url\" attribute to specify the destination",
+          "Add text between <a> and </a> that will be clickable",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Check out this cool website:</p>\n    <!-- Add your link here -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Links",
+            "url": "https://www.w3schools.com/html/html_links.asp"
+          },
+          {
+            "text": "HTML a Tag",
+            "url": "https://www.w3schools.com/tags/tag_a.asp"
+          }
+        ],
+        "expectedElements": [
+          "<a> with href attribute"
+        ]
+      },
+      "html-5": {
+        "title": "Adding Images",
+        "description": "Images (<img>) make webpages visually appealing. The src attribute points to the image file, and alt provides a text description for accessibility.",
+        "whyImportant": "Images engage users and convey information quickly. The alt attribute is crucial for screen readers and when images fail to load.",
+        "whatToDo": [
+          "Add an <img> tag to display an image",
+          "Add the src=\"url\" attribute to specify the image location",
+          "Add the alt=\"description\" attribute to describe the image",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>Here's a beautiful image:</p>\n    <!-- Add your image here using: <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"description\"> -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Images",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "HTML img Tag",
+            "url": "https://www.w3schools.com/tags/tag_img.asp"
+          }
+        ],
+        "expectedElements": [
+          "<img> with alt attribute"
+        ]
+      },
+      "css-1": {
+        "title": "Introduction to CSS",
+        "description": "CSS (Cascading Style Sheets) makes your webpage beautiful! It controls colours, fonts, spacing, and layout. We'll add a <style> tag in the <head> to style our HTML. For example, you could use: body { color: blue; } to make all text blue, or h1 { font-size: 32px; } to make headings larger, or p { background-color: yellow; } to add a yellow background to paragraphs.",
+        "whyImportant": "CSS separates content (HTML) from presentation (styling). This makes websites maintainable and allows for consistent design across pages.",
+        "whatToDo": [
+          "Add a <style> tag in the <head> section",
+          "Write a CSS rule, for example: body { color: blue; }",
+          "Don't forget the curly braces { } and semicolon ;",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        /* Add your CSS here */\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Introduction",
+            "url": "https://www.w3schools.com/css/css_intro.asp"
+          },
+          {
+            "text": "CSS Syntax",
+            "url": "https://www.w3schools.com/css/css_syntax.asp"
+          },
+          {
+            "text": "CSS How To",
+            "url": "https://www.w3schools.com/css/css_howto.asp"
+          }
+        ],
+        "expectedElements": [
+          "<style> tag",
+          "CSS rule"
+        ]
+      },
+      "css-2": {
+        "title": "Styling Text",
+        "description": "Let's make text more readable and attractive! You can change font size, color, and weight. We'll style the <h1> and <p> elements.",
+        "whyImportant": "Well-styled text improves readability and user experience. It helps guide users' attention to important information.",
+        "whatToDo": [
+          "Add CSS properties to style the text",
+          "Use color: to change the text colour",
+          "Use font-size: to change the size",
+          "Use font-weight: to make text bold",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        h1 {\n            /* Style your heading */\n        }\n        p {\n            /* Style your paragraph */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Text",
+            "url": "https://www.w3schools.com/css/css_text.asp"
+          },
+          {
+            "text": "CSS Fonts",
+            "url": "https://www.w3schools.com/css/css_font.asp"
+          },
+          {
+            "text": "CSS Color",
+            "url": "https://www.w3schools.com/css/css_colors.asp"
+          }
+        ],
+        "expectedElements": [
+          "CSS rule for text"
+        ]
+      },
+      "css-3": {
+        "title": "Adding Backgrounds and Borders",
+        "description": "Backgrounds and borders add visual interest and help separate content. You can set background colours and add borders to elements.",
+        "whyImportant": "Backgrounds and borders create visual hierarchy and make your content stand out. They help organize information on the page.",
+        "whatToDo": [
+          "Add background-color: to set a background colour",
+          "Or add border: to create a border around an element",
+          "Example: border: 2px solid black;",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        body {\n            /* Add background colour */\n        }\n        h1 {\n            /* Add border */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Backgrounds",
+            "url": "https://www.w3schools.com/css/css_background.asp"
+          },
+          {
+            "text": "CSS Borders",
+            "url": "https://www.w3schools.com/css/css_border.asp"
+          }
+        ],
+        "expectedElements": [
+          "background-color or border"
+        ]
+      },
+      "css-4": {
+        "title": "Spacing with Margin and Padding",
+        "description": "Margin creates space outside an element, while padding creates space inside. These are essential for creating readable, well-spaced layouts.",
+        "whyImportant": "Proper spacing makes content easier to read and prevents elements from feeling cramped. It's a key principle of good design.",
+        "whatToDo": [
+          "Add margin: to create space outside an element",
+          "Or add padding: to create space inside",
+          "Example: margin: 20px; or padding: 10px;",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 20px;\n        }\n        p {\n            /* Add margin and padding */\n        }\n    </style>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <p>This is my webpage!</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Margin",
+            "url": "https://www.w3schools.com/css/css_margin.asp"
+          },
+          {
+            "text": "CSS Padding",
+            "url": "https://www.w3schools.com/css/css_padding.asp"
+          },
+          {
+            "text": "CSS Box Model",
+            "url": "https://www.w3schools.com/css/css_boxmodel.asp"
+          }
+        ],
+        "expectedElements": [
+          "margin or padding"
+        ]
+      },
+      "css-5": {
+        "title": "CSS Selectors: IDs and Classes",
+        "description": "IDs and classes let you target specific elements with CSS. An ID is unique (only one per page) and uses # in CSS. A class can be used multiple times and uses . in CSS. You add id=\"name\" or class=\"name\" to HTML tags, then style them with #name or .name in CSS.",
+        "whyImportant": "IDs and classes are essential for styling specific elements. They let you create reusable styles and organize your CSS. Classes are great for styling multiple elements the same way, while IDs are perfect for unique elements.",
+        "whatToDo": [
+          "Use # to target an ID, for example: #container { }",
+          "Use . to target a class, for example: .highlight { }",
+          "Add CSS properties inside the curly braces",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My First Webpage</title>\n    <style>\n        /* Add CSS for an ID using # */\n        /* Add CSS for a class using . */\n    </style>\n</head>\n<body>\n    <div id=\"container\">\n        <p class=\"highlight\">This is highlighted text</p>\n        <p>Regular text</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Selectors",
+            "url": "https://www.w3schools.com/css/css_selectors.asp"
+          },
+          {
+            "text": "CSS ID Selector",
+            "url": "https://www.w3schools.com/css/css_id.asp"
+          },
+          {
+            "text": "CSS Class Selector",
+            "url": "https://www.w3schools.com/css/css_class.asp"
+          }
+        ],
+        "expectedElements": [
+          "ID or class selector"
+        ]
+      },
+      "accessibility-1": {
+        "title": "Semantic HTML",
+        "description": "Semantic HTML uses meaningful tags like <header>, <nav>, <main>, <article>, and <footer> instead of just <div>. These tags help screen readers understand your page structure.",
+        "whyImportant": "Semantic HTML makes your website accessible to people using assistive technologies. It also helps search engines understand your content better.",
+        "whatToDo": [
+          "Add the lang=\"en\" attribute to the <html> tag",
+          "Replace <div> tags with semantic tags like <header>, <main>, or <footer>",
+          "Use these tags to structure your page meaningfully",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <div>\n        <p>This is my accessible webpage!</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Semantic Elements",
+            "url": "https://www.w3schools.com/html/html5_semantic_elements.asp"
+          },
+          {
+            "text": "HTML header Tag",
+            "url": "https://www.w3schools.com/tags/tag_header.asp"
+          },
+          {
+            "text": "HTML main Tag",
+            "url": "https://www.w3schools.com/tags/tag_main.asp"
+          }
+        ],
+        "expectedElements": [
+          "lang attribute on <html>",
+          "<header>, <main>, or <footer>"
+        ]
+      },
+      "accessibility-2": {
+        "title": "Alt Text for Images",
+        "description": "We already added alt text to images, but let's make sure it's descriptive! Good alt text describes what the image shows, not just \"image\" or \"picture\".",
+        "whyImportant": "Descriptive alt text allows screen reader users to understand images. It also displays when images fail to load, helping all users.",
+        "whatToDo": [
+          "Find the <img> tag in your code",
+          "Make sure it has an alt attribute",
+          "Make the alt text descriptive (at least 10 characters)",
+          "Describe what the image shows, not just \"image\"",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n    </header>\n    <main>\n        <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"Add descriptive text here\">\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Images",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "HTML img alt Attribute",
+            "url": "https://www.w3schools.com/tags/att_img_alt.asp"
+          },
+          {
+            "text": "Accessibility Images",
+            "url": "https://www.w3schools.com/accessibility/accessibility_images.php"
+          }
+        ],
+        "expectedElements": [
+          "<img> with alt attribute"
+        ]
+      },
+      "accessibility-3": {
+        "title": "Proper Heading Hierarchy",
+        "description": "Headings should follow a logical order: <h1> for the main title, <h2> for major sections, <h3> for subsections, etc. Never skip levels (don't go from <h1> to <h3>).",
+        "whyImportant": "Screen readers use headings to navigate. A proper hierarchy helps users understand the page structure and jump to sections they care about.",
+        "whatToDo": [
+          "Make sure you have an <h1> for the main title",
+          "Add an <h2> for a major section",
+          "The <h2> should come after the <h1> (don't skip levels)",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Main Title</h1>\n    </header>\n    <main>\n        <p>Content here</p>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "HTML Headings",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "Accessibility Headings",
+            "url": "https://www.w3schools.com/accessibility/accessibility_headings.php"
+          }
+        ],
+        "expectedElements": [
+          "Proper heading hierarchy"
+        ]
+      },
+      "accessibility-4": {
+        "title": "Keyboard Navigation and Focus",
+        "description": "All interactive elements (links, buttons) should be keyboard accessible. Add :focus styles so users can see which element has focus when navigating with Tab.",
+        "whyImportant": "Many users navigate websites using only the keyboard. Visible focus indicators are essential for these users to know where they are on the page.",
+        "whatToDo": [
+          "Make sure you have a <nav> tag with <a> links",
+          "Add a :focus style for the links, for example: a:focus { outline: 3px solid blue; }",
+          "Test with the Tab key to see the focus",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n    <style>\n        a:focus {\n            /* Add focus styles */\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav>\n            <a href=\"#home\">Home</a>\n            <a href=\"#about\">About</a>\n        </nav>\n    </header>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS :focus Pseudo-class",
+            "url": "https://www.w3schools.com/css/css_pseudo_classes.asp"
+          },
+          {
+            "text": "Accessibility Keyboard",
+            "url": "https://www.w3schools.com/accessibility/accessibility_keyboard.php"
+          },
+          {
+            "text": "HTML nav Tag",
+            "url": "https://www.w3schools.com/tags/tag_nav.asp"
+          }
+        ],
+        "expectedElements": [
+          "<nav> with links",
+          "Focus styles on links"
+        ]
+      },
+      "accessibility-5": {
+        "title": "ARIA Labels and Roles",
+        "description": "ARIA (Accessible Rich Internet Applications) attributes help screen readers understand your page better. Use aria-label to provide an accessible name for elements when a visible label isn't sufficient - this is especially important for icon buttons and custom controls. Use the role attribute to describe what an element does, like role=\"button\" or role=\"navigation\". For example, role=\"button\" tells screen readers an element acts like a button, even if it's not a <button> tag.",
+        "whyImportant": "ARIA attributes make complex interfaces accessible. They help screen readers understand elements that might not be clear from HTML alone, like custom buttons or interactive regions. aria-label is essential for icon-only buttons, and role helps screen readers understand the purpose of custom elements.",
+        "whatToDo": [
+          "Add aria-label=\"description\" to an element to give it an accessible name (especially useful for icon buttons)",
+          "Add role=\"name\" to describe what an element does (like role=\"button\" or role=\"navigation\")",
+          "You need both: an aria-label attribute AND a role attribute",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>Welcome</h1>\n        <nav role=\"navigation\">\n            <!-- Add aria-label to this button and make sure it has a role -->\n            <button>☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Expand section</div>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "ARIA Introduction",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria.php"
+          },
+          {
+            "text": "ARIA Labels",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_labels.php"
+          },
+          {
+            "text": "ARIA Roles",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
+        "expectedElements": [
+          "aria-label attribute",
+          "role attribute"
+        ]
+      },
+      "accessibility-6": {
+        "title": "More Accessibility Features",
+        "description": "There are many more ARIA attributes that help screen readers! Use aria-describedby to connect an element to its description by referencing the ID of the description element. Use aria-expanded to indicate whether a collapsible element (like a dropdown or accordion) is expanded (true) or collapsed (false). Use the role attribute to describe what an element does, like role=\"button\" or role=\"navigation\". These attributes help screen readers understand complex interfaces.",
+        "whyImportant": "ARIA attributes like aria-describedby, aria-expanded, and role provide crucial information to screen readers that HTML alone cannot convey. They make dynamic and complex interfaces accessible to users with disabilities. These features are essential for truly accessible websites.",
+        "whatToDo": [
+          "Add aria-describedby=\"id\" to connect an element to its description (the description element needs an id)",
+          "Or add aria-expanded=\"true\" or \"false\" to indicate if a collapsible element is open or closed",
+          "Add role=\"name\" to describe what an element does (like role=\"button\" or role=\"navigation\")",
+          "You need at least one of: aria-describedby or aria-expanded, AND a role attribute",
+          "Click \"Verify Code\" to check your work"
+        ],
+        "codeTemplate": "<html lang=\"en\">\n<head>\n    <title>My Accessible Webpage</title>\n</head>\n<body>\n    <header>\n        <h1>City Library Events</h1>\n    </header>\n    <main>\n        <p id=\"event-note\">Note: Some events require registration. Arrive 10 minutes early for seating.</p>\n        <div aria-describedby=\"event-note\" role=\"region\">\n            <h2>Today’s events</h2>\n            <ul>\n                <li>10:00 AM — Story time (Kids Room)</li>\n                <li>1:00 PM — Resume workshop (Meeting Room A)</li>\n                <li>6:30 PM — Book club: \"Pride and Prejudice\" (Community Room)</li>\n            </ul>\n        </div>\n        <!-- Or try: <button aria-expanded=\"false\" role=\"button\">Show event details</button> -->\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "ARIA Describedby",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_describedby.php"
+          },
+          {
+            "text": "ARIA Expanded",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_expanded.php"
+          },
+          {
+            "text": "ARIA Roles",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
+        "expectedElements": [
+          "aria-describedby attribute",
+          "aria-expanded attribute",
+          "role attribute"
+        ]
+      }
+    },
+    "glossary": {
+      "HTML": "HyperText Markup Language - the standard language for creating webpages. It structures content using tags.",
+      "tags": "HTML tags are elements that mark up content. They come in pairs: opening tag <tag> and closing tag </tag>.",
+      "element": "An HTML element consists of an opening tag, content, and closing tag. Examples: <p>text</p> is a paragraph element.",
+      "<html>": "The root element that wraps all HTML content on a webpage.",
+      "<head>": "Contains metadata about the document, like title and styles, not visible on the page.",
+      "<body>": "Contains all visible content that appears on the webpage.",
+      "<title>": "Sets the text shown in the browser tab or window title.",
+      "<h1>": "The main heading (largest). Use only one per page for the main title.",
+      "<h2>": "A section heading, smaller than h1. Use for major sections.",
+      "<h3>": "A subsection heading, smaller than h2. Use for subsections.",
+      "<h4>": "A smaller heading, used for sub-subsections.",
+      "<h5>": "An even smaller heading level.",
+      "<h6>": "The smallest heading level.",
+      "heading": "Headings (h1-h6) create a hierarchy to organize content. Screen readers use them for navigation.",
+      "headings": "Headings (h1-h6) create a hierarchy to organize content. Screen readers use them for navigation.",
+      "<p>": "Paragraph tag for blocks of text content.",
+      "<a>": "Anchor tag creates clickable links to other pages or websites.",
+      "<img>": "Image tag displays pictures. Requires src (image location) and alt (description) attributes.",
+      "images": "Pictures or graphics on a webpage. In HTML, added with the <img> tag; use the alt attribute for accessibility.",
+      "<ul>": "Unordered list creates a bulleted list of items.",
+      "<ol>": "Ordered list creates a numbered list of items.",
+      "<li>": "List item tag used inside <ul> or <ol> for each list entry.",
+      "<header>": "Semantic tag for the top section of a page, typically containing logo and navigation.",
+      "<nav>": "Semantic tag for navigation links.",
+      "<main>": "Semantic tag for the main content of the page (only one per page).",
+      "<article>": "Semantic tag for standalone content like blog posts or news articles.",
+      "<footer>": "Semantic tag for the bottom section, often containing copyright and links.",
+      "<div>": "Generic container element that groups content together. Has no visual meaning by itself but helps organize and style content. Use semantic tags like <header> or <main> when possible.",
+      "<span>": "Inline container element used to group inline content for styling. Similar to <div> but for inline elements.",
+      "<strong>": "Tag that makes text bold and indicates importance. Screen readers emphasize it.",
+      "<em>": "Tag that makes text italic and indicates emphasis. Screen readers stress it.",
+      "opening tag": "The first tag that starts an element, like <p>.",
+      "closing tag": "The tag that ends an element, with a forward slash, like </p>.",
+      "angle brackets": "The < and > symbols used to enclose HTML tags, like <p> and </p>.",
+      "forward slash": "The / symbol used in closing tags, like </p> or self-closing tags like <img />.",
+      "attributes": "Extra information added to opening tags, like href=\"url\" or alt=\"description\".",
+      "attribute": "A single piece of extra information on a tag, like href=\"url\" or id=\"name\". Attributes have a name, equals sign, and value in quotes.",
+      "href": "Attribute used in <a> tags to specify the link destination URL.",
+      "src": "Attribute used in <img> tags to specify the image file location.",
+      "alt": "Attribute in <img> tags providing text description for screen readers and when images fail to load.",
+      "id": "HTML attribute that gives an element a unique identifier. Only one element per page can have a specific ID. Used with # in CSS.",
+      "IDs": "HTML id attributes. Each ID is unique per page. In CSS, target with # like #container { }.",
+      "class": "HTML attribute that groups elements together. Multiple elements can share the same class. Used with . in CSS for styling.",
+      "classes": "HTML class attributes. Multiple elements can share the same class. In CSS, target with . like .highlight { }.",
+      "parent element": "An HTML element that contains other elements (children). For example, <div> is a parent if it contains <p> tags inside it.",
+      "child element": "An HTML element that is inside another element (its parent). For example, <p> is a child if it's inside a <div> tag.",
+      "children": "HTML elements that are inside another element (their parent). When you add id or class to a parent, it doesn't automatically apply to its children.",
+      "hierarchy": "The structure of parent-child relationships in HTML. Elements can contain other elements, creating a tree-like structure.",
+      "inline": "Elements that flow with text and don't create line breaks, like <span> or <a>. Opposite of block elements.",
+      "block": "Elements that create a new line and take full width, like <div> or <p>. Opposite of inline elements.",
+      "JavaScript": "A programming language that makes webpages interactive. Can be used with HTML and CSS to add dynamic behaviour.",
+      "ordered list": "A list with numbers (1, 2, 3...), created with <ol> tag. Each item uses <li> tag.",
+      "unordered list": "A list with bullets, created with <ul> tag. Each item uses <li> tag.",
+      "list item": "An individual item in a list, created with <li> tag. Used inside <ul> or <ol> tags.",
+      "anchor": "Another name for the <a> tag, which creates clickable links. The \"a\" stands for anchor.",
+      "form": "An HTML element (<form>) that collects user input, like text fields, checkboxes, or submit buttons.",
+      "input": "An HTML element (<input>) used inside forms to collect different types of user data, like text, email, or passwords.",
+      "display": "CSS property that controls how an element is displayed, like block, inline, or flex. Determines layout behaviour.",
+      "container": "An element that groups or wraps other elements together, like <div> or <section>. Used for organisation and styling.",
+      "reusable": "Code or styles that can be used multiple times. Classes are reusable - many elements can share the same class.",
+      "unique": "Something that appears only once. IDs are unique - only one element per page can have a specific ID.",
+      "identifier": "A name that identifies something. In HTML, id and class are identifiers that help you target specific elements.",
+      "semantic HTML": "Using meaningful tags like <header> and <main> instead of generic <div> tags. Helps screen readers and search engines understand page structure.",
+      "semantic tags": "HTML tags that convey meaning about their content, like <header>, <main>, <strong>, and <em>. They help screen readers and search engines understand the page.",
+      "content": "The text, images, or other material inside HTML tags that appears on the webpage.",
+      "webpage": "A single page on the World Wide Web, created with HTML and displayed in a browser.",
+      "websites": "Collections of webpages that form a site. Accessible websites work for everyone, including users of assistive technologies.",
+      "browser": "Software that displays webpages, like Chrome, Firefox, Safari, or Edge. It reads HTML and CSS to show the page.",
+      "browser tab": "A tab in the browser window that displays a webpage. Each tab shows the page title in the tab label.",
+      "metadata": "Information about a webpage that isn't visible on the page itself, like the title, description, or styles. Goes in the <head> section.",
+      "search engines": "Services like Google that index webpages. They use semantic HTML to understand page content and structure.",
+      "navigation": "Links and menus that help users move around a website. Usually created with <nav> and <a> tags.",
+      "URL": "Uniform Resource Locator - the web address that identifies a webpage, like https://example.com.",
+      "web": "Short for World Wide Web - the system of interconnected webpages accessible via the internet.",
+      "interactive elements": "HTML elements that users can interact with, like links (<a>), buttons, and form inputs. Must be keyboard accessible.",
+      "buttons": "Clickable elements that perform actions. Can be created with <button> tag or styled <a> tags.",
+      "CSS": "Cascading Style Sheets - the language that styles HTML, controlling colours, fonts, spacing, and layout.",
+      "fonts": "Typefaces used for text. CSS controls them with font-family, font-size, font-weight, and related properties.",
+      "styling": "The process of making HTML look good using CSS - adding colours, fonts, spacing, and visual design.",
+      "<style>": "HTML tag that contains CSS code for styling the page.",
+      "color": "CSS property that sets the text color, like color: blue; CSS uses American spelling (color, not colour)—property names and values are standardized.",
+      "font-size": "CSS property that sets the size of text, like font-size: 16px;",
+      "font-weight": "CSS property that sets how bold text appears, like font-weight: bold; or font-weight: 400;",
+      "background-color": "CSS property that sets the background color of an element.",
+      "backgrounds": "The area behind content. CSS can set background colours and images; backgrounds add visual interest and help separate content.",
+      "border": "CSS property that adds a border around an element, like border: 2px solid black;",
+      "margin": "CSS property that creates space outside an element (between elements).",
+      "padding": "CSS property that creates space inside an element (between content and border).",
+      "spacing": "The gaps and distances between elements, controlled by margin and padding in CSS.",
+      ":focus": "CSS pseudo-class that styles elements when they have keyboard focus (when user tabs to them).",
+      "pseudo-class": "A CSS feature that styles elements in special states, like :focus (when focused) or :hover (when mouse is over).",
+      "selector": "The part of a CSS rule that targets which HTML elements to style, like h1 or p.",
+      "selectors": "The parts of CSS rules that target which elements to style. Examples: element names (p, h1), # for IDs, . for classes.",
+      "CSS selectors": "Patterns in CSS that target specific HTML elements, like #id, .class, or element names. Used to apply styles to the right elements.",
+      "ID selector": "CSS selector using # to target an element by its id attribute, like #myDiv { }. IDs are unique.",
+      "class selector": "CSS selector using . to target elements by their class attribute, like .highlight { }. Classes can be reused.",
+      "property": "The CSS feature being changed, like color or font-size.",
+      "American spelling": "CSS uses American English spelling for property names and values. In code you must write color (not colour), center (not centre), and gray (not grey)—they are standardized. Elsewhere this tutorial uses Canadian English.",
+      "value": "The setting for a CSS property, like blue or 16px.",
+      "CSS rule": "A complete CSS statement: selector { property: value; }",
+      "outline": "CSS property that creates a line around an element, often used for focus indicators. Similar to border but doesn't take up space.",
+      "px": "Pixels - a unit of measurement in CSS. 1px is one pixel on the screen. Used for sizes like font-size: 16px;",
+      "semicolon": "The ; symbol that ends each CSS property declaration. Required after every CSS property value.",
+      "layout": "How elements are arranged and positioned on a webpage, controlled by CSS.",
+      "presentation": "The visual appearance of a webpage - colours, fonts, spacing - controlled by CSS, separate from HTML content.",
+      "readability": "How easy text is to read, improved by good font choices, spacing, colours, and contrast.",
+      "visual hierarchy": "Using size, colour, spacing, and styling to show which content is most important and guide the user's eye.",
+      "design": "The overall look and feel of a webpage, created through CSS styling choices.",
+      "maintainable": "Code that is easy to update and modify. Separating HTML (content) from CSS (styling) makes code more maintainable.",
+      "box-sizing": "CSS property that controls how element width and height are calculated. border-box includes padding and border in the total size.",
+      "flex": "CSS display value that creates flexible layouts. Elements can grow, shrink, and align in a container. Used with flexbox properties.",
+      "flexbox": "A CSS layout method using display: flex. Allows flexible arrangement of elements in rows or columns with easy alignment.",
+      "flex-direction": "CSS property that sets the direction of flex items: row (horizontal) or column (vertical).",
+      "flex-wrap": "CSS property that controls whether flex items wrap to a new line when they don't fit.",
+      "vh": "Viewport height unit - 1vh equals 1% of the browser window height. 100vh is the full screen height.",
+      "vw": "Viewport width unit - 1vw equals 1% of the browser window width. 100vw is the full screen width.",
+      "transition": "CSS property that creates smooth animations when properties change, like transition: background 0.3s;",
+      "opacity": "CSS property that controls element transparency. Values from 0 (invisible) to 1 (fully visible).",
+      "border-radius": "CSS property that rounds the corners of elements, like border-radius: 5px; for slightly rounded corners.",
+      "line-height": "CSS property that sets the spacing between lines of text, improving readability. Often set to 1.5 or 1.6.",
+      "font-family": "CSS property that sets the font typeface, like font-family: Arial, sans-serif;",
+      "viewport": "The visible area of a webpage in the browser window. The viewport meta tag controls how pages display on mobile devices.",
+      "overflow": "CSS property that controls what happens when content is too large for its container: visible, hidden, scroll, or auto.",
+      "z-index": "CSS property that controls the stacking order of elements. Higher values appear on top. Only works with positioned elements.",
+      "position": "CSS property that sets how an element is positioned: static, relative, absolute, fixed, or sticky.",
+      "solid": "A border style in CSS that creates a solid line, like border: 2px solid black;",
+      "hover": "CSS pseudo-class :hover that styles elements when the mouse pointer is over them.",
+      "monospace": "A font type where all characters have the same width, commonly used for code. Examples: Courier, Consolas.",
+      "sans-serif": "A font type without decorative strokes at the ends of letters. Examples: Arial, Helvetica, Verdana. Often used for body text.",
+      "serif": "A font type with decorative strokes at the ends of letters. Examples: Times New Roman, Georgia. Often used for printed text.",
+      "screen readers": "Software that reads webpage content aloud for users with visual impairments. They rely on semantic HTML and proper structure.",
+      "alt text": "Text description of images for screen readers. Should describe what the image shows, not just say \"image\".",
+      "heading hierarchy": "The logical order of headings (h1 → h2 → h3). Never skip levels. Screen readers use this to navigate.",
+      "keyboard navigation": "Using only keyboard (Tab, Enter, Arrow keys) to navigate a website, essential for users who cannot use a mouse.",
+      "Tab": "The Tab key on the keyboard, used to move focus between interactive elements on a webpage.",
+      "focus": "The highlighted state when an element is selected via keyboard navigation. Must be visible with :focus styles.",
+      "focus styles": "CSS styles applied with :focus pseudo-class to make keyboard-focused elements visible, like outline or background-color changes.",
+      "accessible": "Websites that work for everyone, including people with disabilities using assistive technologies.",
+      "ARIA": "Accessible Rich Internet Applications - attributes that help screen readers understand dynamic content.",
+      "aria-label": "ARIA attribute that provides an accessible name for an element when the visible label isn't sufficient. Essential for icon buttons and custom controls.",
+      "role": "ARIA attribute that describes what an element does, like role=\"button\" or role=\"navigation\". Helps screen readers understand element purpose.",
+      "aria-describedby": "ARIA attribute that connects an element to its description by referencing the ID of the description element.",
+      "aria-expanded": "ARIA attribute that indicates whether a collapsible element (like a dropdown or accordion) is expanded (true) or collapsed (false).",
+      "aria-hidden": "ARIA attribute that hides decorative elements from screen readers. Set to \"true\" for purely visual elements that don't add meaning.",
+      "tabindex": "HTML attribute that controls keyboard navigation order. tabindex=\"0\" makes an element focusable. tabindex=\"-1\" removes from tab order.",
+      "lang": "HTML attribute on <html> tag that specifies the page language, like lang=\"en\" for English. Helps screen readers pronounce text correctly.",
+      "<label>": "HTML tag that provides a text label for form inputs. Improves accessibility and allows clicking the label to focus the input.",
+      "assistive technologies": "Tools like screen readers, voice control, or keyboard-only navigation that help people with disabilities use websites.",
+      "visual impairments": "Conditions that affect a person's ability to see, requiring assistive technologies like screen readers to access web content.",
+      "accessible web design": "Designing websites so they work for all users, including those with disabilities, following accessibility principles and standards.",
+      "html": "The root element that wraps all HTML content on a webpage.",
+      "head": "Contains metadata about the document, like title and styles, not visible on the page.",
+      "body": "Contains all visible content that appears on the webpage.",
+      "title": "Sets the text shown in the browser tab or window title.",
+      "h1": "The main heading (largest). Use only one per page for the main title.",
+      "h2": "A section heading, smaller than h1. Use for major sections.",
+      "h3": "A subsection heading, smaller than h2. Use for subsections.",
+      "h4": "A smaller heading, used for sub-subsections.",
+      "h5": "An even smaller heading level.",
+      "h6": "The smallest heading level.",
+      "p": "Paragraph tag for blocks of text content.",
+      "a": "Anchor tag creates clickable links to other pages or websites.",
+      "img": "Image tag displays pictures. Requires src (image location) and alt (description) attributes.",
+      "ul": "Unordered list creates a bulleted list of items.",
+      "ol": "Ordered list creates a numbered list of items.",
+      "li": "List item tag used inside <ul> or <ol> for each list entry.",
+      "header": "Semantic tag for the top section of a page, typically containing logo and navigation.",
+      "nav": "Semantic tag for navigation links.",
+      "main": "Semantic tag for the main content of the page (only one per page).",
+      "article": "Semantic tag for standalone content like blog posts or news articles.",
+      "footer": "Semantic tag for the bottom section, often containing copyright and links.",
+      "div": "Generic container element that groups content together. Has no visual meaning by itself but helps organize and style content. Use semantic tags like <header> or <main> when possible.",
+      "span": "Inline container element used to group inline content for styling. Similar to <div> but for inline elements.",
+      "strong": "Tag that makes text bold and indicates importance. Screen readers emphasize it.",
+      "em": "Tag that makes text italic and indicates emphasis. Screen readers stress it.",
+      "style": "HTML tag that contains CSS code for styling the page.",
+      "label": "HTML tag that provides a text label for form inputs. Improves accessibility and allows clicking the label to focus the input.",
+      "equals sign": "The = symbol used in HTML attributes to assign a value, like id=\"name\" or class=\"highlight\".",
+      "quotes": "The \" or ' symbols used to enclose attribute values in HTML, like href=\"url\" or alt='description'.",
+      "curly braces": "The { and } symbols used in CSS to enclose property declarations, like body { color: blue; }.",
+      "document": "An HTML file or webpage. The <html> tag wraps the entire document structure.",
+      "section": "A part or division of a webpage. Can refer to HTML sections created with semantic tags like <section>, or general content areas.",
+      "dropdown": "An interactive element that expands to show a list of options when clicked. Often used in navigation menus.",
+      "accordion": "An interactive element that expands and collapses to show or hide content. Multiple accordion items can be on a page.",
+      "icon buttons": "Buttons that only show an icon (like ☰ or ✕) without visible text. Require aria-label for accessibility.",
+      "custom controls": "Interactive elements created with HTML and CSS that aren't standard form controls. Need ARIA attributes for accessibility.",
+      "interactive regions": "Areas of a webpage that users can interact with, like buttons, links, or custom controls. Must be keyboard accessible.",
+      "visible label": "Text that appears on screen to identify an element, like a button label or form field label.",
+      "accessible name": "The name that screen readers announce for an element. Can come from visible text, aria-label, or other attributes.",
+      "collapsible element": "An element that can be expanded or collapsed to show/hide content, like dropdowns or accordions.",
+      "focus indicators": "Visual cues (like outlines or highlights) that show which element currently has keyboard focus. Essential for keyboard navigation.",
+      "fundamentals": "The core or basic parts of a subject. In this course, HTML fundamentals include tags, attributes, and document structure.",
+      "paragraph": "A block of text content. In HTML, created with the <p> tag.",
+      "paragraphs": "Blocks of text content. In HTML, created with the <p> tag. They make your text readable and well-organized.",
+      "link": "A clickable connection to another page or resource. In HTML, created with the <a> tag and href attribute.",
+      "links": "Clickable connections to other pages or resources. In HTML, created with the <a> tag and href attribute.",
+      "lists": "Collections of items. HTML has ordered lists (<ol>) and unordered lists (<ul>), with <li> for each item.",
+      "markup": "Code that describes the structure and meaning of content. HTML is a markup language.",
+      "structure": "The organisation of parts. In HTML, document structure includes <html>, <head>, and <body>; semantic structure uses tags like <header> and <main>.",
+      "principles": "Guidelines or rules. Accessible web design principles include semantic HTML, keyboard navigation, and ARIA.",
+      "region": "ARIA role that marks a section of the page as a landmark. Screen readers can navigate by regions. Use role=\"region\" with aria-describedby for descriptions.",
+      "collapsible": "Can be expanded or collapsed to show or hide content. Examples: dropdowns, accordions. Use aria-expanded to indicate state.",
+      "building blocks": "Fundamental components that form the basis of something. In HTML, tags are the building blocks of webpages."
+    }
+  },
+  "fr": {
+    "ui": {
+      "title": "Apprendre HTML, CSS et Conception Web Accessible",
+      "subtitle": "Un tutoriel interactif - À compléter en ~1,5 heures",
+      "welcome": "Bienvenue au Développement Web !",
+      "welcomeDescription": "Ce tutoriel interactif vous enseignera les fondamentaux du HTML, du CSS et de la conception web accessible. Vous construirez une page web étape par étape, en apprenant des concepts essentiels en cours de route.",
+      "tutorialCredit": "Ce tutoriel a été créé pour des ateliers d'enseignement, mais peut être suivi seul comme une expérience d'apprentissage à votre rythme. Il est rédigé en français canadien (sauf lorsque le CSS exige l'orthographe américaine dans le code).",
+      "enterName": "Entrez votre nom",
+      "chooseAvatar": "Choisissez votre avatar",
+      "chooseAvatarOption": "Option d'avatar {number} sur {total}",
+      "avatarPickerScrollHint": "Faites défiler pour voir plus d'avatars",
+      "changeAvatar": "Changer l'avatar",
+      "startLearning": "Commencer l'Apprentissage",
+      "nameCertificateNote": "Ce nom apparaîtra sur votre certificat partageable lorsque vous aurez terminé toutes les leçons.",
+      "welcomeUser": "Bienvenue, {name} ! • Leçon {current} sur {total}",
+      "courseProgress": "Progression du Cours - Cliquez sur n'importe quelle section pour y accéder",
+      "whatWeLearning": "Ce que nous apprenons :",
+      "whyImportant": "Pourquoi c'est important :",
+      "needHint": "💡 Besoin d'un indice ? Cliquez pour voir quoi faire",
+      "hideHint": "Masquer l'indice",
+      "showHint": "Afficher l'indice",
+      "whatToDo": "📋 À faire :",
+      "typeCodeHere": "Tapez votre code ici :",
+      "codeEditorDescription": "Éditeur de code avec formatage manuel. Appuyez sur Tab pour indenter, Shift+Tab pour désindenter, Entrée pour maintenir l'indentation. Cliquez sur le bouton Formater pour formater votre code.",
+      "back": "← Retour",
+      "verifyCode": "Vérifier le Code",
+      "skip": "Passer →",
+      "tryAgain": "Réessayer",
+      "nextLesson": "Leçon Suivante →",
+      "learnMore": "📚 En savoir plus sur W3Schools",
+      "tip": "💡 Astuce :",
+      "copyUrl": "Copiez cette URL pour sauvegarder votre progression et reprendre plus tard :",
+      "noFilesSaved": "Aucun fichier n'est enregistré sur notre serveur—c'est la seule façon de retrouver votre progression.",
+      "preview": "Aperçu de Votre Page Web",
+      "previewAria": "Aperçu en direct de votre code HTML et CSS",
+      "pageUrlAria": "URL de la page actuelle, sélectionnez pour copier",
+      "certificateTitle": "Certificat de Réussite",
+      "certificateSubtitle": "HTML, CSS et Conception Web Accessible",
+      "certificateDescription": "Ceci certifie que",
+      "certificateCompleted": "a réussi le tutoriel interactif sur les fondamentaux du HTML, le style CSS et les principes de conception web accessible.",
+      "certificateCovered": "Ce cours a couvert :",
+      "completedOn": "Terminé le",
+      "congratulations": "Félicitations",
+      "certificateShare": "Partagez ce certificat avec n'importe qui en copiant l'URL :",
+      "certificateShareDescription": "Vous pouvez copier l'URL ci-dessus pour partager votre certificat avec n'importe qui.",
+      "emailCertificate": "Envoyer le certificat par courriel",
+      "emailCertificateSubject": "Découvrez mon certificat",
+      "emailCertificateBody": "J'ai terminé le tutoriel HTML, CSS et Conception Web Accessible ! Découvrez mon certificat :",
+      "certificateItem1": "Fondamentaux HTML et Structure de Document",
+      "certificateItem2": "Style CSS et Mise en Page",
+      "certificateItem3": "Principes de Conception Web Accessible",
+      "certificateItem4": "HTML Sémantique et Navigation au Clavier",
+      "successMessage": "Excellent travail ! Votre code est correct !",
+      "errorMessage": "Pas tout à fait. Assurez-vous d'inclure : {elements}",
+      "selectLanguage": "Sélectionner la langue",
+      "studentNameAria": "Nom de l'étudiant : {name}",
+      "completed": "Terminé",
+      "jumpToSection": "Aller à la section {section}. {completed} sur {total} leçons terminées.",
+      "hintRegion": "Instructions d'aide",
+      "codePlaceholder": "<!-- Commencez à taper votre code HTML/CSS ici... -->",
+      "clickToTestKeyboard": "Cliquez dans l'aperçu, puis appuyez sur Tab pour tester la navigation au clavier",
+      "formatCode": "Formater",
+      "downloadHtml": "Télécharger le HTML",
+      "downloadAllFiles": "Télécharger tous mes fichiers",
+      "glossaryButton": "Glossaire",
+      "glossaryTitle": "Glossaire",
+      "glossarySearchPlaceholder": "Rechercher des termes...",
+      "glossaryClose": "Fermer le glossaire",
+      "glossaryNoResults": "Aucun terme ne correspond à votre recherche.",
+      "skipToMainContent": "Aller au contenu principal",
+      "definitionOf": "Définition de {term}",
+      "backToLessons": "Retour aux leçons",
+      "viewCertificate": "Voir le certificat",
+      "reportBug": "Signaler un bug",
+      "bugReportEmailBriefDescription": "Description courte du bug :",
+      "bugReportEmailStepsToReproduce": "Étapes pour reproduire :",
+      "bugReportEmailDoNotEdit": "Veuillez ne pas modifier la section ci-dessous. Elle contient des informations techniques pour aider à diagnostiquer le problème.",
+      "bugReportEmailWhatToAttach": "Ce que vous pouvez joindre pour nous aider (optionnel) :",
+      "bugReportEmailWhatToAttachIntro": "Vous pouvez joindre ce qui suit lorsque vous envoyez ce courriel :",
+      "bugReportEmailHar": "Fichier HAR : Outils de développement (F12) → onglet Réseau → reproduisez le problème → clic droit dans la liste → Enregistrer tout au format HAR avec contenu. Joignez le fichier .har à votre courriel.",
+      "bugReportEmailConsole": "Erreurs de la console : Outils de développement (F12) → onglet Console → clic droit dans la console → Enregistrer sous… (ou copiez/collez les erreurs dans le corps du courriel).",
+      "bugReportEmailScreenshot": "Capture d’écran du problème (outil de capture du navigateur ou du système).",
+      "bugReportEmailCurrentUrl": "L’URL de la page actuelle est indiquée dans la section technique ci-dessous.",
+      "bugReportEmailFrenchSection": "--- Version française ---"
+    },
+    "categories": {
+      "htmlFundamentals": "Fondamentaux HTML",
+      "html": "HTML",
+      "css": "CSS",
+      "accessibility": "Accessibilité"
+    },
+    "lessons": {
+      "fundamentals-1": {
+        "title": "Comprendre les Balises HTML",
+        "description": "Le HTML utilise des \"balises\" pour marquer le contenu. Les balises sont écrites entre des chevrons comme <balise>. La plupart des balises vont par paires : une balise ouvrante <balise> et une balise fermante </balise>. La balise fermante a un slash avant le nom de la balise. Tout ce qui se trouve entre les balises ouvrante et fermante est le contenu.",
+        "<h4>": "Un titre plus petit, utilisé pour les sous-sous-sections.",
+        "<h5>": "Un niveau de titre encore plus petit.",
+        "<h6>": "Le plus petit niveau de titre.",
+        "heading": "Les titres (h1-h6) créent une hiérarchie pour organiser le contenu. Les lecteurs d'écran les utilisent pour la navigation.",
+        "<p>": "Balise de paragraphe pour les blocs de contenu texte.",
+        "<a>": "Balise d'ancrage qui crée des liens cliquables vers d'autres pages ou sites web.",
+        "<img>": "Balise d'image qui affiche des images. Nécessite les attributs src (emplacement de l'image) et alt (description).",
+        "<ul>": "Liste non ordonnée qui crée une liste à puces d'éléments.",
+        "<ol>": "Liste ordonnée qui crée une liste numérotée d'éléments.",
+        "<li>": "Balise d'élément de liste utilisée à l'intérieur de <ul> ou <ol> pour chaque entrée de liste.",
+        "<header>": "Balise sémantique pour la section supérieure d'une page, contenant généralement le logo et la navigation.",
+        "<nav>": "Balise sémantique pour les liens de navigation.",
+        "<main>": "Balise sémantique pour le contenu principal de la page (un seul par page).",
+        "<article>": "Balise sémantique pour le contenu autonome comme les articles de blog ou les actualités.",
+        "<footer>": "Balise sémantique pour la section inférieure, contenant souvent le copyright et les liens.",
+        "<div>": "Élément conteneur générique qui regroupe le contenu. N'a pas de signification visuelle en soi mais aide à organiser et styliser le contenu. Utilisez des balises sémantiques comme <header> ou <main> lorsque c'est possible.",
+        "<span>": "Élément conteneur en ligne utilisé pour regrouper le contenu en ligne pour le style. Similaire à <div> mais pour les éléments en ligne.",
+        "<strong>": "Balise qui rend le texte en gras et indique l'importance. Les lecteurs d'écran l'emphasent.",
+        "<em>": "Balise qui rend le texte en italique et indique l'emphase. Les lecteurs d'écran le stressent.",
+        "opening tag": "La première balise qui commence un élément, comme <p>.",
+        "closing tag": "La balise qui termine un élément, avec un slash, comme </p>.",
+        "angle brackets": "Les symboles < et > utilisés pour entourer les balises HTML, comme <p> et </p>.",
+        "forward slash": "Le symbole / utilisé dans les balises fermantes, comme </p> ou les balises auto-fermantes comme <img />.",
+        "attributes": "Informations supplémentaires ajoutées aux balises ouvrantes, comme href=\"url\" ou alt=\"description\".",
+        "href": "Attribut utilisé dans les balises <a> pour spécifier l'URL de destination du lien.",
+        "src": "Attribut utilisé dans les balises <img> pour spécifier l'emplacement du fichier image.",
+        "alt": "Attribut dans les balises <img> fournissant une description textuelle pour les lecteurs d'écran et lorsque les images ne se chargent pas.",
+        "id": "Attribut HTML qui donne à un élément un identifiant unique. Un seul élément par page peut avoir un ID spécifique. Utilisé avec # en CSS.",
+        "class": "Attribut HTML qui regroupe des éléments ensemble. Plusieurs éléments peuvent partager la même classe. Utilisé avec . en CSS pour le style.",
+        "parent element": "Un élément HTML qui contient d'autres éléments (enfants). Par exemple, <div> est un parent s'il contient des balises <p> à l'intérieur.",
+        "child element": "Un élément HTML qui est à l'intérieur d'un autre élément (son parent). Par exemple, <p> est un enfant s'il est à l'intérieur d'une balise <div>.",
+        "hierarchy": "La structure des relations parent-enfant en HTML. Les éléments peuvent contenir d'autres éléments, créant une structure en arbre.",
+        "inline": "Éléments qui s'écoulent avec le texte et ne créent pas de sauts de ligne, comme <span> ou <a>. Opposé des éléments de bloc.",
+        "block": "Éléments qui créent une nouvelle ligne et prennent toute la largeur, comme <div> ou <p>. Opposé des éléments en ligne.",
+        "JavaScript": "Un langage de programmation qui rend les pages web interactives. Peut être utilisé avec HTML et CSS pour ajouter un comportement dynamique.",
+        "ordered list": "Une liste avec des numéros (1, 2, 3...), créée avec la balise <ol>. Chaque élément utilise la balise <li>.",
+        "unordered list": "Une liste avec des puces, créée avec la balise <ul>. Chaque élément utilise la balise <li>.",
+        "list item": "Un élément individuel dans une liste, créé avec la balise <li>. Utilisé à l'intérieur des balises <ul> ou <ol>.",
+        "anchor": "Un autre nom pour la balise <a>, qui crée des liens cliquables. Le \"a\" signifie ancrage.",
+        "form": "Un élément HTML (<form>) qui collecte la saisie utilisateur, comme les champs de texte, les cases à cocher ou les boutons de soumission.",
+        "input": "Un élément HTML (<input>) utilisé dans les formulaires pour collecter différents types de données utilisateur, comme le texte, le courriel ou les mots de passe.",
+        "display": "Propriété CSS qui contrôle comment un élément est affiché, comme block, inline ou flex. Détermine le comportement de mise en page.",
+        "container": "Un élément qui regroupe ou enveloppe d'autres éléments ensemble, comme <div> ou <section>. Utilisé pour l'organisation et le style.",
+        "reusable": "Code ou styles qui peuvent être utilisés plusieurs fois. Les classes sont réutilisables - plusieurs éléments peuvent partager la même classe.",
+        "unique": "Quelque chose qui n'apparaît qu'une seule fois. Les IDs sont uniques - un seul élément par page peut avoir un ID spécifique.",
+        "identifier": "Un nom qui identifie quelque chose. En HTML, id et class sont des identifiants qui vous aident à cibler des éléments spécifiques.",
+        "semantic HTML": "Utiliser des balises significatives comme <header> et <main> au lieu de balises génériques <div>. Aide les lecteurs d'écran et les moteurs de recherche à comprendre la structure de la page.",
+        "content": "Le texte, les images ou autre matériel à l'intérieur des balises HTML qui apparaît sur la page web.",
+        "webpage": "Une seule page sur le World Wide Web, créée avec HTML et affichée dans un navigateur.",
+        "browser": "Logiciel qui affiche les pages web, comme Chrome, Firefox, Safari ou Edge. Il lit HTML et CSS pour afficher la page.",
+        "browser tab": "Un onglet dans la fenêtre du navigateur qui affiche une page web. Chaque onglet affiche le titre de la page dans l'étiquette de l'onglet.",
+        "metadata": "Informations sur une page web qui ne sont pas visibles sur la page elle-même, comme le titre, la description ou les styles. Va dans la section <head>.",
+        "search engines": "Services comme Google qui indexent les pages web. Ils utilisent le HTML sémantique pour comprendre le contenu et la structure de la page.",
+        "navigation": "Liens et menus qui aident les utilisateurs à naviguer sur un site web. Généralement créés avec les balises <nav> et <a>.",
+        "URL": "Uniform Resource Locator - l'adresse web qui identifie une page web, comme https://example.com.",
+        "web": "Abréviation de World Wide Web - le système de pages web interconnectées accessibles via Internet.",
+        "interactive elements": "Éléments HTML avec lesquels les utilisateurs peuvent interagir, comme les liens (<a>), les boutons et les entrées de formulaire. Doivent être accessibles au clavier.",
+        "buttons": "Éléments cliquables qui effectuent des actions. Peuvent être créés avec la balise <button> ou des balises <a> stylisées.",
+        "CSS": "Cascading Style Sheets - le langage qui stylise HTML, contrôlant les couleurs, les polices, l'espacement et la mise en page.",
+        "styling": "Le processus de rendre HTML beau en utilisant CSS - ajouter des couleurs, des polices, l'espacement et le design visuel.",
+        "<style>": "Balise HTML qui contient le code CSS pour styliser la page.",
+        "color": "Propriété CSS qui définit la couleur du texte, comme color: blue;",
+        "font-size": "Propriété CSS qui définit la taille du texte, comme font-size: 16px;",
+        "font-weight": "Propriété CSS qui définit l'épaisseur du texte, comme font-weight: bold; ou font-weight: 400;",
+        "background-color": "Propriété CSS qui définit la couleur d'arrière-plan d'un élément.",
+        "border": "Propriété CSS qui ajoute une bordure autour d'un élément, comme border: 2px solid black;",
+        "margin": "Propriété CSS qui crée de l'espace à l'extérieur d'un élément (entre les éléments).",
+        "padding": "Propriété CSS qui crée de l'espace à l'intérieur d'un élément (entre le contenu et la bordure).",
+        "spacing": "Les espaces et distances entre les éléments, contrôlés par margin et padding en CSS.",
+        ":focus": "Pseudo-classe CSS qui stylise les éléments lorsqu'ils ont le focus clavier (lorsque l'utilisateur y accède avec Tab).",
+        "pseudo-class": "Une fonctionnalité CSS qui stylise les éléments dans des états spéciaux, comme :focus (lorsqu'il est focalisé) ou :hover (lorsque la souris est dessus).",
+        "selector": "La partie d'une règle CSS qui cible quels éléments HTML styliser, comme h1 ou p.",
+        "ID selector": "Sélecteur CSS utilisant # pour cibler un élément par son attribut id, comme #myDiv { }. Les IDs sont uniques.",
+        "class selector": "Sélecteur CSS utilisant . pour cibler les éléments par leur attribut class, comme .highlight { }. Les classes peuvent être réutilisées.",
+        "property": "La fonctionnalité CSS modifiée, comme color ou font-size.",
+        "value": "Le réglage d'une propriété CSS, comme blue ou 16px.",
+        "CSS rule": "Une déclaration CSS complète : selector { property: value; }",
+        "outline": "Propriété CSS qui crée une ligne autour d'un élément, souvent utilisée pour les indicateurs de focus. Similaire à border mais ne prend pas d'espace.",
+        "px": "Pixels - une unité de mesure en CSS. 1px est un pixel à l'écran. Utilisé pour les tailles comme font-size: 16px;",
+        "semicolon": "Le symbole ; qui termine chaque déclaration de propriété CSS. Requis après chaque valeur de propriété CSS.",
+        "layout": "Comment les éléments sont arrangés et positionnés sur une page web, contrôlé par CSS.",
+        "presentation": "L'apparence visuelle d'une page web - couleurs, polices, espacement - contrôlée par CSS, séparée du contenu HTML.",
+        "readability": "À quel point le texte est facile à lire, amélioré par de bons choix de polices, espacement, couleurs et contraste.",
+        "visual hierarchy": "Utiliser la taille, la couleur, l'espacement et le style pour montrer quel contenu est le plus important et guider l'œil de l'utilisateur.",
+        "design": "L'apparence et la sensation globale d'une page web, créée à travers les choix de style CSS.",
+        "maintainable": "Code facile à mettre à jour et modifier. Séparer HTML (contenu) de CSS (style) rend le code plus maintenable.",
+        "box-sizing": "Propriété CSS qui contrôle comment la largeur et la hauteur d'un élément sont calculées. border-box inclut padding et border dans la taille totale.",
+        "flex": "Valeur d'affichage CSS qui crée des mises en page flexibles. Les éléments peuvent grandir, rétrécir et s'aligner dans un conteneur. Utilisé avec les propriétés flexbox.",
+        "flexbox": "Une méthode de mise en page CSS utilisant display: flex. Permet un arrangement flexible des éléments en lignes ou colonnes avec un alignement facile.",
+        "flex-direction": "Propriété CSS qui définit la direction des éléments flex : row (horizontal) ou column (vertical).",
+        "flex-wrap": "Propriété CSS qui contrôle si les éléments flex passent à une nouvelle ligne lorsqu'ils ne rentrent pas.",
+        "vh": "Unité de hauteur de la fenêtre - 1vh équivaut à 1% de la hauteur de la fenêtre du navigateur. 100vh est la hauteur complète de l'écran.",
+        "vw": "Unité de largeur de la fenêtre - 1vw équivaut à 1% de la largeur de la fenêtre du navigateur. 100vw est la largeur complète de l'écran.",
+        "transition": "Propriété CSS qui crée des animations fluides lorsque les propriétés changent, comme transition: background 0.3s;",
+        "opacity": "Propriété CSS qui contrôle la transparence d'un élément. Valeurs de 0 (invisible) à 1 (entièrement visible).",
+        "border-radius": "Propriété CSS qui arrondit les coins des éléments, comme border-radius: 5px; pour des coins légèrement arrondis.",
+        "line-height": "Propriété CSS qui définit l'espacement entre les lignes de texte, améliorant la lisibilité. Souvent défini à 1.5 ou 1.6.",
+        "font-family": "Propriété CSS qui définit le type de police, comme font-family: Arial, sans-serif;",
+        "viewport": "La zone visible d'une page web dans la fenêtre du navigateur. La balise meta viewport contrôle comment les pages s'affichent sur les appareils mobiles.",
+        "overflow": "Propriété CSS qui contrôle ce qui se passe lorsque le contenu est trop grand pour son conteneur : visible, hidden, scroll ou auto.",
+        "z-index": "Propriété CSS qui contrôle l'ordre d'empilement des éléments. Les valeurs plus élevées apparaissent au-dessus. Ne fonctionne qu'avec les éléments positionnés.",
+        "position": "Propriété CSS qui définit comment un élément est positionné : static, relative, absolute, fixed ou sticky.",
+        "solid": "Un style de bordure en CSS qui crée une ligne solide, comme border: 2px solid black;",
+        "hover": "Pseudo-classe CSS :hover qui stylise les éléments lorsque le pointeur de la souris est dessus.",
+        "monospace": "Un type de police où tous les caractères ont la même largeur, couramment utilisé pour le code. Exemples : Courier, Consolas.",
+        "sans-serif": "Un type de police sans traits décoratifs aux extrémités des lettres. Exemples : Arial, Helvetica, Verdana. Souvent utilisé pour le texte du corps.",
+        "serif": "Un type de police avec des traits décoratifs aux extrémités des lettres. Exemples : Times New Roman, Georgia. Souvent utilisé pour le texte imprimé.",
+        "screen readers": "Logiciel qui lit le contenu des pages web à haute voix pour les utilisateurs ayant des déficiences visuelles. Ils dépendent du HTML sémantique et d'une structure appropriée.",
+        "alt text": "Description textuelle des images pour les lecteurs d'écran. Devrait décrire ce que l'image montre, pas seulement dire \"image\".",
+        "heading hierarchy": "L'ordre logique des titres (h1 → h2 → h3). Ne jamais sauter de niveaux. Les lecteurs d'écran utilisent cela pour naviguer.",
+        "keyboard navigation": "Utiliser uniquement le clavier (Tab, Entrée, touches fléchées) pour naviguer sur un site web, essentiel pour les utilisateurs qui ne peuvent pas utiliser une souris.",
+        "Tab": "La touche Tab du clavier, utilisée pour déplacer le focus entre les éléments interactifs d'une page web.",
+        "focus": "L'état mis en surbrillance lorsqu'un élément est sélectionné via la navigation au clavier. Doit être visible avec les styles :focus.",
+        "focus styles": "Styles CSS appliqués avec la pseudo-classe :focus pour rendre les éléments focalisés au clavier visibles, comme outline ou les changements de background-color.",
+        "accessible": "Sites web qui fonctionnent pour tout le monde, y compris les personnes handicapées utilisant des technologies d'assistance.",
+        "ARIA": "Accessible Rich Internet Applications - attributs qui aident les lecteurs d'écran à comprendre le contenu dynamique.",
+        "whyImportant": "Les balises sont les éléments de base du HTML. Comprendre comment fonctionnent les balises est essentiel - elles indiquent au navigateur quel type de contenu vous créez (titre, paragraphe, lien, etc.).",
+        "whatToDo": [
+          "Tapez une balise ouvrante avec des chevrons, comme <div>",
+          "Ajoutez du texte ou du contenu",
+          "Tapez la balise fermante avec un slash, comme </div>",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "w3schoolsLinks": [
+          {
+            "text": "Éléments HTML",
+            "url": "https://www.w3schools.com/html/html_elements.asp"
+          },
+          {
+            "text": "Balises HTML",
+            "url": "https://www.w3schools.com/html/html_intro.asp"
+          }
+        ],
+        "expectedElements": [
+          "Balise ouvrante <balise>",
+          "Balise fermante </balise>"
+        ]
+      },
+      "fundamentals-2": {
+        "title": "Votre Première Balise HTML",
+        "description": "Écrivons votre toute première balise HTML ! Nous commencerons par une balise de paragraphe. Tapez <p> pour l'ouvrir, ajoutez du texte, puis fermez-la avec </p>. La balise <p> crée un paragraphe de texte. Rappelez-vous : balise ouvrante, contenu, balise fermante !",
+        "whyImportant": "Écrire votre première balise vous aide à comprendre le modèle de base que suit tout le HTML. Une fois que vous maîtrisez cela, vous pouvez apprendre n'importe quelle balise HTML.",
+        "whatToDo": [
+          "Tapez <p> (balise de paragraphe ouvrante)",
+          "Ajoutez du texte, comme \"Bonjour le monde\"",
+          "Tapez </p> (balise de paragraphe fermante)",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "w3schoolsLinks": [
+          {
+            "text": "Paragraphes HTML",
+            "url": "https://www.w3schools.com/html/html_paragraphs.asp"
+          }
+        ],
+        "expectedElements": [
+          "Balise ouvrante <p>",
+          "Du contenu texte",
+          "Balise fermante </p>"
+        ]
+      },
+      "fundamentals-3": {
+        "title": "Comprendre les Attributs HTML",
+        "description": "Les attributs fournissent des informations supplémentaires sur les balises. Ils vont à l'intérieur de la balise ouvrante comme ceci : <balise attribut=\"valeur\">. Par exemple, une balise de lien utilise href=\"url\" pour spécifier où va le lien. Les attributs ont toujours un nom, un signe égal et une valeur entre guillemets. Deux attributs très importants sont id et class : id donne à un élément un identifiant unique (un seul élément par page peut avoir un id spécifique), tandis que class regroupe plusieurs éléments ensemble (plusieurs éléments peuvent partager la même classe).",
+        "whyImportant": "Les attributs rendent les balises plus puissantes. Ils vous permettent de personnaliser le comportement des balises - comme définir des couleurs, des tailles, des liens, et plus encore. Presque toutes les balises HTML peuvent utiliser des attributs. Les attributs id et class sont particulièrement importants car ils vous permettent de cibler des éléments spécifiques avec CSS et JavaScript. Lorsque vous appliquez un id ou une class à un élément parent, cela ne s'applique pas automatiquement à ses enfants - les enfants ont besoin de leurs propres attributs sauf si vous utilisez des sélecteurs CSS pour les cibler en fonction de leur parent.",
+        "whatToDo": [
+          "Ajoutez une balise avec l'attribut id, comme <div id=\"monDiv\">",
+          "Ajoutez une autre balise avec l'attribut class, comme <p class=\"texte\">",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<p>Ceci est un paragraphe</p>\n<!-- Ajoutez des balises avec des attributs id et class ici -->",
+        "w3schoolsLinks": [
+          {
+            "text": "Attributs HTML",
+            "url": "https://www.w3schools.com/html/html_attributes.asp"
+          },
+          {
+            "text": "Attribut HTML id",
+            "url": "https://www.w3schools.com/html/html_id.asp"
+          },
+          {
+            "text": "Attribut HTML class",
+            "url": "https://www.w3schools.com/html/html_classes.asp"
+          }
+        ],
+        "expectedElements": [
+          "Une balise avec attribut id",
+          "Une balise avec attribut class"
+        ]
+      },
+      "fundamentals-4": {
+        "title": "Balises HTML Courantes : div, span et Plus",
+        "description": "La balise <div> est un conteneur qui regroupe le contenu. Elle n'a pas de signification visuelle en soi, mais elle aide à organiser votre page. La balise <span> est similaire mais pour le contenu en ligne. Vous utiliserez également <strong> pour le texte en gras et <em> pour le texte en italique. Ce sont quelques-unes des balises les plus courantes que vous utiliserez ! Les éléments HTML forment une hiérarchie - les éléments parents contiennent les éléments enfants. Lorsque vous ajoutez un id ou une class à un élément parent (comme un <div>), cela ne s'applique pas automatiquement à ses enfants. Chaque élément a besoin de ses propres attributs. Cependant, vous pouvez utiliser CSS pour styliser les enfants en fonction de leur parent - par exemple, \".parent .child\" cible les éléments avec la classe \"child\" à l'intérieur des éléments avec la classe \"parent\".",
+        "whyImportant": "Comprendre les balises courantes comme <div> et <span> vous aide à structurer votre contenu. Ce sont des éléments de base pour organiser et styliser votre page web. Les balises sémantiques comme <strong> et <em> aident également à l'accessibilité. Comprendre la hiérarchie HTML est crucial - les relations parent-enfant déterminent comment fonctionnent les sélecteurs CSS et comment vous organisez votre code. Lors du choix des ids et des classes, utilisez des noms descriptifs qui expliquent le but de l'élément (comme \"header\" ou \"main-content\" au lieu de \"div1\" ou \"box\").",
+        "whatToDo": [
+          "Ajoutez une balise <div> avec un attribut class",
+          "Ajoutez une balise <span> avec du contenu",
+          "Ajoutez une balise <strong> ou <em> pour mettre en évidence du texte",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<p>Ceci est un paragraphe</p>\n<!-- Ajoutez div avec class, span, strong et em ici -->\n<!-- Rappelez-vous : les éléments parents contiennent les enfants, mais les enfants ont besoin de leurs propres attributs -->",
+        "w3schoolsLinks": [
+          {
+            "text": "Balise HTML div",
+            "url": "https://www.w3schools.com/tags/tag_div.asp"
+          },
+          {
+            "text": "Balise HTML span",
+            "url": "https://www.w3schools.com/tags/tag_span.asp"
+          },
+          {
+            "text": "Balise HTML strong",
+            "url": "https://www.w3schools.com/tags/tag_strong.asp"
+          },
+          {
+            "text": "Balise HTML em",
+            "url": "https://www.w3schools.com/tags/tag_em.asp"
+          }
+        ],
+        "expectedElements": [
+          "<div> avec attribut class",
+          "<span>",
+          "<strong> ou <em>"
+        ]
+      },
+      "html-1": {
+        "title": "Structure du Document HTML",
+        "description": "Chaque page web HTML a besoin d'une structure de base. La balise <html> enveloppe tout. À l'intérieur, <head> contient les informations sur la page (comme le titre), et <body> contient le contenu visible. La balise <title> va dans le head et définit le titre de l'onglet du navigateur.",
+        "whyImportant": "Cette structure indique aux navigateurs \"ceci est un document HTML\" et organise votre page en contenu visible (body) et métadonnées (head). Sans cette structure, les navigateurs pourraient ne pas afficher votre page correctement.",
+        "whatToDo": [
+          "Assurez-vous d'avoir la balise <html> qui enveloppe tout",
+          "Ajoutez une section <head> avec une balise <title> à l'intérieur",
+          "Ajoutez une section <body> pour le contenu visible",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue sur ma page !</h1>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Structure HTML de Base",
+            "url": "https://www.w3schools.com/html/html_basic.asp"
+          },
+          {
+            "text": "Élément HTML head",
+            "url": "https://www.w3schools.com/html/html_head.asp"
+          },
+          {
+            "text": "Balise HTML title",
+            "url": "https://www.w3schools.com/tags/tag_title.asp"
+          }
+        ],
+        "expectedElements": [
+          "<html>",
+          "<head>",
+          "<title>",
+          "<body>"
+        ]
+      },
+      "html-2": {
+        "title": "Ajouter du Contenu avec des Titres et des Paragraphes",
+        "description": "Ajoutons maintenant du contenu réel à votre page web ! Les titres (<h1> à <h6>) aident à organiser votre contenu, et les paragraphes (<p>) contiennent votre texte. Nous ajouterons un titre principal et un paragraphe à l'intérieur du body.",
+        "whyImportant": "Les titres créent une hiérarchie qui aide à la fois les utilisateurs et les moteurs de recherche à comprendre votre contenu. Les paragraphes rendent votre texte lisible et bien organisé.",
+        "whatToDo": [
+          "Ajoutez une balise <h1> avec un titre principal",
+          "Ajoutez une balise <p> avec du texte de paragraphe",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <!-- Ajoutez votre titre et paragraphe ici -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Titres HTML",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "Paragraphes HTML",
+            "url": "https://www.w3schools.com/html/html_paragraphs.asp"
+          }
+        ],
+        "expectedElements": [
+          "<h1>",
+          "<p>"
+        ]
+      },
+      "html-3": {
+        "title": "Créer des Listes",
+        "description": "Les listes sont excellentes pour organiser les informations. HTML a deux types : les listes ordonnées (<ol>) avec des numéros, et les listes non ordonnées (<ul>) avec des puces. Chaque élément utilise <li> (élément de liste).",
+        "whyImportant": "Les listes rendent les informations scannables et faciles à digérer. Elles sont essentielles pour les menus de navigation, les listes de fonctionnalités et les instructions étape par étape.",
+        "whatToDo": [
+          "Ajoutez une balise <ul> (liste non ordonnée) ou <ol> (liste ordonnée)",
+          "Ajoutez des éléments <li> à l'intérieur de votre liste",
+          "Chaque <li> représente un élément de la liste",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Voici quelques choses que j'aime :</p>\n    <!-- Ajoutez votre liste ici -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Listes HTML",
+            "url": "https://www.w3schools.com/html/html_lists.asp"
+          },
+          {
+            "text": "Listes Non Ordonnées HTML",
+            "url": "https://www.w3schools.com/html/html_lists_unordered.asp"
+          },
+          {
+            "text": "Listes Ordonnées HTML",
+            "url": "https://www.w3schools.com/html/html_lists_ordered.asp"
+          }
+        ],
+        "expectedElements": [
+          "<ul> ou <ol>",
+          "<li>"
+        ]
+      },
+      "html-4": {
+        "title": "Ajouter des Liens",
+        "description": "Les liens (<a>) connectent votre page web à d'autres pages ou sites web. L'attribut href indique au navigateur où aller lorsqu'on clique. Les liens sont ce qui rend le web \"web-like\" !",
+        "whyImportant": "Les liens sont la base de la navigation sur le web. Ils permettent aux utilisateurs de se déplacer entre les pages et de découvrir de nouveaux contenus.",
+        "whatToDo": [
+          "Ajoutez une balise <a> pour créer un lien",
+          "Ajoutez l'attribut href=\"url\" pour spécifier la destination",
+          "Ajoutez du texte entre <a> et </a> qui sera cliquable",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Découvrez ce site cool :</p>\n    <!-- Ajoutez votre lien ici -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Liens HTML",
+            "url": "https://www.w3schools.com/html/html_links.asp"
+          },
+          {
+            "text": "Balise HTML a",
+            "url": "https://www.w3schools.com/tags/tag_a.asp"
+          }
+        ],
+        "expectedElements": [
+          "<a> avec attribut href"
+        ]
+      },
+      "html-5": {
+        "title": "Ajouter des Images",
+        "description": "Les images (<img>) rendent les pages web visuellement attrayantes. L'attribut src pointe vers le fichier image, et alt fournit une description textuelle pour l'accessibilité.",
+        "whyImportant": "Les images engagent les utilisateurs et transmettent des informations rapidement. L'attribut alt est crucial pour les lecteurs d'écran et lorsque les images ne se chargent pas.",
+        "whatToDo": [
+          "Ajoutez une balise <img> pour afficher une image",
+          "Ajoutez l'attribut src=\"url\" pour spécifier l'emplacement de l'image",
+          "Ajoutez l'attribut alt=\"description\" pour décrire l'image",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>Voici une belle image :</p>\n    <!-- Ajoutez votre image ici en utilisant : <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"description\"> -->\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Images HTML",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "Balise HTML img",
+            "url": "https://www.w3schools.com/tags/tag_img.asp"
+          }
+        ],
+        "expectedElements": [
+          "<img> avec attribut alt"
+        ]
+      },
+      "css-1": {
+        "title": "Introduction au CSS",
+        "description": "CSS (Cascading Style Sheets) rend votre page web belle ! Il contrôle les couleurs, les polices, l'espacement et la mise en page. Nous ajouterons une balise <style> dans le <head> pour styliser notre HTML. Par exemple, vous pourriez utiliser : body { color: blue; } pour rendre tout le texte bleu, ou h1 { font-size: 32px; } pour agrandir les titres, ou p { background-color: yellow; } pour ajouter un fond jaune aux paragraphes.",
+        "whyImportant": "CSS sépare le contenu (HTML) de la présentation (style). Cela rend les sites web maintenables et permet un design cohérent sur toutes les pages.",
+        "whatToDo": [
+          "Ajoutez une balise <style> dans la section <head>",
+          "Écrivez une règle CSS, par exemple : body { color: blue; }",
+          "N'oubliez pas les accolades { } et le point-virgule ;",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        /* Ajoutez votre CSS ici */\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Introduction CSS",
+            "url": "https://www.w3schools.com/css/css_intro.asp"
+          },
+          {
+            "text": "Syntaxe CSS",
+            "url": "https://www.w3schools.com/css/css_syntax.asp"
+          },
+          {
+            "text": "Comment Utiliser CSS",
+            "url": "https://www.w3schools.com/css/css_howto.asp"
+          }
+        ],
+        "expectedElements": [
+          "Balise <style>",
+          "Règle CSS"
+        ]
+      },
+      "css-2": {
+        "title": "Styliser le Texte",
+        "description": "Rendons le texte plus lisible et attrayant ! Vous pouvez changer la taille de la police, la couleur et le poids. Nous styliserons les éléments <h1> et <p>.",
+        "whyImportant": "Un texte bien stylisé améliore la lisibilité et l'expérience utilisateur. Il aide à guider l'attention des utilisateurs vers les informations importantes.",
+        "whatToDo": [
+          "Ajoutez des propriétés CSS pour styliser le texte",
+          "Utilisez color: pour changer la couleur du texte",
+          "Utilisez font-size: pour changer la taille",
+          "Utilisez font-weight: pour rendre le texte en gras",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        h1 {\n            /* Stylisez votre titre */\n        }\n        p {\n            /* Stylisez votre paragraphe */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Texte",
+            "url": "https://www.w3schools.com/css/css_text.asp"
+          },
+          {
+            "text": "CSS Polices",
+            "url": "https://www.w3schools.com/css/css_font.asp"
+          },
+          {
+            "text": "CSS Couleur",
+            "url": "https://www.w3schools.com/css/css_colors.asp"
+          }
+        ],
+        "expectedElements": [
+          "Règle CSS pour le texte"
+        ]
+      },
+      "css-3": {
+        "title": "Ajouter des Arrière-plans et des Bordures",
+        "description": "Les arrière-plans et les bordures ajoutent un intérêt visuel et aident à séparer le contenu. Vous pouvez définir des couleurs d'arrière-plan et ajouter des bordures aux éléments.",
+        "whyImportant": "Les arrière-plans et les bordures créent une hiérarchie visuelle et font ressortir votre contenu. Ils aident à organiser les informations sur la page.",
+        "whatToDo": [
+          "Ajoutez background-color: pour définir une couleur d'arrière-plan",
+          "Ou ajoutez border: pour créer une bordure autour d'un élément",
+          "Exemple : border: 2px solid black;",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        body {\n            /* Ajoutez une couleur d'arrière-plan */\n        }\n        h1 {\n            /* Ajoutez une bordure */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Arrière-plans CSS",
+            "url": "https://www.w3schools.com/css/css_background.asp"
+          },
+          {
+            "text": "Bordures CSS",
+            "url": "https://www.w3schools.com/css/css_border.asp"
+          }
+        ],
+        "expectedElements": [
+          "background-color ou border"
+        ]
+      },
+      "css-4": {
+        "title": "Espacement avec Margin et Padding",
+        "description": "Margin crée de l'espace à l'extérieur d'un élément, tandis que padding crée de l'espace à l'intérieur. Ce sont des éléments essentiels pour créer des mises en page lisibles et bien espacées.",
+        "whyImportant": "Un espacement approprié rend le contenu plus facile à lire et empêche les éléments de se sentir à l'étroit. C'est un principe clé du bon design.",
+        "whatToDo": [
+          "Ajoutez margin: pour créer de l'espace à l'extérieur d'un élément",
+          "Ou ajoutez padding: pour créer de l'espace à l'intérieur",
+          "Exemple : margin: 20px; ou padding: 10px;",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 20px;\n        }\n        p {\n            /* Ajoutez margin et padding */\n        }\n    </style>\n</head>\n<body>\n    <h1>Bienvenue</h1>\n    <p>C'est ma page web !</p>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "CSS Margin",
+            "url": "https://www.w3schools.com/css/css_margin.asp"
+          },
+          {
+            "text": "CSS Padding",
+            "url": "https://www.w3schools.com/css/css_padding.asp"
+          },
+          {
+            "text": "Modèle de Boîte CSS",
+            "url": "https://www.w3schools.com/css/css_boxmodel.asp"
+          }
+        ],
+        "expectedElements": [
+          "margin ou padding"
+        ]
+      },
+      "css-5": {
+        "title": "Sélecteurs CSS : IDs et Classes",
+        "description": "Les IDs et les classes vous permettent de cibler des éléments spécifiques avec CSS. Un ID est unique (un seul par page) et utilise # en CSS. Une classe peut être utilisée plusieurs fois et utilise . en CSS. Vous ajoutez id=\"nom\" ou class=\"nom\" aux balises HTML, puis vous les stylisez avec #nom ou .nom en CSS.",
+        "whyImportant": "Les IDs et les classes sont essentiels pour styliser des éléments spécifiques. Ils vous permettent de créer des styles réutilisables et d'organiser votre CSS. Les classes sont excellentes pour styliser plusieurs éléments de la même manière, tandis que les IDs sont parfaits pour les éléments uniques.",
+        "whatToDo": [
+          "Utilisez # pour cibler un ID, par exemple : #container { }",
+          "Utilisez . pour cibler une classe, par exemple : .highlight { }",
+          "Ajoutez des propriétés CSS à l'intérieur des accolades",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Première Page Web</title>\n    <style>\n        /* Ajoutez CSS pour un ID en utilisant # */\n        /* Ajoutez CSS pour une classe en utilisant . */\n    </style>\n</head>\n<body>\n    <div id=\"container\">\n        <p class=\"highlight\">Ceci est du texte en surbrillance</p>\n        <p>Texte normal</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Sélecteurs CSS",
+            "url": "https://www.w3schools.com/css/css_selectors.asp"
+          },
+          {
+            "text": "Sélecteur CSS ID",
+            "url": "https://www.w3schools.com/css/css_id.asp"
+          },
+          {
+            "text": "Sélecteur CSS Class",
+            "url": "https://www.w3schools.com/css/css_class.asp"
+          }
+        ],
+        "expectedElements": [
+          "Sélecteur ID ou class"
+        ]
+      },
+      "accessibility-1": {
+        "title": "HTML Sémantique",
+        "description": "Le HTML sémantique utilise des balises significatives comme <header>, <nav>, <main>, <article> et <footer> au lieu de simplement <div>. Ces balises aident les lecteurs d'écran à comprendre la structure de votre page.",
+        "whyImportant": "Le HTML sémantique rend votre site web accessible aux personnes utilisant des technologies d'assistance. Il aide également les moteurs de recherche à mieux comprendre votre contenu.",
+        "whatToDo": [
+          "Ajoutez l'attribut lang=\"fr\" à la balise <html>",
+          "Remplacez les <div> par des balises sémantiques comme <header>, <main>, ou <footer>",
+          "Utilisez ces balises pour structurer votre page de manière significative",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <div>\n        <p>C'est ma page web accessible !</p>\n    </div>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Éléments Sémantiques HTML",
+            "url": "https://www.w3schools.com/html/html5_semantic_elements.asp"
+          },
+          {
+            "text": "Balise HTML header",
+            "url": "https://www.w3schools.com/tags/tag_header.asp"
+          },
+          {
+            "text": "Balise HTML main",
+            "url": "https://www.w3schools.com/tags/tag_main.asp"
+          }
+        ],
+        "expectedElements": [
+          "Attribut lang sur <html>",
+          "<header>, <main>, ou <footer>"
+        ]
+      },
+      "accessibility-2": {
+        "title": "Texte Alt pour les Images",
+        "description": "Nous avons déjà ajouté du texte alt aux images, mais assurons-nous qu'il soit descriptif ! Un bon texte alt décrit ce que l'image montre, pas seulement \"image\" ou \"photo\".",
+        "whyImportant": "Un texte alt descriptif permet aux utilisateurs de lecteurs d'écran de comprendre les images. Il s'affiche également lorsque les images ne se chargent pas, aidant tous les utilisateurs.",
+        "whatToDo": [
+          "Trouvez la balise <img> dans votre code",
+          "Assurez-vous qu'elle a un attribut alt",
+          "Rendez le texte alt descriptif (au moins 10 caractères)",
+          "Décrivez ce que l'image montre, pas juste \"image\"",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n    </header>\n    <main>\n        <img src=\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400\" alt=\"Ajoutez un texte descriptif ici\">\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Images HTML",
+            "url": "https://www.w3schools.com/html/html_images.asp"
+          },
+          {
+            "text": "Attribut HTML img alt",
+            "url": "https://www.w3schools.com/tags/att_img_alt.asp"
+          },
+          {
+            "text": "Accessibilité Images",
+            "url": "https://www.w3schools.com/accessibility/accessibility_images.php"
+          }
+        ],
+        "expectedElements": [
+          "<img> avec attribut alt"
+        ]
+      },
+      "accessibility-3": {
+        "title": "Hiérarchie Appropriée des Titres",
+        "description": "Les titres doivent suivre un ordre logique : <h1> pour le titre principal, <h2> pour les sections principales, <h3> pour les sous-sections, etc. Ne sautez jamais de niveaux (ne passez pas de <h1> à <h3>).",
+        "whyImportant": "Les lecteurs d'écran utilisent les titres pour naviguer. Une hiérarchie appropriée aide les utilisateurs à comprendre la structure de la page et à sauter aux sections qui les intéressent.",
+        "whatToDo": [
+          "Assurez-vous d'avoir un <h1> pour le titre principal",
+          "Ajoutez un <h2> pour une section principale",
+          "Le <h2> doit venir après le <h1> (ne sautez pas de niveaux)",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Titre Principal</h1>\n    </header>\n    <main>\n        <p>Contenu ici</p>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Titres HTML",
+            "url": "https://www.w3schools.com/html/html_headings.asp"
+          },
+          {
+            "text": "Accessibilité Titres",
+            "url": "https://www.w3schools.com/accessibility/accessibility_headings.php"
+          }
+        ],
+        "expectedElements": [
+          "Hiérarchie de titres appropriée"
+        ]
+      },
+      "accessibility-4": {
+        "title": "Navigation au Clavier et Focus",
+        "description": "Tous les éléments interactifs (liens, boutons) doivent être accessibles au clavier. Ajoutez des styles :focus pour que les utilisateurs puissent voir quel élément a le focus lors de la navigation avec Tab.",
+        "whyImportant": "De nombreux utilisateurs naviguent sur les sites web en utilisant uniquement le clavier. Les indicateurs de focus visibles sont essentiels pour que ces utilisateurs sachent où ils se trouvent sur la page.",
+        "whatToDo": [
+          "Assurez-vous d'avoir une balise <nav> avec des liens <a>",
+          "Ajoutez un style :focus pour les liens, par exemple : a:focus { outline: 3px solid blue; }",
+          "Testez avec la touche Tab pour voir le focus",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n    <style>\n        a:focus {\n            /* Ajoutez des styles de focus */\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav>\n            <a href=\"#home\">Accueil</a>\n            <a href=\"#about\">À propos</a>\n        </nav>\n    </header>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Pseudo-classe CSS :focus",
+            "url": "https://www.w3schools.com/css/css_pseudo_classes.asp"
+          },
+          {
+            "text": "Accessibilité Clavier",
+            "url": "https://www.w3schools.com/accessibility/accessibility_keyboard.php"
+          },
+          {
+            "text": "Balise HTML nav",
+            "url": "https://www.w3schools.com/tags/tag_nav.asp"
+          }
+        ],
+        "expectedElements": [
+          "<nav> avec liens",
+          "Styles de focus sur les liens"
+        ]
+      },
+      "accessibility-5": {
+        "title": "Étiquettes et Rôles ARIA",
+        "description": "Les attributs ARIA (Accessible Rich Internet Applications) aident les lecteurs d'écran à mieux comprendre votre page. Utilisez aria-label pour fournir un nom accessible pour les éléments lorsqu'une étiquette visible n'est pas suffisante - ceci est particulièrement important pour les boutons d'icône et les contrôles personnalisés. Utilisez l'attribut role pour décrire ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Par exemple, role=\"button\" indique aux lecteurs d'écran qu'un élément agit comme un bouton, même s'il ne s'agit pas d'une balise <button>.",
+        "whyImportant": "Les attributs ARIA rendent les interfaces complexes accessibles. Ils aident les lecteurs d'écran à comprendre les éléments qui pourraient ne pas être clairs à partir du HTML seul, comme les boutons personnalisés ou les régions interactives. aria-label est essentiel pour les boutons d'icône uniquement, et role aide les lecteurs d'écran à comprendre le but des éléments personnalisés.",
+        "whatToDo": [
+          "Ajoutez aria-label=\"description\" à un élément pour lui donner un nom accessible (particulièrement utile pour les boutons d'icône)",
+          "Ajoutez role=\"nom\" pour décrire ce qu'un élément fait (comme role=\"button\" ou role=\"navigation\")",
+          "Vous avez besoin des deux : un attribut aria-label ET un attribut role",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html>\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Bienvenue</h1>\n        <nav role=\"navigation\">\n            <!-- Ajoutez aria-label à ce bouton et assurez-vous qu'il a un role -->\n            <button>☰</button>\n        </nav>\n    </header>\n    <main>\n        <div>Développer la section</div>\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "Introduction ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria.php"
+          },
+          {
+            "text": "Étiquettes ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_labels.php"
+          },
+          {
+            "text": "Rôles ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
+        "expectedElements": [
+          "Attribut aria-label",
+          "Attribut role"
+        ]
+      },
+      "accessibility-6": {
+        "title": "Plus de Fonctionnalités d'Accessibilité",
+        "description": "Il y a beaucoup plus d'attributs ARIA qui aident les lecteurs d'écran ! Utilisez aria-describedby pour connecter un élément à sa description en référençant l'ID de l'élément de description. Utilisez aria-expanded pour indiquer si un élément pliable (comme un menu déroulant ou un accordéon) est développé (true) ou réduit (false). Utilisez l'attribut role pour décrire ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Ces attributs aident les lecteurs d'écran à comprendre les interfaces complexes.",
+        "whyImportant": "Les attributs ARIA comme aria-describedby, aria-expanded et role fournissent des informations cruciales aux lecteurs d'écran que le HTML seul ne peut pas transmettre. Ils rendent les interfaces dynamiques et complexes accessibles aux utilisateurs handicapés. Ces fonctionnalités sont essentielles pour des sites web vraiment accessibles.",
+        "whatToDo": [
+          "Ajoutez aria-describedby=\"id\" pour connecter un élément à sa description (l'élément de description a besoin d'un id)",
+          "Ou ajoutez aria-expanded=\"true\" ou \"false\" pour indiquer si un élément pliable est ouvert ou fermé",
+          "Ajoutez role=\"nom\" pour décrire ce qu'un élément fait (comme role=\"button\" ou role=\"navigation\")",
+          "Vous avez besoin d'au moins un de : aria-describedby ou aria-expanded, ET un attribut role",
+          "Cliquez sur \"Vérifier le Code\" pour vérifier votre travail"
+        ],
+        "codeTemplate": "<html lang=\"fr\">\n<head>\n    <title>Ma Page Web Accessible</title>\n</head>\n<body>\n    <header>\n        <h1>Événements de la bibliothèque</h1>\n    </header>\n    <main>\n        <p id=\"event-note\">Note : Certains événements nécessitent une inscription. Arrivez 10 minutes en avance pour vous asseoir.</p>\n        <div aria-describedby=\"event-note\" role=\"region\">\n            <h2>Événements d’aujourd’hui</h2>\n            <ul>\n                <li>10 h 00 — Heure du conte (Espace enfants)</li>\n                <li>13 h 00 — Atelier CV (Salle de réunion A)</li>\n                <li>18 h 30 — Club de lecture : \"Orgueil et Préjugés\" (Salle communautaire)</li>\n            </ul>\n        </div>\n        <!-- Ou essayez : <button aria-expanded=\"false\" role=\"button\">Afficher les détails</button> -->\n    </main>\n</body>\n</html>",
+        "w3schoolsLinks": [
+          {
+            "text": "ARIA Describedby",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_describedby.php"
+          },
+          {
+            "text": "ARIA Expanded",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_expanded.php"
+          },
+          {
+            "text": "Rôles ARIA",
+            "url": "https://www.w3schools.com/accessibility/accessibility_aria_roles.php"
+          }
+        ],
+        "expectedElements": [
+          "Attribut aria-describedby",
+          "Attribut aria-expanded",
+          "Attribut role"
+        ]
+      }
+    },
+    "glossary": {
+      "HTML": "HyperText Markup Language - le langage standard pour créer des pages web. Il structure le contenu en utilisant des balises.",
+      "tags": "Les balises HTML sont des éléments qui marquent le contenu. Elles vont par paires : balise ouvrante <balise> et balise fermante </balise>.",
+      "element": "Un élément HTML consiste en une balise ouvrante, du contenu et une balise fermante. Exemples : <p>texte</p> est un élément paragraphe.",
+      "<html>": "L'élément racine qui enveloppe tout le contenu HTML d'une page web.",
+      "<head>": "Contient les métadonnées du document, comme le titre et les styles, non visibles sur la page.",
+      "<body>": "Contient tout le contenu visible qui apparaît sur la page web.",
+      "<title>": "Définit le texte affiché dans l'onglet ou le titre de la fenêtre du navigateur.",
+      "<h1>": "Le titre principal (le plus grand). Utilisez-en un seul par page pour le titre principal.",
+      "<h2>": "Un titre de section, plus petit que h1. Utilisé pour les sections principales.",
+      "<h3>": "Un titre de sous-section, plus petit que h2. Utilisé pour les sous-sections.",
+      "<h4>": "Un titre plus petit, utilisé pour les sous-sous-sections.",
+      "<h5>": "Un niveau de titre encore plus petit.",
+      "<h6>": "Le plus petit niveau de titre.",
+      "heading": "Les titres (h1-h6) créent une hiérarchie pour organiser le contenu. Les lecteurs d'écran les utilisent pour la navigation.",
+      "<p>": "Balise de paragraphe pour les blocs de contenu texte.",
+      "<a>": "Balise d'ancrage qui crée des liens cliquables vers d'autres pages ou sites web.",
+      "<img>": "Balise d'image qui affiche des images. Nécessite les attributs src (emplacement de l'image) et alt (description).",
+      "<ul>": "Liste non ordonnée qui crée une liste à puces d'éléments.",
+      "<ol>": "Liste ordonnée qui crée une liste numérotée d'éléments.",
+      "<li>": "Balise d'élément de liste utilisée à l'intérieur de <ul> ou <ol> pour chaque entrée de liste.",
+      "<header>": "Balise sémantique pour la section supérieure d'une page, contenant généralement le logo et la navigation.",
+      "<nav>": "Balise sémantique pour les liens de navigation.",
+      "<main>": "Balise sémantique pour le contenu principal de la page (un seul par page).",
+      "<article>": "Balise sémantique pour le contenu autonome comme les articles de blog ou les actualités.",
+      "<footer>": "Balise sémantique pour la section inférieure, contenant souvent le copyright et les liens.",
+      "<div>": "Élément conteneur générique qui regroupe le contenu. N'a pas de signification visuelle en soi mais aide à organiser et styliser le contenu. Utilisez des balises sémantiques comme <header> ou <main> lorsque c'est possible.",
+      "<span>": "Élément conteneur en ligne utilisé pour regrouper le contenu en ligne pour le style. Similaire à <div> mais pour les éléments en ligne.",
+      "<strong>": "Balise qui rend le texte en gras et indique l'importance. Les lecteurs d'écran l'emphasent.",
+      "<em>": "Balise qui rend le texte en italique et indique l'emphase. Les lecteurs d'écran le stressent.",
+      "opening tag": "La première balise qui commence un élément, comme <p>.",
+      "closing tag": "La balise qui termine un élément, avec un slash, comme </p>.",
+      "angle brackets": "Les symboles < et > utilisés pour entourer les balises HTML, comme <p> et </p>.",
+      "forward slash": "Le symbole / utilisé dans les balises fermantes, comme </p> ou les balises auto-fermantes comme <img />.",
+      "attributes": "Informations supplémentaires ajoutées aux balises ouvrantes, comme href=\"url\" ou alt=\"description\".",
+      "href": "Attribut utilisé dans les balises <a> pour spécifier l'URL de destination du lien.",
+      "src": "Attribut utilisé dans les balises <img> pour spécifier l'emplacement du fichier image.",
+      "alt": "Attribut dans les balises <img> fournissant une description textuelle pour les lecteurs d'écran et lorsque les images ne se chargent pas.",
+      "id": "Attribut HTML qui donne à un élément un identifiant unique. Un seul élément par page peut avoir un ID spécifique. Utilisé avec # en CSS.",
+      "class": "Attribut HTML qui regroupe des éléments ensemble. Plusieurs éléments peuvent partager la même classe. Utilisé avec . en CSS pour le style.",
+      "parent element": "Un élément HTML qui contient d'autres éléments (enfants). Par exemple, <div> est un parent s'il contient des balises <p> à l'intérieur.",
+      "child element": "Un élément HTML qui est à l'intérieur d'un autre élément (son parent). Par exemple, <p> est un enfant s'il est à l'intérieur d'une balise <div>.",
+      "hierarchy": "La structure des relations parent-enfant en HTML. Les éléments peuvent contenir d'autres éléments, créant une structure en arbre.",
+      "inline": "Éléments qui s'écoulent avec le texte et ne créent pas de sauts de ligne, comme <span> ou <a>. Opposé des éléments de bloc.",
+      "block": "Éléments qui créent une nouvelle ligne et prennent toute la largeur, comme <div> ou <p>. Opposé des éléments en ligne.",
+      "JavaScript": "Un langage de programmation qui rend les pages web interactives. Peut être utilisé avec HTML et CSS pour ajouter un comportement dynamique.",
+      "ordered list": "Une liste avec des numéros (1, 2, 3...), créée avec la balise <ol>. Chaque élément utilise la balise <li>.",
+      "unordered list": "Une liste avec des puces, créée avec la balise <ul>. Chaque élément utilise la balise <li>.",
+      "list item": "Un élément individuel dans une liste, créé avec la balise <li>. Utilisé à l'intérieur des balises <ul> ou <ol>.",
+      "anchor": "Un autre nom pour la balise <a>, qui crée des liens cliquables. Le \"a\" signifie ancrage.",
+      "form": "Un élément HTML (<form>) qui collecte la saisie utilisateur, comme les champs de texte, les cases à cocher ou les boutons de soumission.",
+      "input": "Un élément HTML (<input>) utilisé dans les formulaires pour collecter différents types de données utilisateur, comme le texte, le courriel ou les mots de passe.",
+      "display": "Propriété CSS qui contrôle comment un élément est affiché, comme block, inline ou flex. Détermine le comportement de mise en page.",
+      "container": "Un élément qui regroupe ou enveloppe d'autres éléments ensemble, comme <div> ou <section>. Utilisé pour l'organisation et le style.",
+      "reusable": "Code ou styles qui peuvent être utilisés plusieurs fois. Les classes sont réutilisables - plusieurs éléments peuvent partager la même classe.",
+      "unique": "Quelque chose qui n'apparaît qu'une seule fois. Les IDs sont uniques - un seul élément par page peut avoir un ID spécifique.",
+      "identifier": "Un nom qui identifie quelque chose. En HTML, id et class sont des identifiants qui vous aident à cibler des éléments spécifiques.",
+      "semantic HTML": "Utiliser des balises significatives comme <header> et <main> au lieu de balises génériques <div>. Aide les lecteurs d'écran et les moteurs de recherche à comprendre la structure de la page.",
+      "content": "Le texte, les images ou autre matériel à l'intérieur des balises HTML qui apparaît sur la page web.",
+      "webpage": "Une seule page sur le World Wide Web, créée avec HTML et affichée dans un navigateur.",
+      "websites": "Ensembles de pages web qui forment un site. Les sites web accessibles fonctionnent pour tous, y compris les utilisateurs de technologies d'assistance.",
+      "sites web": "Ensembles de pages web qui forment un site. Les sites web accessibles fonctionnent pour tous, y compris les utilisateurs de technologies d'assistance.",
+      "browser": "Logiciel qui affiche les pages web, comme Chrome, Firefox, Safari ou Edge. Il lit HTML et CSS pour afficher la page.",
+      "browser tab": "Un onglet dans la fenêtre du navigateur qui affiche une page web. Chaque onglet affiche le titre de la page dans l'étiquette de l'onglet.",
+      "metadata": "Informations sur une page web qui ne sont pas visibles sur la page elle-même, comme le titre, la description ou les styles. Va dans la section <head>.",
+      "search engines": "Services comme Google qui indexent les pages web. Ils utilisent le HTML sémantique pour comprendre le contenu et la structure de la page.",
+      "navigation": "Liens et menus qui aident les utilisateurs à naviguer sur un site web. Généralement créés avec les balises <nav> et <a>.",
+      "URL": "Uniform Resource Locator - l'adresse web qui identifie une page web, comme https://example.com.",
+      "web": "Abréviation de World Wide Web - le système de pages web interconnectées accessibles via Internet.",
+      "interactive elements": "Éléments HTML avec lesquels les utilisateurs peuvent interagir, comme les liens (<a>), les boutons et les entrées de formulaire. Doivent être accessibles au clavier.",
+      "buttons": "Éléments cliquables qui effectuent des actions. Peuvent être créés avec la balise <button> ou des balises <a> stylisées.",
+      "CSS": "Feuilles de style en cascade (Cascading Style Sheets) - le langage qui stylise HTML, contrôlant les couleurs, les polices, l'espacement et la mise en page.",
+      "styling": "Le processus de rendre HTML beau en utilisant CSS - ajouter des couleurs, des polices, l'espacement et le design visuel.",
+      "<style>": "Balise HTML qui contient le code CSS pour styliser la page.",
+      "color": "Propriété CSS qui définit la couleur du texte, comme color: blue; En CSS, les noms sont en orthographe américaine (color, pas colour)—ils sont standardisés. Le reste du tutoriel est en français canadien.",
+      "font-size": "Propriété CSS qui définit la taille du texte, comme font-size: 16px;",
+      "font-weight": "Propriété CSS qui définit l'épaisseur du texte, comme font-weight: bold; ou font-weight: 400;",
+      "background-color": "Propriété CSS qui définit la couleur d'arrière-plan d'un élément.",
+      "backgrounds": "La zone derrière le contenu. CSS peut définir les couleurs et images d'arrière-plan ; les arrière-plans ajoutent un intérêt visuel et aident à séparer le contenu.",
+      "border": "Propriété CSS qui ajoute une bordure autour d'un élément, comme border: 2px solid black;",
+      "margin": "Propriété CSS qui crée de l'espace à l'extérieur d'un élément (entre les éléments).",
+      "padding": "Propriété CSS qui crée de l'espace à l'intérieur d'un élément (entre le contenu et la bordure).",
+      "spacing": "Les espaces et distances entre les éléments, contrôlés par margin et padding en CSS.",
+      ":focus": "Pseudo-classe CSS qui stylise les éléments lorsqu'ils ont le focus clavier (lorsque l'utilisateur y accède avec Tab).",
+      "pseudo-class": "Une fonctionnalité CSS qui stylise les éléments dans des états spéciaux, comme :focus (lorsqu'il est focalisé) ou :hover (lorsque la souris est dessus).",
+      "selector": "La partie d'une règle CSS qui cible quels éléments HTML styliser, comme h1 ou p.",
+      "selectors": "Les parties des règles CSS qui ciblent quels éléments styliser. Exemples : noms d'éléments (p, h1), # pour les IDs, . pour les classes.",
+      "CSS selectors": "Patterns en CSS qui ciblent des éléments HTML spécifiques, comme #id, .class ou noms d'éléments. Servent à appliquer les styles aux bons éléments.",
+      "ID selector": "Sélecteur CSS utilisant # pour cibler un élément par son attribut id, comme #myDiv { }. Les IDs sont uniques.",
+      "class selector": "Sélecteur CSS utilisant . pour cibler les éléments par leur attribut class, comme .highlight { }. Les classes peuvent être réutilisées.",
+      "property": "La fonctionnalité CSS modifiée, comme color ou font-size.",
+      "American spelling": "En CSS, les noms et valeurs de propriétés utilisent l'orthographe américaine. Dans le code, il faut écrire color (pas colour), center (pas centre) et gray (pas grey)—c'est standardisé. Ailleurs, ce tutoriel utilise le français canadien.",
+      "orthographe américaine": "En CSS, les noms et valeurs de propriétés utilisent l'orthographe américaine. Dans le code, il faut écrire color (pas colour), center (pas centre) et gray (pas grey)—c'est standardisé. Ailleurs, ce tutoriel utilise le français canadien.",
+      "value": "Le réglage d'une propriété CSS, comme blue ou 16px.",
+      "CSS rule": "Une déclaration CSS complète : selector { property: value; }",
+      "outline": "Propriété CSS qui crée une ligne autour d'un élément, souvent utilisée pour les indicateurs de focus. Similaire à border mais ne prend pas d'espace.",
+      "px": "Pixels - une unité de mesure en CSS. 1px est un pixel à l'écran. Utilisé pour les tailles comme font-size: 16px;",
+      "semicolon": "Le symbole ; qui termine chaque déclaration de propriété CSS. Requis après chaque valeur de propriété CSS.",
+      "layout": "Comment les éléments sont arrangés et positionnés sur une page web, contrôlé par CSS.",
+      "presentation": "L'apparence visuelle d'une page web - couleurs, polices, espacement - contrôlée par CSS, séparée du contenu HTML.",
+      "readability": "À quel point le texte est facile à lire, amélioré par de bons choix de polices, espacement, couleurs et contraste.",
+      "visual hierarchy": "Utiliser la taille, la couleur, l'espacement et le style pour montrer quel contenu est le plus important et guider l'œil de l'utilisateur.",
+      "design": "L'apparence et la sensation globale d'une page web, créée à travers les choix de style CSS.",
+      "maintainable": "Code facile à mettre à jour et modifier. Séparer HTML (contenu) de CSS (style) rend le code plus maintenable.",
+      "box-sizing": "Propriété CSS qui contrôle comment la largeur et la hauteur d'un élément sont calculées. border-box inclut padding et border dans la taille totale.",
+      "flex": "Valeur d'affichage CSS qui crée des mises en page flexibles. Les éléments peuvent grandir, rétrécir et s'aligner dans un conteneur. Utilisé avec les propriétés flexbox.",
+      "flexbox": "Une méthode de mise en page CSS utilisant display: flex. Permet un arrangement flexible des éléments en lignes ou colonnes avec un alignement facile.",
+      "flex-direction": "Propriété CSS qui définit la direction des éléments flex : row (horizontal) ou column (vertical).",
+      "flex-wrap": "Propriété CSS qui contrôle si les éléments flex passent à une nouvelle ligne lorsqu'ils ne rentrent pas.",
+      "vh": "Unité de hauteur de la fenêtre - 1vh équivaut à 1% de la hauteur de la fenêtre du navigateur. 100vh est la hauteur complète de l'écran.",
+      "vw": "Unité de largeur de la fenêtre - 1vw équivaut à 1% de la largeur de la fenêtre du navigateur. 100vw est la largeur complète de l'écran.",
+      "transition": "Propriété CSS qui crée des animations fluides lorsque les propriétés changent, comme transition: background 0.3s;",
+      "opacity": "Propriété CSS qui contrôle la transparence d'un élément. Valeurs de 0 (invisible) à 1 (entièrement visible).",
+      "border-radius": "Propriété CSS qui arrondit les coins des éléments, comme border-radius: 5px; pour des coins légèrement arrondis.",
+      "line-height": "Propriété CSS qui définit l'espacement entre les lignes de texte, améliorant la lisibilité. Souvent défini à 1.5 ou 1.6.",
+      "font-family": "Propriété CSS qui définit le type de police, comme font-family: Arial, sans-serif;",
+      "viewport": "La zone visible d'une page web dans la fenêtre du navigateur. La balise meta viewport contrôle comment les pages s'affichent sur les appareils mobiles.",
+      "overflow": "Propriété CSS qui contrôle ce qui se passe lorsque le contenu est trop grand pour son conteneur : visible, hidden, scroll ou auto.",
+      "z-index": "Propriété CSS qui contrôle l'ordre d'empilement des éléments. Les valeurs plus élevées apparaissent au-dessus. Ne fonctionne qu'avec les éléments positionnés.",
+      "position": "Propriété CSS qui définit comment un élément est positionné : static, relative, absolute, fixed ou sticky.",
+      "solid": "Un style de bordure en CSS qui crée une ligne solide, comme border: 2px solid black;",
+      "hover": "Pseudo-classe CSS :hover qui stylise les éléments lorsque le pointeur de la souris est dessus.",
+      "monospace": "Un type de police où tous les caractères ont la même largeur, couramment utilisé pour le code. Exemples : Courier, Consolas.",
+      "sans-serif": "Un type de police sans traits décoratifs aux extrémités des lettres. Exemples : Arial, Helvetica, Verdana. Souvent utilisé pour le texte du corps.",
+      "serif": "Un type de police avec des traits décoratifs aux extrémités des lettres. Exemples : Times New Roman, Georgia. Souvent utilisé pour le texte imprimé.",
+      "screen readers": "Logiciel qui lit le contenu des pages web à haute voix pour les utilisateurs ayant des déficiences visuelles. Ils dépendent du HTML sémantique et d'une structure appropriée.",
+      "alt text": "Description textuelle des images pour les lecteurs d'écran. Devrait décrire ce que l'image montre, pas seulement dire \"image\".",
+      "heading hierarchy": "L'ordre logique des titres (h1 → h2 → h3). Ne jamais sauter de niveaux. Les lecteurs d'écran utilisent cela pour naviguer.",
+      "keyboard navigation": "Utiliser uniquement le clavier (Tab, Entrée, touches fléchées) pour naviguer sur un site web, essentiel pour les utilisateurs qui ne peuvent pas utiliser une souris.",
+      "Tab": "La touche Tab du clavier, utilisée pour déplacer le focus entre les éléments interactifs d'une page web.",
+      "focus": "L'état mis en surbrillance lorsqu'un élément est sélectionné via la navigation au clavier. Doit être visible avec les styles :focus.",
+      "focus styles": "Styles CSS appliqués avec la pseudo-classe :focus pour rendre les éléments focalisés au clavier visibles, comme outline ou les changements de background-color.",
+      "accessible": "Sites web qui fonctionnent pour tout le monde, y compris les personnes handicapées utilisant des technologies d'assistance.",
+      "ARIA": "Accessible Rich Internet Applications - attributs qui aident les lecteurs d'écran à comprendre le contenu dynamique.",
+      "aria-label": "Attribut ARIA qui fournit un nom accessible pour un élément lorsque l'étiquette visible n'est pas suffisante. Essentiel pour les boutons d'icône et les contrôles personnalisés.",
+      "role": "Attribut ARIA qui décrit ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Aide les lecteurs d'écran à comprendre le but de l'élément.",
+      "aria-describedby": "Attribut ARIA qui connecte un élément à sa description en référençant l'ID de l'élément de description.",
+      "aria-expanded": "Attribut ARIA qui indique si un élément pliable (comme un menu déroulant ou un accordéon) est développé (true) ou réduit (false).",
+      "aria-hidden": "Attribut ARIA qui cache les éléments décoratifs des lecteurs d'écran. Défini à \"true\" pour les éléments purement visuels qui n'ajoutent pas de sens.",
+      "tabindex": "Attribut HTML qui contrôle l'ordre de navigation au clavier. tabindex=\"0\" rend un élément focalisable. tabindex=\"-1\" le retire de l'ordre de tabulation.",
+      "lang": "Attribut HTML sur la balise <html> qui spécifie la langue de la page, comme lang=\"en\" pour l'anglais. Aide les lecteurs d'écran à prononcer le texte correctement.",
+      "<label>": "Balise HTML qui fournit une étiquette textuelle pour les entrées de formulaire. Améliore l'accessibilité et permet de cliquer sur l'étiquette pour focaliser l'entrée.",
+      "assistive technologies": "Outils comme les lecteurs d'écran, le contrôle vocal ou la navigation au clavier uniquement qui aident les personnes handicapées à utiliser les sites web.",
+      "visual impairments": "Conditions qui affectent la capacité d'une personne à voir, nécessitant des technologies d'assistance comme les lecteurs d'écran pour accéder au contenu web.",
+      "accessible web design": "Concevoir des sites web pour qu'ils fonctionnent pour tous les utilisateurs, y compris ceux ayant des handicaps, en suivant les principes et normes d'accessibilité.",
+      "balises": "Les balises HTML sont des éléments qui marquent le contenu. Elles vont par paires : balise ouvrante <balise> et balise fermante </balise>.",
+      "balise": "Les balises HTML sont des éléments qui marquent le contenu. Elles vont par paires : balise ouvrante <balise> et balise fermante </balise>.",
+      "balise ouvrante": "La première balise qui commence un élément, comme <p>.",
+      "balise fermante": "La balise qui termine un élément, avec un slash, comme </p>.",
+      "chevrons": "Les symboles < et > utilisés pour entourer les balises HTML, comme <p> et </p>.",
+      "attributs": "Informations supplémentaires ajoutées aux balises ouvrantes, comme href=\"url\" ou alt=\"description\".",
+      "attribut": "Informations supplémentaires ajoutées aux balises ouvrantes, comme href=\"url\" ou alt=\"description\".",
+      "élément": "Un élément HTML consiste en une balise ouvrante, du contenu et une balise fermante. Exemples : <p>texte</p> est un élément paragraphe.",
+      "éléments": "Un élément HTML consiste en une balise ouvrante, du contenu et une balise fermante. Exemples : <p>texte</p> est un élément paragraphe.",
+      "titre": "Les titres (h1-h6) créent une hiérarchie pour organiser le contenu. Les lecteurs d'écran les utilisent pour la navigation.",
+      "titres": "Les titres (h1-h6) créent une hiérarchie pour organiser le contenu. Les lecteurs d'écran les utilisent pour la navigation.",
+      "paragraphe": "Balise de paragraphe pour les blocs de contenu texte.",
+      "paragraphes": "Balise de paragraphe pour les blocs de contenu texte.",
+      "lien": "Balise d'ancrage qui crée des liens cliquables vers d'autres pages ou sites web.",
+      "liens": "Balise d'ancrage qui crée des liens cliquables vers d'autres pages ou sites web.",
+      "image": "Balise d'image qui affiche des images. Nécessite les attributs src (emplacement de l'image) et alt (description).",
+      "images": "Balise d'image qui affiche des images. Nécessite les attributs src (emplacement de l'image) et alt (description).",
+      "liste": "Une liste avec des numéros (1, 2, 3...), créée avec la balise <ol>. Chaque élément utilise la balise <li>.",
+      "listes": "Une liste avec des numéros (1, 2, 3...), créée avec la balise <ol>. Chaque élément utilise la balise <li>.",
+      "contenu": "Le texte, les images ou autre matériel à l'intérieur des balises HTML qui apparaît sur la page web.",
+      "page web": "Une seule page sur le World Wide Web, créée avec HTML et affichée dans un navigateur.",
+      "navigateur": "Logiciel qui affiche les pages web, comme Chrome, Firefox, Safari ou Edge. Il lit HTML et CSS pour afficher la page.",
+      "onglet": "Un onglet dans la fenêtre du navigateur qui affiche une page web. Chaque onglet affiche le titre de la page dans l'étiquette de l'onglet.",
+      "métadonnées": "Informations sur une page web qui ne sont pas visibles sur la page elle-même, comme le titre, la description ou les styles. Va dans la section <head>.",
+      "moteurs de recherche": "Services comme Google qui indexent les pages web. Ils utilisent le HTML sémantique pour comprendre le contenu et la structure de la page.",
+      "moteur de recherche": "Services comme Google qui indexent les pages web. Ils utilisent le HTML sémantique pour comprendre le contenu et la structure de la page.",
+      "onglets": "Un onglet dans la fenêtre du navigateur qui affiche une page web. Chaque onglet affiche le titre de la page dans l'étiquette de l'onglet.",
+      "boutons": "Éléments cliquables qui effectuent des actions. Peuvent être créés avec la balise <button> ou des balises <a> stylisées.",
+      "bouton": "Éléments cliquables qui effectuent des actions. Peuvent être créés avec la balise <button> ou des balises <a> stylisées.",
+      "styles": "Le processus de rendre HTML beau en utilisant CSS - ajouter des couleurs, des polices, l'espacement et le design visuel.",
+      "propriété": "La fonctionnalité CSS modifiée, comme color ou font-size.",
+      "propriétés": "La fonctionnalité CSS modifiée, comme color ou font-size.",
+      "valeur": "Le réglage d'une propriété CSS, comme blue ou 16px.",
+      "valeurs": "Le réglage d'une propriété CSS, comme blue ou 16px.",
+      "sélecteur": "La partie d'une règle CSS qui cible quels éléments HTML styliser, comme h1 ou p.",
+      "sélecteurs": "La partie d'une règle CSS qui cible quels éléments HTML styliser, comme h1 ou p.",
+      "sélecteurs CSS": "Patterns en CSS qui ciblent des éléments HTML spécifiques, comme #id, .class ou noms d'éléments. Servent à appliquer les styles aux bons éléments.",
+      "règle CSS": "Une déclaration CSS complète : selector { property: value; }",
+      "règles CSS": "Une déclaration CSS complète : selector { property: value; }",
+      "mise en page": "Comment les éléments sont arrangés et positionnés sur une page web, contrôlé par CSS.",
+      "police": "Propriété CSS qui définit le type de police, comme font-family: Arial, sans-serif;",
+      "polices": "Propriété CSS qui définit le type de police, comme font-family: Arial, sans-serif;",
+      "lecteurs d'écran": "Logiciel qui lit le contenu des pages web à haute voix pour les utilisateurs ayant des déficiences visuelles. Ils dépendent du HTML sémantique et d'une structure appropriée.",
+      "lecteur d'écran": "Logiciel qui lit le contenu des pages web à haute voix pour les utilisateurs ayant des déficiences visuelles. Ils dépendent du HTML sémantique et d'une structure appropriée.",
+      "texte alt": "Description textuelle des images pour les lecteurs d'écran. Devrait décrire ce que l'image montre, pas seulement dire \"image\".",
+      "hiérarchie des titres": "L'ordre logique des titres (h1 → h2 → h3). Ne jamais sauter de niveaux. Les lecteurs d'écran utilisent cela pour naviguer.",
+      "navigation au clavier": "Utiliser uniquement le clavier (Tab, Entrée, touches fléchées) pour naviguer sur un site web, essentiel pour les utilisateurs qui ne peuvent pas utiliser une souris.",
+      "styles de focus": "Styles CSS appliqués avec la pseudo-classe :focus pour rendre les éléments focalisés au clavier visibles, comme outline ou les changements de background-color.",
+      "accessibles": "Sites web qui fonctionnent pour tout le monde, y compris les personnes handicapées utilisant des technologies d'assistance.",
+      "technologies d'assistance": "Outils comme les lecteurs d'écran, le contrôle vocal ou la navigation au clavier uniquement qui aident les personnes handicapées à utiliser les sites web.",
+      "déficiences visuelles": "Conditions qui affectent la capacité d'une personne à voir, nécessitant des technologies d'assistance comme les lecteurs d'écran pour accéder au contenu web.",
+      "conception web accessible": "Concevoir des sites web pour qu'ils fonctionnent pour tous les utilisateurs, y compris ceux ayant des handicaps, en suivant les principes et normes d'accessibilité.",
+      "HTML sémantique": "Utiliser des balises significatives comme <header> et <main> au lieu de balises génériques <div>. Aide les lecteurs d'écran et les moteurs de recherche à comprendre la structure de la page.",
+      "balises sémantiques": "Balises HTML qui transmettent le sens de leur contenu, comme <header>, <main>, <strong> et <em>. Elles aident les lecteurs d'écran et les moteurs de recherche à comprendre la page.",
+      "conteneur": "Un élément qui regroupe ou enveloppe d'autres éléments ensemble, comme <div> ou <section>. Utilisé pour l'organisation et le style.",
+      "conteneurs": "Un élément qui regroupe ou enveloppe d'autres éléments ensemble, comme <div> ou <section>. Utilisé pour l'organisation et le style.",
+      "élément parent": "Un élément HTML qui contient d'autres éléments (enfants). Par exemple, <div> est un parent s'il contient des balises <p> à l'intérieur.",
+      "parent": "Un élément HTML qui contient d'autres éléments (enfants). Par exemple, <div> est un parent s'il contient des balises <p> à l'intérieur.",
+      "parents": "Un élément HTML qui contient d'autres éléments (enfants). Par exemple, <div> est un parent s'il contient des balises <p> à l'intérieur.",
+      "élément enfant": "Un élément HTML qui est à l'intérieur d'un autre élément (son parent). Par exemple, <p> est un enfant s'il est à l'intérieur d'une balise <div>.",
+      "enfants": "Un élément HTML qui est à l'intérieur d'un autre élément (son parent). Par exemple, <p> est un enfant s'il est à l'intérieur d'une balise <div>.",
+      "hiérarchie": "La structure des relations parent-enfant en HTML. Les éléments peuvent contenir d'autres éléments, créant une structure en arbre.",
+      "élément en ligne": "Éléments qui s'écoulent avec le texte et ne créent pas de sauts de ligne, comme <span> ou <a>. Opposé des éléments de bloc.",
+      "élément de bloc": "Éléments qui créent une nouvelle ligne et prennent toute la largeur, comme <div> ou <p>. Opposé des éléments en ligne.",
+      "liste ordonnée": "Une liste avec des numéros (1, 2, 3...), créée avec la balise <ol>. Chaque élément utilise la balise <li>.",
+      "liste non ordonnée": "Une liste avec des puces, créée avec la balise <ul>. Chaque élément utilise la balise <li>.",
+      "élément de liste": "Un élément individuel dans une liste, créé avec la balise <li>. Utilisé à l'intérieur des balises <ul> ou <ol>.",
+      "ancrage": "Un autre nom pour la balise <a>, qui crée des liens cliquables. Le \"a\" signifie ancrage.",
+      "formulaire": "Un élément HTML (<form>) qui collecte la saisie utilisateur, comme les champs de texte, les cases à cocher ou les boutons de soumission.",
+      "entrée": "Un élément HTML (<input>) utilisé dans les formulaires pour collecter différents types de données utilisateur, comme le texte, le courriel ou les mots de passe.",
+      "affichage": "Propriété CSS qui contrôle comment un élément est affiché, comme block, inline ou flex. Détermine le comportement de mise en page.",
+      "réutilisable": "Code ou styles qui peuvent être utilisés plusieurs fois. Les classes sont réutilisables - plusieurs éléments peuvent partager la même classe.",
+      "identifiant": "Un nom qui identifie quelque chose. En HTML, id et class sont des identifiants qui vous aident à cibler des éléments spécifiques.",
+      "identifiants": "Un nom qui identifie quelque chose. En HTML, id et class sont des identifiants qui vous aident à cibler des éléments spécifiques.",
+      "classe": "Attribut HTML qui regroupe des éléments ensemble. Plusieurs éléments peuvent partager la même classe. Utilisé avec . en CSS pour le style.",
+      "classes": "Attribut HTML qui regroupe des éléments ensemble. Plusieurs éléments peuvent partager la même classe. Utilisé avec . en CSS pour le style.",
+      "ID": "Attribut HTML qui donne à un élément un identifiant unique. Un seul élément par page peut avoir un ID spécifique. Utilisé avec # en CSS.",
+      "IDs": "Attribut HTML qui donne à un élément un identifiant unique. Un seul élément par page peut avoir un ID spécifique. Utilisé avec # en CSS.",
+      "rôle": "Attribut ARIA qui décrit ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Aide les lecteurs d'écran à comprendre le but de l'élément.",
+      "rôles": "Attribut ARIA qui décrit ce qu'un élément fait, comme role=\"button\" ou role=\"navigation\". Aide les lecteurs d'écran à comprendre le but de l'élément.",
+      "étiquette": "Balise HTML qui fournit une étiquette textuelle pour les entrées de formulaire. Améliore l'accessibilité et permet de cliquer sur l'étiquette pour focaliser l'entrée.",
+      "étiquettes": "Balise HTML qui fournit une étiquette textuelle pour les entrées de formulaire. Améliore l'accessibilité et permet de cliquer sur l'étiquette pour focaliser l'entrée.",
+      "pseudo-classe": "Une fonctionnalité CSS qui stylise les éléments dans des états spéciaux, comme :focus (lorsqu'il est focalisé) ou :hover (lorsque la souris est dessus).",
+      "pseudo-classes": "Une fonctionnalité CSS qui stylise les éléments dans des états spéciaux, comme :focus (lorsqu'il est focalisé) ou :hover (lorsque la souris est dessus).",
+      "signe égal": "Le symbole = utilisé dans les attributs HTML pour assigner une valeur, comme id=\"nom\" ou class=\"surbrillance\".",
+      "guillemets": "Les symboles \" ou ' utilisés pour entourer les valeurs d'attributs en HTML, comme href=\"url\" ou alt='description'.",
+      "accolades": "Les symboles { et } utilisés en CSS pour entourer les déclarations de propriétés, comme body { color: blue; }.",
+      "document": "Un fichier HTML ou une page web. La balise <html> enveloppe toute la structure du document.",
+      "section": "Une partie ou division d'une page web. Peut faire référence aux sections HTML créées avec des balises sémantiques comme <section>, ou aux zones de contenu générales.",
+      "menu déroulant": "Un élément interactif qui s'étend pour afficher une liste d'options lorsqu'on clique dessus. Souvent utilisé dans les menus de navigation.",
+      "accordéon": "Un élément interactif qui s'étend et se réduit pour afficher ou masquer le contenu. Plusieurs éléments d'accordéon peuvent être sur une page.",
+      "boutons d'icône": "Boutons qui n'affichent qu'une icône (comme ☰ ou ✕) sans texte visible. Nécessitent aria-label pour l'accessibilité.",
+      "contrôles personnalisés": "Éléments interactifs créés avec HTML et CSS qui ne sont pas des contrôles de formulaire standard. Nécessitent des attributs ARIA pour l'accessibilité.",
+      "régions interactives": "Zones d'une page web avec lesquelles les utilisateurs peuvent interagir, comme les boutons, les liens ou les contrôles personnalisés. Doivent être accessibles au clavier.",
+      "étiquette visible": "Texte qui apparaît à l'écran pour identifier un élément, comme une étiquette de bouton ou une étiquette de champ de formulaire.",
+      "nom accessible": "Le nom que les lecteurs d'écran annoncent pour un élément. Peut provenir du texte visible, aria-label ou d'autres attributs.",
+      "élément pliable": "Un élément qui peut être développé ou réduit pour afficher/masquer le contenu, comme les menus déroulants ou les accordéons.",
+      "indicateurs de focus": "Indices visuels (comme des contours ou des surlignages) qui montrent quel élément a actuellement le focus clavier. Essentiels pour la navigation au clavier.",
+      "fondamentaux": "Les parties centrales ou de base d'un sujet. Dans ce cours, les fondamentaux HTML incluent les balises, les attributs et la structure du document.",
+      "principes": "Lignes directrices ou règles. Les principes de conception web accessible incluent le HTML sémantique, la navigation au clavier et ARIA.",
+      "structure": "L'organisation des parties. En HTML, la structure du document inclut <html>, <head> et <body> ; la structure sémantique utilise des balises comme <header> et <main>.",
+      "région": "Rôle ARIA qui marque une section de la page comme point de repère. Les lecteurs d'écran peuvent naviguer par régions. Utilisez role=\"region\" avec aria-describedby pour les descriptions.",
+      "pliable": "Peut être développé ou réduit pour afficher ou masquer le contenu. Exemples : menus déroulants, accordéons. Utilisez aria-expanded pour indiquer l'état.",
+      "balisage": "Code qui décrit la structure et le sens du contenu. HTML est un langage de balisage.",
+      "éléments de base": "Composants fondamentaux qui forment la base de quelque chose. En HTML, les balises sont les éléments de base des pages web.",
+      "html": "L'élément racine qui enveloppe tout le contenu HTML d'une page web.",
+      "head": "Contient les métadonnées du document, comme le titre et les styles, non visibles sur la page.",
+      "body": "Contient tout le contenu visible qui apparaît sur la page web.",
+      "title": "Définit le texte affiché dans l'onglet ou le titre de la fenêtre du navigateur.",
+      "h1": "Le titre principal (le plus grand). Utilisez-en un seul par page pour le titre principal.",
+      "h2": "Un titre de section, plus petit que h1. Utilisé pour les sections principales.",
+      "h3": "Un titre de sous-section, plus petit que h2. Utilisé pour les sous-sections.",
+      "h4": "Un titre plus petit, utilisé pour les sous-sous-sections.",
+      "h5": "Un niveau de titre encore plus petit.",
+      "h6": "Le plus petit niveau de titre.",
+      "p": "Balise de paragraphe pour les blocs de contenu texte.",
+      "a": "Balise d'ancrage qui crée des liens cliquables vers d'autres pages ou sites web.",
+      "img": "Balise d'image qui affiche des images. Nécessite les attributs src (emplacement de l'image) et alt (description).",
+      "ul": "Liste non ordonnée qui crée une liste à puces d'éléments.",
+      "ol": "Liste ordonnée qui crée une liste numérotée d'éléments.",
+      "li": "Balise d'élément de liste utilisée à l'intérieur de <ul> ou <ol> pour chaque entrée de liste.",
+      "header": "Balise sémantique pour la section supérieure d'une page, contenant généralement le logo et la navigation.",
+      "nav": "Balise sémantique pour les liens de navigation.",
+      "main": "Balise sémantique pour le contenu principal de la page (un seul par page).",
+      "article": "Balise sémantique pour le contenu autonome comme les articles de blog ou les actualités.",
+      "footer": "Balise sémantique pour la section inférieure, contenant souvent le copyright et les liens.",
+      "div": "Élément conteneur générique qui regroupe le contenu. N'a pas de signification visuelle en soi mais aide à organiser et styliser le contenu. Utilisez des balises sémantiques comme <header> ou <main> lorsque c'est possible.",
+      "span": "Élément conteneur en ligne utilisé pour regrouper le contenu en ligne pour le style. Similaire à <div> mais pour les éléments en ligne.",
+      "strong": "Balise qui rend le texte en gras et indique l'importance. Les lecteurs d'écran l'emphasent.",
+      "em": "Balise qui rend le texte en italique et indique l'emphase. Les lecteurs d'écran le stressent.",
+      "style": "Balise HTML qui contient le code CSS pour styliser la page.",
+      "label": "Balise HTML qui fournit une étiquette textuelle pour les entrées de formulaire. Améliore l'accessibilité et permet de cliquer sur l'étiquette pour focaliser l'entrée."
+    }
+  }
+}
